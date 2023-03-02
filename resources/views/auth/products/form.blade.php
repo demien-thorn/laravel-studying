@@ -51,6 +51,10 @@
             @include('layouts.error', ['fieldName' => 'price'])
             <input type="text" name="price" id="price" value="@isset($product){{ $product->price }}@endisset">
 
+            <label for="count">Quantity, pcs.:</label>
+            @include('layouts.error', ['fieldName' => 'count'])
+            <input type="text" name="count" id="count" value="@isset($product){{ $product->count }}@endisset">
+
             <label for="description">Description:</label>
             @include('layouts.error', ['fieldName' => 'description'])
             <textarea name="description" id="description" cols="30" rows="10"

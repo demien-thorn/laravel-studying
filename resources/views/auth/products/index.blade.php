@@ -14,6 +14,7 @@
                 <th>Name</th>
                 <th>Category</th>
                 <th>Price</th>
+                <th>Quantity</th>
                 <th colspan="3">Actions</th>
             </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category_id }}</td>
                     <td>{{ $product->price }} UAH</td>
+                    <td>{{ $product->count }} pcs</td>
                     <td>
                         <a href="{{ route(name: 'products.show', parameters: $product) }}" class="button_extra_small">
                             Open

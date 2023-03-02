@@ -15,7 +15,12 @@
     <div class="content-txt">Price: {{ $product->price }} UAH</div>
 
     <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
-        <button type="submit" role="button" class="button_extra_small">To the basket</button>
+        @csrf
+        @if($product->isAvailable())
+            <button type="submit" role="button" class="button_extra_small">To the basket</button>
+        @else
+            <button disabled class="button_extra_small">Unavailable</button>
+        @endif
         <a
             href="{{ route(
             name: 'product',
@@ -24,6 +29,5 @@
             class="button_extra_small">
             More
         </a>
-        @csrf
     </form>
 </div>

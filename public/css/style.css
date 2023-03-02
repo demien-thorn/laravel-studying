@@ -67,17 +67,20 @@ header a:active {color: #2c2c78;} /*Menu links: press button effect*/
     margin:auto;
     padding:0 0 30px;
 } /*Main part of the content in the "content-container"*/
-.content-section {
-    float:left;
+.content-section, .content-section-middle {
     width:325px;
     min-height: 300px;
-    margin: 10px;
     padding:0 15px;
     text-align:center;
     border: 2px solid #000000;
     border-radius: 10px;
     box-shadow: 0 0 5px;
 } /*Sections of the content in the "content-container"*/
+.content-section {
+    float:left;
+    margin: 10px;
+} /*Positioning of the content in the "content-container" by floating it left*/
+.content-section-middle {margin: 10px auto;} /*Positioning of the content in the "content-container" by putting in the middle*/
 .content-txt {
     text-align:center;
     padding:0 10px;

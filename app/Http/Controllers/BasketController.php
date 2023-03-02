@@ -12,24 +12,15 @@ class BasketController extends Controller
     public function basket()
     {
         $orderId = session(key: 'orderId');
-        if (!is_null(value: $orderId)) {
-            $order = Order::findOrFail($orderId);
-        }
-//        if (isset($order)) {
-//            return view(view: 'basket', data: compact(var_name: 'order'));
-//        } else {
-//            return view(view: 'basket');
-//        }
+        $order = Order::findOrFail($orderId);
+
         return view(view: 'basket', data: compact(var_name: 'order'));
     }
 
     public function basketConfirm(Request $request)
     {
         $orderId = session(key: 'orderId');
-        if (is_null(value: $orderId)) {
-            return redirect()->route(route: 'index');
-        }
-        $order = Order::find($orderId);
+        $order = Order::findOrFail($orderId);
         $success = $order->saveOrder($request->name, $request->phone);
 
         if ($success) {
@@ -48,10 +39,7 @@ class BasketController extends Controller
     public function basketPlace()
     {
         $orderId = session(key: 'orderId');
-        if (is_null(value: $orderId)) {
-            return redirect()->route(route: 'index');
-        }
-        $order = Order::find($orderId);
+        $order = Order::findOrFail($orderId);
         return view(view: 'order', data: compact(var_name: 'order'));
     }
 
@@ -62,7 +50,7 @@ class BasketController extends Controller
             $order = Order::create();
             session(key: ['orderId' => $order->id]);
         } else {
-            $order = Order::find($orderId);
+            $order = Order::findOrFail($orderId);
         }
 
         if ($order->products->contains($productId)) {
@@ -90,10 +78,7 @@ class BasketController extends Controller
     public function basketRemove($productId)
     {
         $orderId = session(key: 'orderId');
-        if (is_null(value: $orderId)) {
-            return redirect()->route(route: 'basket');
-        }
-        $order = Order::find($orderId);
+        $order = Order::findOrFail($orderId);
 
         if ($order->products->contains($productId)) {
             $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;

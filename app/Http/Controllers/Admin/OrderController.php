@@ -25,12 +25,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::active()->paginate(2);
+        $orders = Order::active()->paginate(10);
         return view(view: 'auth.orders.index', data: compact(var_name: 'orders'));
     }
 
     public function show(Order $order)
     {
-        return view(view: 'auth.orders.show', data: compact(var_name: 'order'));
+        $products = $order->products()->withTrashed()->get();
+        return view(view: 'auth.orders.show', data: compact('order', 'products'));
     }
 }

@@ -35,6 +35,10 @@
                 <td>{{ $product->price }} UAH</td>
             </tr>
             <tr>
+                <td>Quantity</td>
+                <td>{{ $product->count }} pcs.</td>
+            </tr>
+            <tr>
                 <td>Description</td>
                 <td>{{ $product->description }}</td>
             </tr>

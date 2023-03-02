@@ -26,7 +26,7 @@ class MainController extends Controller
             }
         }
 
-        $products = $productsQuery->paginate(perPage: 3)->withPath("?".$request->getQueryString());
+        $products = $productsQuery->paginate(perPage: 6)->withPath("?".$request->getQueryString());
         return view(view: 'index', data: compact(var_name: 'products'));
     }
 
@@ -42,8 +42,10 @@ class MainController extends Controller
         return view(view: 'category', data: compact(var_name: 'category'));
     }
 
-    public function product($category, $product = null)
+    public function product($category, $productCode)
     {
-        return view(view: 'product', data: ['product' => $product]);
+        $product = Product::withTrashed()->byCode($productCode)->first();
+
+        return view(view: 'product', data: compact(var_name: 'product'));
     }
 }

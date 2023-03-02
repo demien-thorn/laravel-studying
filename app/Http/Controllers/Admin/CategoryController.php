@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(1);
+        $categories = Category::paginate(3);
         return view(view: 'auth.categories.index', data: compact(var_name: 'categories'));
     }
 
