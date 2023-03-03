@@ -12,9 +12,15 @@
                 Note your name and phone in the form below for our manager could connect you
             </div>
             <form action="{{route(name: 'basket-confirm')}}" method="post">
-                Your name: <input type="text" name="name" placeholder="Name">
-                Your phone: <input type="text" name="phone" placeholder="Phone">
                 @csrf
+                <label for="name">Your name:</label>
+                <input type="text" name="name" id="name" placeholder="Name">
+                <label for="phone">Your phone:</label>
+                <input type="text" name="phone" id="phone" placeholder="Phone">
+                @guest
+                    <label for="email">Your e-mail:</label>
+                    <input type="email" name="email" id="email" placeholder="E-mail">
+                @endguest
                 <input type="submit" value="Order confirmed!">
             </form>
         </div>

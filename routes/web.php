@@ -68,16 +68,16 @@ Route::get(uri: '/categories', action: [MainController::class, 'categories'])->n
 Route::group(
     attributes: ['prefix' => 'basket'],
     routes: function () {
-        Route::post(uri: '/add/{product}', action: [BasketC::class, 'basketAdd'])->name(name: 'basket-add');
+    Route::post(uri: '/add/{product}', action: [BasketC::class, 'basketAdd'])->name(name: 'basket-add');
 
-        Route::group(
-            attributes: ['middleware' => 'basket_not_empty'],
-            routes: function () {
-                Route::get(uri: '/', action: [BasketC::class, 'basket'])->name(name: 'basket');
-                Route::get(uri: '/place', action: [BasketC::class, 'basketPlace'])->name(name: 'basket-place');
-                Route::post(uri: '/remove/{product}', action: [BasketC::class, 'basketRemove'])->name(name: 'basket-remove');
-                Route::post(uri: '/place', action: [BasketC::class, 'basketConfirm'])->name(name: 'basket-confirm');
-        });
+    Route::group(
+        attributes: ['middleware' => 'basket_not_empty'],
+        routes: function () {
+        Route::get(uri: '/', action: [BasketC::class, 'basket'])->name(name: 'basket');
+        Route::get(uri: '/place', action: [BasketC::class, 'basketPlace'])->name(name: 'basket-place');
+        Route::post(uri: '/remove/{product}', action: [BasketC::class, 'basketRemove'])->name(name: 'basket-remove');
+        Route::post(uri: '/place', action: [BasketC::class, 'basketConfirm'])->name(name: 'basket-confirm');
+    });
 });
 
 Route::get(uri: '/{category}', action: [MainController::class, 'category'])->name(name: 'category');

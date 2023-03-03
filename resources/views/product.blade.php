@@ -13,14 +13,20 @@
             <div class="content-txt"><b>Description:</b> {{ $product->description }}</div>
             <div class="content-txt"><b>Price:</b> {{ $product->price }} UAH</div>
             <div class="content-txt"><b>Quantity available:</b> {{ $product->count }} pcs.</div>
-            <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
-                @csrf
                 @if($product->isAvailable())
+                <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
+                    @csrf
                     <button type="submit" role="button" class="button_extra_small">To the basket</button>
+                </form>
                 @else
-                    <button disabled class="button_extra_small">Unavailable</button>
+                <button disabled class="button_extra_small">Unavailable</button>
+                <button disabled class="button_extra_small">Tell me when product appears</button>
+                <form action="" method="post" class="form-container">
+                    @csrf
+                    <input type="email" name="email">
+                    <input type="submit" value="Send">
+                </form>
                 @endif
-            </form>
         </div>
     </div>
 @endsection

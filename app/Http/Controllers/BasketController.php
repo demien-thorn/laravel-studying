@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Basket;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -11,24 +12,17 @@ class BasketController extends Controller
 {
     public function basket()
     {
-        $orderId = session(key: 'orderId');
-        $order = Order::findOrFail($orderId);
-
+        $order = (new Basket())->getOrder();
         return view(view: 'basket', data: compact(var_name: 'order'));
     }
 
     public function basketConfirm(Request $request)
     {
-        $orderId = session(key: 'orderId');
-        $order = Order::findOrFail($orderId);
-        $success = $order->saveOrder($request->name, $request->phone);
-
-        if ($success) {
-            session()->flash(key: 'success', value: 'Ваш заказ принят в обработку');
+        $email = Auth::check() ? Auth::user()->email : $request->email;
+        if ((new Basket())->saveOrder($request->name, $request->phone, $email)) {
+            session()->flash(key: 'success', value: 'Your order has been processed');
         } else {
-            session()->flash(key: 'warning',
-                value: 'Случилась ошибка'
-            );
+            session()->flash(key: 'warning', value: 'Products are unavailable to order in this amount');
         }
 
         Order::eraseOrderSum();
@@ -38,64 +32,31 @@ class BasketController extends Controller
 
     public function basketPlace()
     {
-        $orderId = session(key: 'orderId');
-        $order = Order::findOrFail($orderId);
+        $basket = new Basket();
+        $order = $basket->getOrder();
+        if (!$basket->countAvailable()) {
+            session()->flash(key: 'warning', value: 'Products are unavailable to order in this amount');
+            return redirect()->route(route: 'basket');
+        }
         return view(view: 'order', data: compact(var_name: 'order'));
     }
 
-    public function basketAdd($productId)
+    public function basketAdd(Product $product)
     {
-        $orderId = session(key: 'orderId');
-        if (is_null(value: $orderId)) {
-            $order = Order::create();
-            session(key: ['orderId' => $order->id]);
+        $result = (new Basket(createOrder: true))->addProduct($product);
+        if ($result) {
+            session()->flash(key: 'success', value: 'Product added: "'.$product->name.'"');
         } else {
-            $order = Order::findOrFail($orderId);
+            session()->flash(key: 'warning', value: 'You can\'t order " '.$product->name.'" in this amount');
         }
-
-        if ($order->products->contains($productId)) {
-            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
-            $pivotRow->count++;
-            $pivotRow->update();
-        } else {
-            $order->products()->attach($productId);
-        }
-
-        if (Auth::check()) {
-            $order->user_id = Auth::id();
-            $order->save();
-        }
-
-        $product = Product::find($productId);
-
-        Order::changeFullSum(changeSum: $product->price);
-
-        session()->flash(key: 'success', value: 'Добавлен товар: '.$product->name);
 
         return redirect()->route(route: 'basket');
     }
 
-    public function basketRemove($productId)
+    public function basketRemove(Product $product)
     {
-        $orderId = session(key: 'orderId');
-        $order = Order::findOrFail($orderId);
-
-        if ($order->products->contains($productId)) {
-            $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
-            if ($pivotRow->count < 2) {
-                $order->products()->detach($productId);
-            } else {
-                $pivotRow->count--;
-                $pivotRow->update();
-            }
-        }
-
-        $product = Product::find($productId);
-
-        Order::changeFullSum(changeSum: -$product->price);
-
-        session()->flash(key: 'warning', value: 'Удалён товар: '.$product->name);
-
+        (new Basket())->removeProduct($product);
+        session()->flash(key: 'warning', value: 'Product removed: '.$product->name);
         return redirect()->route(route: 'basket');
     }
 }
