@@ -64,6 +64,8 @@ Route::middleware(['middleware' => 'auth'])->group(callback: function () {
 
 Route::get(uri: '/', action: [MainController::class, 'index'])->name(name: 'index');
 Route::get(uri: '/categories', action: [MainController::class, 'categories'])->name(name: 'categories');
+Route::post(uri: 'subscription/{product}', action: [MainController::class, 'subscribe'])->name(name: 'subscription');
+
 
 Route::group(
     attributes: ['prefix' => 'basket'],

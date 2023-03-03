@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create(table: 'subscriptions', callback: function (Blueprint $table) {
             $table->id();
+            $table->string(column: 'email');
+            $table->integer(column: 'product_id');
+            $table->tinyInteger(column: 'status')->default(value: 0);
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists(table: 'subscriptions');
     }
 };

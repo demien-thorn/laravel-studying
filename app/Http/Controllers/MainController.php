@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductsFilterRequest;
+use App\Http\Requests\SubscribtionRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subscription;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use JetBrains\PhpStorm\NoReturn;
 
 class MainController extends Controller
 {
@@ -46,5 +49,15 @@ class MainController extends Controller
     {
         $product = Product::withTrashed()->byCode($productCode)->firstOrFail();
         return view(view: 'product', data: compact(var_name: 'product'));
+    }
+
+    public function subscribe(SubscribtionRequest $request, Product $product)
+    {
+        Subscription::create([
+            'email' => $request->email,
+            'product_id' => $product->id,
+        ]);
+
+        return redirect()->back()->with(key: 'success', value: 'Thank you! We\'ll inform you');
     }
 }
