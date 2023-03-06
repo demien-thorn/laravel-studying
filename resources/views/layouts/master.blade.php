@@ -32,7 +32,7 @@
                         <i class="fa-solid fa-house"></i>
                         <span class="menu-space">@lang('main.nav.main')</span>
                     </a>
-                    <a href="{{ route(name: 'categories') }}" @routeactive('categor*')>
+                    <a href="{{ route(name: 'categories') }}" @routeactive('categories')>
                         <i class="fa-solid fa-bars"></i>
                         <span class="menu-space">@lang('main.nav.categories')</span>
                     </a>

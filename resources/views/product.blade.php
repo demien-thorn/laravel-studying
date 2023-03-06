@@ -3,14 +3,14 @@
 @section('title', 'Product')
 
 @section('content')
-    <h3>{{ $product->name }}</h3>
-    <div class="undertitle">@lang('product.undertitle') {{ $product->category->name }}</div>
+    <h3>{{ $product->__('name') }}</h3>
+    <div class="undertitle">@lang('product.undertitle') {{ $product->category->__('name') }}</div>
 
     <div class="content-main clearfix">
         <div class="content-section-middle">
             <img src="{{ Storage::url(path: $product->image) }}" alt="" width="200">
             <div class="content-txt"><b>@lang('product.code')</b> {{ $product->code }}</div>
-            <div class="content-txt"><b>@lang('product.description')</b> {{ $product->description }}</div>
+            <div class="content-txt"><b>@lang('product.description')</b> {{ $product->__('description') }}</div>
             <div class="content-txt"><b>@lang('product.price')</b> {{ $product->price }} UAH</div>
             <div class="content-txt"><b>@lang('product.quantity')</b> {{ $product->count }} pcs.</div>
                 @if($product->isAvailable())

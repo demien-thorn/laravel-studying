@@ -21,7 +21,7 @@
             <tbody>
             @foreach($products as $product)
                 <tr>
-                    <td>{{ $order->name }}</td>
+                    <td>{{ $order->__('name') }}</td>
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->created_at }}</td>
                     <td>
@@ -29,7 +29,7 @@
                     </td>
                     <td>
                         <a href="{{ route(name: 'product', parameters: [$product->category->code, $product->code]) }}">
-                            {{ $product->name }}
+                            {{ $product->__('name') }}
                         </a>
                     </td>
                     <td><span class="button-minus">{{ $product->pivot->count }}</span></td>

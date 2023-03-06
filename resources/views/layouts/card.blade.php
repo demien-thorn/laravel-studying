@@ -9,7 +9,7 @@
         <div class="label recommended-label">@lang('main.filter.recommend')</div>
     @endif
 
-    <h4><a href="#">{{ $product->name }}</a></h4>
+    <h4><a href="#">{{ $product->__('name') }}</a></h4>
     <img src="{{ Storage::url(path: $product->image) }}" alt="" width="200px">
 
     <div class="content-txt">@lang('card.price') {{ $product->price }} UAH</div>

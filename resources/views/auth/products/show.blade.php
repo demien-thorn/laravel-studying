@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title', 'Товар '.$product->name)
+@section('title', 'Товар '.$product->__('name'))
 
 @section('content')
-    <h3>{{ $product->name }}</h3>
+    <h3>{{ $product->__('name') }}</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
@@ -27,6 +27,10 @@
                 <td>{{ $product->name }}</td>
             </tr>
             <tr>
+                <td>@lang('auth/products/show.name_ru')</td>
+                <td>{{ $product->name_ru }}</td>
+            </tr>
+            <tr>
                 <td>@lang('auth/products/show.category')</td>
                 <td>{{ $product->category_id }}</td>
             </tr>
@@ -41,6 +45,10 @@
             <tr>
                 <td>@lang('auth/products/show.description')</td>
                 <td>{{ $product->description }}</td>
+            </tr>
+            <tr>
+                <td>@lang('auth/products/show.description_ru')</td>
+                <td>{{ $product->description_ru }}</td>
             </tr>
             <tr>
                 <td>@lang('auth/products/show.image')</td>

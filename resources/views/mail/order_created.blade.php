@@ -14,7 +14,7 @@
             </td>
             <td>
                 <a href="{{ route(name: 'product', parameters: [$product->category->code, $product->code]) }}">
-                    {{$product->name}}
+                    {{ $product->__('name') }}
                 </a>
             </td>
             <td>

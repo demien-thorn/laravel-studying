@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->code }}</td>
-                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->__('name') }}</td>
                     <td>{{ $product->category_id }}</td>
                     <td>{{ $product->price }} UAH</td>
                     <td>{{ $product->count }} pcs</td>

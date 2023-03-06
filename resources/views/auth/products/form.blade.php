@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
 @isset($product)
-    @section('title', 'Edit product '.$product->name)
+    @section('title', 'Edit product '.$product->__('name'))
 @else
     @section('title', 'Create a new product')
 @endisset
 
 @section('content')
     @isset($product)
-        <h3>@lang('auth/products/form.title_update') "{{ $product->name }}"</h3>
+        <h3>@lang('auth/products/form.title_update') "{{ $product->__('name') }}"</h3>
     @else
         <h3>@lang('auth/products/form.title_add')</h3>
     @endisset
@@ -39,13 +39,17 @@
                                     selected
                                 @endif
                             @endisset
-                    >{{ $category->name }}</option>
+                    >{{ $category->__('name') }}</option>
                 @endforeach
             </select>
 
             <label for="name">@lang('auth/products/form.name'):</label>
             @include('layouts.error', ['fieldName' => 'name'])
             <input type="text" name="name" id="name" value="@isset($product){{ $product->name }}@endisset">
+
+            <label for="name_ru">@lang('auth/products/form.name_ru'):</label>
+            @include('layouts.error', ['fieldName' => 'name'])
+            <input type="text" name="name_ru" id="name_ru" value="@isset($product){{ $product->name_ru }}@endisset">
 
             <label for="price">@lang('auth/products/form.price'), UAH:</label>
             @include('layouts.error', ['fieldName' => 'price'])
@@ -59,6 +63,12 @@
             @include('layouts.error', ['fieldName' => 'description'])
             <textarea name="description" id="description" cols="30" rows="10"
                 >@isset($product){{ $product->description }}@endisset
+            </textarea>
+
+            <label for="description_ru">@lang('auth/products/form.description_ru'):</label>
+            @include('layouts.error', ['fieldName' => 'description'])
+            <textarea name="description_ru" id="description_ru" cols="30" rows="10"
+                >@isset($product){{ $product->description_ru }}@endisset
             </textarea>
 
             <label for="image">@lang('auth/products/form.image'):</label>

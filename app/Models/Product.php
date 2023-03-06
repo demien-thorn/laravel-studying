@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, Translatable;
 
     protected $fillable = [
         'code',
@@ -22,6 +22,8 @@ class Product extends Model
         'hit',
         'recommend',
         'count',
+        'name_ru',
+        'description_ru',
     ];
 
 

@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
 @isset($category)
-    @section('title', 'Edit the category '.$category->name)
+    @section('title', 'Edit the category '.$category->__('name'))
 @else
     @section('title', 'Add a new category')
 @endisset
 
 @section('content')
     @isset($category)
-        <h3>@lang('auth/categories/form.title_edit') "{{ $category->name }}"</h3>
+        <h3>@lang('auth/categories/form.title_edit') "{{ $category->__('name') }}"</h3>
     @else
         <h3>@lang('auth/categories/form.title_add')</h3>
     @endisset
@@ -35,10 +35,20 @@
             @include('layouts.error', ['fieldName' => 'name'])
             <input type="text" name="name" id="name" value="@isset($category){{ $category->name }}@endisset">
 
+            <label for="name_ru">@lang('auth/categories/form.name_ru'):</label>
+            @include('layouts.error', ['fieldName' => 'name'])
+            <input type="text" name="name_ru" id="name_ru" value="@isset($category){{ $category->name_ru }}@endisset">
+
             <label for="description">@lang('auth/categories/form.description'):</label>
             @include('layouts.error', ['fieldName' => 'description'])
             <textarea name="description" id="description" cols="30" rows="10"
                 >@isset($category){{ $category->description }}@endisset
+            </textarea>
+
+            <label for="description_ru">@lang('auth/categories/form.description_ru'):</label>
+            @include('layouts.error', ['fieldName' => 'description'])
+            <textarea name="description_ru" id="description_ru" cols="30" rows="10"
+                >@isset($category){{ $category->description_ru }}@endisset
             </textarea>
 
             <label for="image">@lang('auth/categories/form.image'):</label>

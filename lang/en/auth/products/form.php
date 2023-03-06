@@ -6,9 +6,11 @@ return [
     'code' => 'Code',
     'category' => 'Category',
     'name' => 'Name',
+    'name_ru' => 'Russian name',
     'price' => 'Price',
     'quantity' => 'Quantity',
     'description' => 'Description',
+    'description_ru' => 'Russian description',
     'image' => 'Image',
 
     'send' => 'Save',

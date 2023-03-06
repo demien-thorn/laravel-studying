@@ -1,10 +1,10 @@
 @extends('layouts.master', ['file' => 'category'])
 
-@section('title', 'Category '. $category->name)
+@section('title', 'Category '. $category->__('name'))
 
 @section('content')
-    <h3>{{ $category->name }}</h3>
-    <div class="undertitle">{{ $category->description }}</div>
+    <h3>{{ $category->__('name') }}</h3>
+    <div class="undertitle">{{ $category->__('description') }}</div>
 
     <div class="content-main clearfix">
         @foreach($category->products as $product)

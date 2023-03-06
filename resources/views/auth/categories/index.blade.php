@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->code }}</td>
-                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->__('name') }}</td>
                     <td>
                         <a
                             href="{{ route(name: 'categories.show', parameters: $category) }}"
