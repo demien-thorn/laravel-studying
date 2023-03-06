@@ -9,8 +9,8 @@
         <table class="order-table">
             <thead>
             <tr>
-                <th>Field</th>
-                <th>Value</th>
+                <th>@lang('auth/products/show.field')</th>
+                <th>@lang('auth/products/show.value')</th>
             </tr>
             </thead>
             <tbody>
@@ -19,37 +19,37 @@
                 <td>{{ $product->id }}</td>
             </tr>
             <tr>
-                <td>Code</td>
+                <td>@lang('auth/products/show.code')</td>
                 <td>{{ $product->code }}</td>
             </tr>
             <tr>
-                <td>Name</td>
+                <td>@lang('auth/products/show.name')</td>
                 <td>{{ $product->name }}</td>
             </tr>
             <tr>
-                <td>Category</td>
+                <td>@lang('auth/products/show.category')</td>
                 <td>{{ $product->category_id }}</td>
             </tr>
             <tr>
-                <td>Price</td>
+                <td>@lang('auth/products/show.price')</td>
                 <td>{{ $product->price }} UAH</td>
             </tr>
             <tr>
-                <td>Quantity</td>
+                <td>@lang('auth/products/show.quantity')</td>
                 <td>{{ $product->count }} pcs.</td>
             </tr>
             <tr>
-                <td>Description</td>
+                <td>@lang('auth/products/show.description')</td>
                 <td>{{ $product->description }}</td>
             </tr>
             <tr>
-                <td>Image</td>
+                <td>@lang('auth/products/show.image')</td>
                 <td>
                     <img src="{{ Storage::url(path: $product->image) }}" alt="" height="200">
                 </td>
             </tr>
             <tr>
-                <td>Lables</td>
+                <td>@lang('auth/products/show.lables')</td>
                 <td>
                     @if($product->isNew())
                         <div class="label new-label">NEW!</div>

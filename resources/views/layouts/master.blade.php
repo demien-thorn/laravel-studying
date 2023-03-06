@@ -6,7 +6,8 @@
         <meta name="description" content="Demien site>">
         <meta name="keywords" content="k>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@yield('title')</title>
+
+        <title>@lang('main.e_shop'): @yield('title')</title>
 
         {{--Common CSS files--}}
         <link href="/css/style.css" rel="stylesheet">
@@ -26,66 +27,69 @@
     <body>
         <header>
             <nav class="menu-content">
-                @auth
-                    <div class="menu">
-                        <a href="{{ route(name: 'index') }}" @routeactive('index')>
-                            <i class="fa-solid fa-house"></i><span class="menu-space">Main</span>
-                        </a>
-                        <a href="{{ route(name: 'categories') }}" @routeactive('categories')>
-                            <i class="fa-solid fa-bars"></i><span class="menu-space">Categories</span>
-                        </a>
-                        @admin
+                <div class="menu">
+                    <a href="{{ route(name: 'index') }}" @routeactive('index')>
+                        <i class="fa-solid fa-house"></i>
+                        <span class="menu-space">@lang('main.nav.main')</span>
+                    </a>
+                    <a href="{{ route(name: 'categories') }}" @routeactive('categor*')>
+                        <i class="fa-solid fa-bars"></i>
+                        <span class="menu-space">@lang('main.nav.categories')</span>
+                    </a>
+                    @admin
                         <a href="{{ route(name: 'categories.index') }}" @routeactive('categories.index')>
-                            <i class="fa-solid fa-bars"></i><span class="menu-space">Categories (A)</span>
+                            <i class="fa-solid fa-bars"></i>
+                            <span class="menu-space">@lang('main.nav.categories') (A)</span>
                         </a>
                         <a href="{{ route(name: 'products.index') }}" @routeactive('products.index')>
-                            <i class="fa-brands fa-apple"></i><span class="menu-space">Products (A)</span>
+                            <i class="fa-brands fa-apple"></i>
+                            <span class="menu-space">@lang('main.nav.products') (A)</span>
                         </a>
-                        @endadmin
-                        <a href="{{ route(name: 'basket') }}" @routeactive('basket*')>
-                            <i class="fa-solid fa-basket-shopping"></i><span class="menu-space">Basket</span>
-                        </a>
-                    </div>
-                    <div class="menu">
+                    @endadmin
+                </div>
+
+                <div class="menu">
+                    <a href="{{ route(name: 'basket') }}" @routeactive('basket*')>
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span class="menu-space">@lang('main.nav.basket')</span>
+                    </a>
+                    @auth
                         <a href="{{ route(name: 'get-logout') }}" class="menu-a">
-                            <i class="fa-solid fa-right-from-bracket"></i><span class="menu-space">Logout</span>
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="menu-space">@lang('main.nav.logout')</span>
                         </a>
                         @admin
                             <a href="{{ route(name: 'home') }}" @routeactive('home')>
-                                <i class="fa-solid fa-toolbox"></i><span class="menu-space">Admin panel</span>
+                                <i class="fa-solid fa-toolbox"></i>
+                                <span class="menu-space">@lang('main.nav.admin')</span>
                             </a>
                             <a href="{{ route(name: 'reset') }}" @routeactive('reset')>
-                                <i class="fa-solid fa-backward-step"></i><span class="menu-space">Set to default</span>
+                                <i class="fa-solid fa-backward-step"></i>
+                                <span class="menu-space">@lang('main.nav.default')</span>
                             </a>
                         @else
                             <a href="{{ route(name: 'person.orders.index') }}" @routeactive('person.orders.index')>
-                                <i class="fa-solid fa-cart-shopping"></i><span class="menu-space">My orders</span>
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="menu-space">@lang('main.nav.orders')</span>
                             </a>
                         @endadmin
-                    </div>
-                @endauth
+                    @endauth
 
-                @guest
-                    <div class="menu">
-                        <a href="{{ route(name: 'index') }}" @routeactive('index')>
-                            <i class="fa-solid fa-house"></i><span class="menu-space">Main</span>
-                        </a>
-                        <a href="{{ route(name: 'categories') }}" @routeactive('categor*')>
-                            <i class="fa-solid fa-bars"></i><span class="menu-space">Categories</span>
-                        </a>
-                        <a href="{{ route(name: 'basket') }}" @routeactive('basket*')>
-                            <i class="fa-solid fa-basket-shopping"></i><span class="menu-space">Basket</span>
-                        </a>
-                    </div>
-                    <div class="menu">
+                    @guest
                         <a href="{{ route(name: 'login') }}" @routeactive('login')>
-                            <i class="fa-solid fa-right-to-bracket"></i><span class="menu-space">Authorize</span>
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span class="menu-space">@lang('main.nav.authorize')</span>
                         </a>
                         <a href="{{ route(name: 'register') }}" @routeactive('register')>
-                            <i class="fa-solid fa-id-card"></i><span class="menu-space">Registrate</span>
+                            <i class="fa-solid fa-id-card"></i>
+                            <span class="menu-space">@lang('main.nav.register')</span>
                         </a>
-                    </div>
-                @endguest
+                    @endguest
+                    <a href="{{ route(name: 'locale', parameters: __('main.set_lang')) }}" @routeactive('')>
+                        <i class="fa-solid fa-language"></i>
+                        <span class="menu-space">@lang('main.set_lang')</span>
+                    </a>
+                </div>
             </nav>
         </header>
 

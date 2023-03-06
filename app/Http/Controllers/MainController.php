@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Subscription;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -59,5 +60,16 @@ class MainController extends Controller
         ]);
 
         return redirect()->back()->with(key: 'success', value: 'Thank you! We\'ll inform you');
+    }
+
+    public function changeLocale($locale)
+    {
+        $availableLocales = ['en', 'ru'];
+        if (!in_array(needle: $locale, haystack: $availableLocales)) {
+            $locale = config(key: 'app.locale');
+        }
+        session(key: ['locale' => $locale]);
+        App::setLocale(locale: $locale);
+        return redirect()->back();
     }
 }

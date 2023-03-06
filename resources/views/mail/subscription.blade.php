@@ -1,4 +1,6 @@
-Hi there.
-Product "{{ $product->name }}" has appeared.
+@lang('mail/subscription.hi').
+@lang('mail/subscription.product') "{{ $product->name }}" @lang('mail/subscription.appeared').
 
-<a href="{{ route(name: 'product', parameters: [$product->category->code, $product->code]) }}">Let's go!</a>
+<a href="{{ route(name: 'product', parameters: [$product->category->code, $product->code]) }}">
+    @lang('mail/subscription.link')!
+</a>

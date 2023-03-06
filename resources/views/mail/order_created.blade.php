@@ -1,8 +1,8 @@
-<h3>Dear {{ $name }}!</h3>
+<h3>@lang('mail/order_created.dear') {{ $name }}!</h3>
 <p>
-    Your order #... has been created successfully.
-    Total cost is: {{ $fullSum }} UAH.
-    Our manager will connect you soon for the further instructions.
+    @lang('mail/order_created.order') #... @lang('mail/order_created.created').
+    @lang('mail/order_created.order_cost') {{ $fullSum }} UAH.
+    @lang('mail/order_created.manager').
 </p>
 
 <table>

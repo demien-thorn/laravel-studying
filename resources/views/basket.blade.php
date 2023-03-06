@@ -3,17 +3,17 @@
 @section('title', 'Basket')
 
 @section('content')
-    <h3>Basket</h3>
-    <div class="undertitle">Place your order here!</div>
+    <h3>@lang('basket.title')</h3>
+    <div class="undertitle">@lang('basket.undertitle')</div>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
             <tr>
-                <th colspan="2">Name</th>
-                <th>Amount</th>
-                <th>Price</th>
-                <th>Cost</th>
+                <th colspan="2">@lang('basket.name')</th>
+                <th>@lang('basket.amount')</th>
+                <th>@lang('basket.price')</th>
+                <th>@lang('basket.cost')</th>
             </tr>
             </thead>
             <tbody>
@@ -45,13 +45,13 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="3"><b>Total cost:</b></td>
+                <td colspan="3"><b>@lang('basket.total')</b></td>
                 <td></td>
                 <td><b>{{ $order->getFullSum() }} UAH</b></td>
             </tr>
             <tr>
                 <td colspan="5">
-                    <a href="{{ route(name: 'basket-place') }}" type="button" class="ordering">Place an order</a>
+                    <a href="{{ route(name: 'basket-place') }}" type="button" class="ordering">@lang('basket.order')</a>
                 </td>
             </tr>
             </tbody>

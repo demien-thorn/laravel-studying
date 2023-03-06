@@ -3,19 +3,19 @@
 @section('title', 'Order #'.$order->id)
 
 @section('content')
-    <h3>Order #{{ $order->id }}</h3>
+    <h3>@lang('auth/orders/show.title') #{{ $order->id }}</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
             <tr>
-                <th>Customer</th>
-                <th>Customer's phone</th>
-                <th>Ordered at</th>
-                <th colspan="2">Product name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Cost</th>
+                <th>@lang('auth/orders/show.customer')</th>
+                <th>@lang('auth/orders/show.phone')</th>
+                <th>@lang('auth/orders/show.ordered_at')</th>
+                <th colspan="2">@lang('auth/orders/show.product')</th>
+                <th>@lang('auth/orders/show.quantity')</th>
+                <th>@lang('auth/orders/show.price')</th>
+                <th>@lang('auth/orders/show.cost')</th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="5"><b>Total cost:</b></td>
+                <td colspan="5"><b>@lang('auth/orders/show.total'):</b></td>
                 <td colspan="2"></td>
                 <td><b>{{ $order->calculateFullSum() }} UAH</b></td>
             </tr>

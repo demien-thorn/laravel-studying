@@ -3,18 +3,18 @@
 @section('title', 'Orders')
 
 @section('content')
-    <h3>Orders</h3>
+    <h3>@lang('auth/orders/main.title')</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Ordered at</th>
-                <th>Total cost</th>
-                <th>Actions</th>
+                <th>@lang('auth/orders/main.name')</th>
+                <th>@lang('auth/orders/main.phone')</th>
+                <th>@lang('auth/orders/main.ordered_at')</th>
+                <th>@lang('auth/orders/main.total')</th>
+                <th>@lang('auth/orders/main.actions')</th>
             </tr>
             </thead>
             <tbody>
@@ -26,14 +26,13 @@
                     <td>{{ $order->created_at->format('H:i, d M Y') }}</td>
                     <td>{{ $order->getFullSum() }} UAH</td>
                     <td>
-                        <a
+                        <a class="button_extra_small" type="button"
                             @admin
                                 href="{{ route(name: 'orders.show', parameters: $order) }}"
                             @else
                                 href="{{ route(name: 'person.orders.show', parameters: $order) }}"
-                            @endadmin
-                            class="button_extra_small"
-                            type="button">Open
+                            @endadmin>
+                            @lang('auth/orders/main.open')
                         </a>
                     </td>
                 </tr>

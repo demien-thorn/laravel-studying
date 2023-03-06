@@ -3,16 +3,12 @@
 @section('title', 'Authorization')
 
 @section('content')
-    <h3>Authorization</h3>
-    {{--{{ __('Login') }}--}}
+    <h3>@lang('auth/login.title')</h3>
 
     <div class="form-container">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <label for="email">
-                E-mail
-                {{--{{ __('Email Address') }}--}}
-            </label>
+            <label for="email">@lang('auth/login.email')</label>
             <input
                 id="email"
                 type="email"
@@ -23,14 +19,10 @@
                 required autocomplete="email"
                 autofocus>
             @error('email')
-                <span role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <span role="alert"><strong>{{ $message }}</strong></span>
             @enderror
-            <label for="password">
-                Password
-                {{--{{ __('Password') }}--}}
-            </label>
+
+            <label for="password">@lang('auth/login.password')</label>
             <input
                 id="password"
                 type="password"
@@ -39,28 +31,16 @@
                 placeholder="Password"
                 required autocomplete="current-password">
             @error('password')
-                <span role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <span role="alert"><strong>{{ $message }}</strong></span>
             @enderror
 
-            <input
-                type="checkbox"
-                name="remember"
-                id="remember"
-                {{ old('remember') ? 'checked' : '' }}>
-            <label for="remember">
-                {{ __('Remember Me') }}
-            </label>
+            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <label for="remember">@lang('auth/login.remember')</label>
 
-            <input type="submit" name="authorize" value="Authorize!">
-            {{--<input type="submit" name="authorize" value="{{ __('Login') }}!">--}}
+            <input type="submit" name="authorize" value="@lang('auth/login.send')">
             <br>
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}">
-                    Forgot your password?
-                    {{--{{ __('Forgot Your Password?') }}--}}
-                </a>
+                <a href="{{ route('password.request') }}">@lang('auth/login.forgot')</a>
             @endif
         </form>
     </div>

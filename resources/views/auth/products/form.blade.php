@@ -8,9 +8,9 @@
 
 @section('content')
     @isset($product)
-        <h3>Editing of the product "{{ $product->name }}"</h3>
+        <h3>@lang('auth/products/form.title_update') "{{ $product->name }}"</h3>
     @else
-        <h3>Adding a new product</h3>
+        <h3>@lang('auth/products/form.title_add')</h3>
     @endisset
 
     <div class="content-main clearfix">
@@ -26,11 +26,11 @@
             @endisset
             @csrf
 
-            <label for="code">Code:</label>
+            <label for="code">@lang('auth/products/form.code'):</label>
             @include('layouts.error', ['fieldName' => 'code'])
             <input type="text" name="code" id="code" value="@isset($product){{ $product->code }}@endisset">
 
-            <label for="category_id">Category:</label>
+            <label for="category_id">@lang('auth/products/form.category'):</label>
             <select name="category_id" id="category_id">
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}"
@@ -43,25 +43,25 @@
                 @endforeach
             </select>
 
-            <label for="name">Name:</label>
+            <label for="name">@lang('auth/products/form.name'):</label>
             @include('layouts.error', ['fieldName' => 'name'])
             <input type="text" name="name" id="name" value="@isset($product){{ $product->name }}@endisset">
 
-            <label for="price">Price, UAH:</label>
+            <label for="price">@lang('auth/products/form.price'), UAH:</label>
             @include('layouts.error', ['fieldName' => 'price'])
             <input type="text" name="price" id="price" value="@isset($product){{ $product->price }}@endisset">
 
-            <label for="count">Quantity, pcs.:</label>
+            <label for="count">@lang('auth/products/form.quantity'), pcs.:</label>
             @include('layouts.error', ['fieldName' => 'count'])
             <input type="text" name="count" id="count" value="@isset($product){{ $product->count }}@endisset">
 
-            <label for="description">Description:</label>
+            <label for="description">@lang('auth/products/form.description'):</label>
             @include('layouts.error', ['fieldName' => 'description'])
             <textarea name="description" id="description" cols="30" rows="10"
                 >@isset($product){{ $product->description }}@endisset
             </textarea>
 
-            <label for="image">Image:</label>
+            <label for="image">@lang('auth/products/form.image'):</label>
             <input type="file" name="image" id="image" value="Upload">
 
             @foreach([
@@ -69,7 +69,7 @@
                 'new' => 'NEW',
                 'recommend' => 'Recommended',
             ] as $field => $title)
-                <label for="{{ $field }}">{{ $title }}</label>
+                <label for="{{ $field }}">@lang('main.filter.'.$field)</label>
                 <input
                     type="checkbox"
                     name="{{ $field }}" id="{{ $field }}"
@@ -78,7 +78,7 @@
                     @endif>
             @endforeach
 
-            <input type="submit" name="" value="Save">
+            <input type="submit" name="" value="@lang('auth/products/form.send')">
         </form>
     </div>
 @endsection

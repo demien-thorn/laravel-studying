@@ -3,16 +3,12 @@
 @section('title', 'Registration')
 
 @section('content')
-    <h3>New user registration</h3>
-    {{--{{ __('Register') }}--}}
+    <h3>@lang('auth/register.title')</h3>
 
     <div class="form-container">
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            <label for="name">
-                Username
-                {{--{{ __('Name') }}--}}
-            </label>
+            <label for="name">@lang('auth/register.name')</label>
             <input
                 id="name"
                 type="text"
@@ -23,15 +19,10 @@
                 required autocomplete="name"
                 autofocus>
             @error('name')
-                <span role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <span role="alert"><strong>{{ $message }}</strong></span>
             @enderror
 
-            <label for="email">
-                E-mail
-                {{--{{ __('Email Address') }}--}}
-            </label>
+            <label for="email">@lang('auth/register.email')</label>
             <input
                 id="email"
                 type="email"
@@ -41,15 +32,10 @@
                 value="{{ old('email') }}"
                 required autocomplete="email">
             @error('email')
-                <span role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <span role="alert"><strong>{{ $message }}</strong></span>
             @enderror
 
-            <label for="password">
-                Password
-                {{--{{ __('Password') }}--}}
-            </label>
+            <label for="password">@lang('auth/register.password')</label>
             <input
                 id="password"
                 type="password"
@@ -58,15 +44,10 @@
                 placeholder="Password"
                 required autocomplete="new-password">
             @error('password')
-                <span role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <span role="alert"><strong>{{ $message }}</strong></span>
             @enderror
 
-            <label for="password-confirm">
-                Confirm password
-                {{--{{ __('Confirm Password') }}--}}
-            </label>
+            <label for="password-confirm">@lang('auth/register.confirm_password')</label>
             <input
                 id="password-confirm"
                 type="password"
@@ -74,8 +55,7 @@
                 placeholder="Confirm password"
                 required autocomplete="new-password">
 
-            <input type="submit" name="register" value="Register!">
-            {{--<input type="submit" name="register" value="{{ __('Register') }}!">--}}
+            <input type="submit" name="register" value="@lang('auth/register.send')">
         </form>
     </div>
 @endsection

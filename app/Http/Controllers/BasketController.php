@@ -20,7 +20,7 @@ class BasketController extends Controller
     {
         $email = Auth::check() ? Auth::user()->email : $request->email;
         if ((new Basket())->saveOrder($request->name, $request->phone, $email)) {
-            session()->flash(key: 'success', value: 'Your order has been processed');
+            session()->flash(key: 'success', value: __(key:'basket.order_processed'));
         } else {
             session()->flash(key: 'warning', value: 'Products are unavailable to order in this amount');
         }
