@@ -4,9 +4,7 @@
 
 @section('content')
     <h3>@lang('main.main.title')</h3>
-    <div class="undertitle">
-        @lang('main.main.undertitle')
-    </div>
+    <div class="undertitle">@lang('main.main.undertitle')</div>
 
     <form action="{{ route(name: 'index') }}" method="get" class="form-container">
         <label for="price_from">@lang('main.filter.price_from')</label>
@@ -14,7 +12,6 @@
 
         <label for="price_to">@lang('main.filter.price_to')</label>
         <input type="text" name="price_to" id="price_to" size="6" value="{{ request()->price_to }}">
-
 
         <label for="hit">@lang('main.filter.hit')</label>
         <input type="checkbox" name="hit" id="hit" @if(request()->has(key: 'hit')) checked @endif>

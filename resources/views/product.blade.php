@@ -9,10 +9,18 @@
     <div class="content-main clearfix">
         <div class="content-section-middle">
             <img src="{{ Storage::url(path: $product->image) }}" alt="" width="200">
-            <div class="content-txt"><b>@lang('product.code')</b> {{ $product->code }}</div>
-            <div class="content-txt"><b>@lang('product.description')</b> {{ $product->__('description') }}</div>
-            <div class="content-txt"><b>@lang('product.price')</b> {{ $product->price }} UAH</div>
-            <div class="content-txt"><b>@lang('product.quantity')</b> {{ $product->count }} pcs.</div>
+            <div class="content-txt">
+                <b>@lang('product.code')</b> {{ $product->code }}
+            </div>
+            <div class="content-txt">
+                <b>@lang('product.description')</b> {{ $product->__('description') }}
+            </div>
+            <div class="content-txt">
+                <b>@lang('product.price')</b> {{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i>
+            </div>
+            <div class="content-txt">
+                <b>@lang('product.quantity')</b> {{ $product->count }} @lang('main.filter.pcs')
+            </div>
                 @if($product->isAvailable())
                     <form
                         action="{{ route(name: 'basket-add', parameters: $product) }}"

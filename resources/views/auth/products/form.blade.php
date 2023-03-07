@@ -51,11 +51,11 @@
             @include('layouts.error', ['fieldName' => 'name'])
             <input type="text" name="name_ru" id="name_ru" value="@isset($product){{ $product->name_ru }}@endisset">
 
-            <label for="price">@lang('auth/products/form.price'), UAH:</label>
+            <label for="price">@lang('auth/products/form.price'), <i class="fa-solid fa-hryvnia-sign"></i>:</label>
             @include('layouts.error', ['fieldName' => 'price'])
             <input type="text" name="price" id="price" value="@isset($product){{ $product->price }}@endisset">
 
-            <label for="count">@lang('auth/products/form.quantity'), pcs.:</label>
+            <label for="count">@lang('auth/products/form.quantity'), @lang('main.filter.pcs'):</label>
             @include('layouts.error', ['fieldName' => 'count'])
             <input type="text" name="count" id="count" value="@isset($product){{ $product->count }}@endisset">
 
@@ -88,7 +88,7 @@
                     @endif>
             @endforeach
 
-            <input type="submit" name="" value="@lang('auth/products/form.send')">
+            <input type="submit" name="" value="@lang('main.buttons.save')">
         </form>
     </div>
 @endsection

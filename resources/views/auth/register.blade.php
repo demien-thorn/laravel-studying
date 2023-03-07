@@ -18,9 +18,7 @@
                 value="{{ old('name') }}"
                 required autocomplete="name"
                 autofocus>
-            @error('name')
-                <span role="alert"><strong>{{ $message }}</strong></span>
-            @enderror
+            @include('layouts.error', ['fieldName' => 'name'])
 
             <label for="email">@lang('auth/register.email')</label>
             <input
@@ -31,9 +29,7 @@
                 placeholder="E-mail"
                 value="{{ old('email') }}"
                 required autocomplete="email">
-            @error('email')
-                <span role="alert"><strong>{{ $message }}</strong></span>
-            @enderror
+            @include('layouts.error', ['fieldName' => 'email'])
 
             <label for="password">@lang('auth/register.password')</label>
             <input
@@ -43,9 +39,7 @@
                 name="password"
                 placeholder="Password"
                 required autocomplete="new-password">
-            @error('password')
-                <span role="alert"><strong>{{ $message }}</strong></span>
-            @enderror
+            @include('layouts.error', ['fieldName' => 'password'])
 
             <label for="password-confirm">@lang('auth/register.confirm_password')</label>
             <input

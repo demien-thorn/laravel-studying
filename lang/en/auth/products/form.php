@@ -12,6 +12,4 @@ return [
     'description' => 'Description',
     'description_ru' => 'Russian description',
     'image' => 'Image',
-
-    'send' => 'Save',
 ];

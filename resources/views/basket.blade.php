@@ -40,14 +40,14 @@
                             </form>
                         </div>
                     </td>
-                    <td>{{ $product->price }} UAH</td>
-                    <td>{{ $product->getPriceForCount() }} UAH</td>
+                    <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
+                    <td>{{ $product->getPriceForCount() }} <i class="fa-solid fa-hryvnia-sign"></i></td>
                 </tr>
             @endforeach
             <tr>
                 <td colspan="3"><b>@lang('basket.total')</b></td>
                 <td></td>
-                <td><b>{{ $order->getFullSum() }} UAH</b></td>
+                <td><b>{{ $order->getFullSum() }} <i class="fa-solid fa-hryvnia-sign"></i></b></td>
             </tr>
             <tr>
                 <td colspan="5">

@@ -36,7 +36,7 @@
             <input type="text" name="name" id="name" value="@isset($category){{ $category->name }}@endisset">
 
             <label for="name_ru">@lang('auth/categories/form.name_ru'):</label>
-            @include('layouts.error', ['fieldName' => 'name'])
+            @include('layouts.error', ['fieldName' => 'name_ru'])
             <input type="text" name="name_ru" id="name_ru" value="@isset($category){{ $category->name_ru }}@endisset">
 
             <label for="description">@lang('auth/categories/form.description'):</label>
@@ -46,7 +46,7 @@
             </textarea>
 
             <label for="description_ru">@lang('auth/categories/form.description_ru'):</label>
-            @include('layouts.error', ['fieldName' => 'description'])
+            @include('layouts.error', ['fieldName' => 'description_ru'])
             <textarea name="description_ru" id="description_ru" cols="30" rows="10"
                 >@isset($category){{ $category->description_ru }}@endisset
             </textarea>
@@ -54,7 +54,7 @@
             <label for="image">@lang('auth/categories/form.image'):</label>
             <input type="file" name="image" id="image" value="Upload">
 
-            <input type="submit" name="" value="@lang('auth/categories/form.send')">
+            <input type="submit" name="" value="@lang('main.buttons.save')">
         </form>
     </div>
 @endsection

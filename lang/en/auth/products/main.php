@@ -10,9 +10,5 @@ return [
     'quantity' => 'Quantity',
     'actions' => 'Actions',
 
-    'open' => 'Open',
-    'edit' => 'Edit',
-    'delete' => 'Delete',
-
     'add' => 'Add a new product',
 ];

@@ -12,14 +12,14 @@
     <h4><a href="#">{{ $product->__('name') }}</a></h4>
     <img src="{{ Storage::url(path: $product->image) }}" alt="" width="200px">
 
-    <div class="content-txt">@lang('card.price') {{ $product->price }} UAH</div>
+    <div class="content-txt">@lang('card.price') {{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></div>
 
     <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
         @csrf
         @if($product->isAvailable())
-            <button type="submit" role="button" class="button_extra_small">@lang('card.basket')</button>
+            <button type="submit" role="button" class="button_extra_small">@lang('main.buttons.basket')</button>
         @else
-            <button disabled class="button_extra_small">@lang('card.unavailable')</button>
+            <button disabled class="button_extra_small">@lang('main.buttons.unavailable')</button>
         @endif
         <a
             href="{{ route(
@@ -27,7 +27,7 @@
             parameters: [isset($category) ? $category->code : $product->category->code, $product->code]) }}"
             role="button"
             class="button_extra_small">
-            @lang('card.more')
+            @lang('main.buttons.more')
         </a>
     </form>
 </div>

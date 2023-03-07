@@ -36,11 +36,11 @@
             </tr>
             <tr>
                 <td>@lang('auth/products/show.price')</td>
-                <td>{{ $product->price }} UAH</td>
+                <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
             </tr>
             <tr>
                 <td>@lang('auth/products/show.quantity')</td>
-                <td>{{ $product->count }} pcs.</td>
+                <td>{{ $product->count }} @lang('main.filter.pcs')</td>
             </tr>
             <tr>
                 <td>@lang('auth/products/show.description')</td>
@@ -60,13 +60,13 @@
                 <td>@lang('auth/products/show.lables')</td>
                 <td>
                     @if($product->isNew())
-                        <div class="label new-label">NEW!</div>
+                        <div class="label new-label">@lang('main.filter.new')</div>
                     @endif
                     @if($product->isHit())
-                        <div class="label top-sale-label">Top Sale</div>
+                        <div class="label top-sale-label">@lang('main.filter.hit')</div>
                     @endif
                     @if($product->isRecommend())
-                        <div class="label recommended-label">We recommend</div>
+                        <div class="label recommended-label">@lang('main.filter.recommend')</div>
                     @endif
                 </td>
             </tr>

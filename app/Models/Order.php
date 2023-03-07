@@ -45,6 +45,7 @@ class Order extends Model
 
     public static function getFullSum()
     {
+
         return session(key: 'full_order_sum', default: 0);
     }
 

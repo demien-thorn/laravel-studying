@@ -25,23 +25,23 @@
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->__('name') }}</td>
                     <td>{{ $product->category_id }}</td>
-                    <td>{{ $product->price }} UAH</td>
-                    <td>{{ $product->count }} pcs</td>
+                    <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
+                    <td>{{ $product->count }} @lang('main.filter.pcs')</td>
                     <td>
                         <a href="{{ route(name: 'products.show', parameters: $product) }}" class="button_extra_small">
-                            @lang('auth/products/main.open')
+                            @lang('main.buttons.open')
                         </a>
                     </td>
                     <td>
                         <a href="{{ route(name: 'products.edit', parameters: $product) }}" class="button_extra_small">
-                            @lang('auth/products/main.edit')
+                            @lang('main.buttons.edit')
                         </a>
                     </td>
                     <td>
                         <form action="{{ route(name: 'products.destroy', parameters: $product) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" value="@lang('auth/products/main.delete')" class="button_extra_small">
+                            <input type="submit" value="@lang('main.buttons.delete')" class="button_extra_small">
                         </form>
                     </td>
                 </tr>

@@ -18,9 +18,7 @@
                 value="{{ old('email') }}"
                 required autocomplete="email"
                 autofocus>
-            @error('email')
-                <span role="alert"><strong>{{ $message }}</strong></span>
-            @enderror
+            @include('layouts.error', ['fieldName' => 'email'])
 
             <label for="password">@lang('auth/login.password')</label>
             <input
@@ -30,9 +28,7 @@
                 name="password"
                 placeholder="Password"
                 required autocomplete="current-password">
-            @error('password')
-                <span role="alert"><strong>{{ $message }}</strong></span>
-            @enderror
+            @include('layouts.error', ['fieldName' => 'password'])
 
             <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
             <label for="remember">@lang('auth/login.remember')</label>

@@ -27,10 +27,26 @@ return [
     'filter' => [
         'price_from' => 'Price from',
         'price_to' => 'to',
+
         'hit' => 'Hit',
         'recommend' => 'Recommend',
         'new' => 'NEW!',
+
         'filter' => 'Filter',
         'reset' => 'Reset',
+
+        'pcs' => 'pcs'
+    ],
+
+    'buttons' => [
+        'basket' => 'To the basket',
+        'unavailable' => 'Unavailable',
+        'more' => 'More',
+
+        'open' => 'Open',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+
+        'save' => 'Save',
     ],
 ];
