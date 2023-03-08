@@ -35,6 +35,7 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
     ]);
 
     Route::get(uri: 'locale/{locale}', action: [MainC::class, 'changeLocale'])->name(name: 'locale');
+    Route::get(uri: 'currency/{currencyCode}', action: [MainC::class, 'changeCurrency'])->name(name: 'currency');
 
     Route::get(uri: 'reset', action: [ResetC::class, 'reset'])->name(name: 'reset');
 

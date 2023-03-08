@@ -40,14 +40,16 @@
                             </form>
                         </div>
                     </td>
-                    <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
-                    <td>{{ $product->getPriceForCount() }} <i class="fa-solid fa-hryvnia-sign"></i></td>
+                    <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+                    <td>
+                        {{ $product->getPriceForCount() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}
+                    </td>
                 </tr>
             @endforeach
             <tr>
                 <td colspan="3"><b>@lang('basket.total')</b></td>
                 <td></td>
-                <td><b>{{ $order->getFullSum() }} <i class="fa-solid fa-hryvnia-sign"></i></b></td>
+                <td><b>{{ $order->getFullSum() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</b></td>
             </tr>
             <tr>
                 <td colspan="5">

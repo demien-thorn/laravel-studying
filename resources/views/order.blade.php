@@ -8,7 +8,8 @@
     <div class="content-main clearfix">
         <div class="form-container">
             <div class="small-text">
-                @lang('order.cost') <b>{{ $order->calculateFullSum() }} <i class="fa-solid fa-hryvnia-sign"></i></b><br>
+                @lang('order.cost')
+                <b>{{ $order->calculateFullSum() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</b><br>
                 @lang('order.info')
             </div>
             <form action="{{route(name: 'basket-confirm')}}" method="post">

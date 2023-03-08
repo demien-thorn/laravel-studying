@@ -28,33 +28,36 @@
 
             <label for="code">@lang('auth/categories/form.code'):</label>
             @include('layouts.error', ['fieldName' => 'code'])
-            <input type="text" name="code" id="code"
+            <input type="text" name="code" id="code" style="display: block"
                 value="{{ old(key: 'code', default: isset($category) ? $category->code : null) }}">
 
             <label for="name">@lang('auth/categories/form.name'):</label>
             @include('layouts.error', ['fieldName' => 'name'])
-            <input type="text" name="name" id="name" value="@isset($category){{ $category->name }}@endisset">
+            <input type="text" name="name" id="name" style="display: block"
+                   value="@isset($category){{ $category->name }}@endisset">
 
             <label for="name_ru">@lang('auth/categories/form.name_ru'):</label>
             @include('layouts.error', ['fieldName' => 'name_ru'])
-            <input type="text" name="name_ru" id="name_ru" value="@isset($category){{ $category->name_ru }}@endisset">
+            <input type="text" name="name_ru" id="name_ru" style="display: block"
+                   value="@isset($category){{ $category->name_ru }}@endisset">
 
             <label for="description">@lang('auth/categories/form.description'):</label>
             @include('layouts.error', ['fieldName' => 'description'])
-            <textarea name="description" id="description" cols="30" rows="10"
+            <textarea name="description" id="description" cols="50" rows="5" style="display: block"
                 >@isset($category){{ $category->description }}@endisset
             </textarea>
 
             <label for="description_ru">@lang('auth/categories/form.description_ru'):</label>
             @include('layouts.error', ['fieldName' => 'description_ru'])
-            <textarea name="description_ru" id="description_ru" cols="30" rows="10"
+            <textarea name="description_ru" id="description_ru" cols="50" rows="5" style="display: block"
                 >@isset($category){{ $category->description_ru }}@endisset
             </textarea>
 
             <label for="image">@lang('auth/categories/form.image'):</label>
-            <input type="file" name="image" id="image" value="Upload">
+            <input type="file" name="image" id="image" style="display: block" value="Upload">
 
-            <input type="submit" name="" value="@lang('main.buttons.save')">
+            <input type="submit" style="display: block" class="btn btn-primary btn-lg px-4 fw-bold"
+                   value="@lang('main.buttons.save')">
         </form>
     </div>
 @endsection

@@ -47,7 +47,7 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="8">
+                <td colspan="9">
                     <a href="{{ route(name: 'products.create') }}" class="ordering">@lang('auth/products/main.add')</a>
                 </td>
             </tr>

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive(name: 'routeactive', handler: function ($route) {
-            return "<?php echo Route::currentRouteNamed($route) ? 'class=\"menu-active\"' : '' ?>";
+            return "<?php echo Route::currentRouteNamed($route) ? 'active' : 'text-white' ?>";
         });
 
         Blade::if(name: 'admin', callback: function () {

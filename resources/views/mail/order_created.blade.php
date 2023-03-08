@@ -1,7 +1,7 @@
 <h3>@lang('mail/order_created.dear') {{ $name }}!</h3>
 <p>
     @lang('mail/order_created.order') #... @lang('mail/order_created.created').
-    @lang('mail/order_created.order_cost') {{ $fullSum }} UAH.
+    @lang('mail/order_created.order_cost') {{ $fullSum }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}.
     @lang('mail/order_created.manager').
 </p>
 
@@ -22,8 +22,8 @@
                     <span class="count-goods">{{ $product->pivot->count }}</span>
                 </div>
             </td>
-            <td>{{ $product->price }} UAH</td>
-            <td>{{ $product->getPriceForCount() }} UAH</td>
+            <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+            <td>{{ $product->getPriceForCount() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
         </tr>
     @endforeach
     </tbody>

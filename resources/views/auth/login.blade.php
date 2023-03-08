@@ -3,37 +3,29 @@
 @section('title', 'Authorization')
 
 @section('content')
-    <h3>@lang('auth/login.title')</h3>
-
-    <div class="form-container">
+    <div class="form-container form-signin w-100 m-auto">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <label for="email">@lang('auth/login.email')</label>
-            <input
-                id="email"
-                type="email"
-                class="form-control @error('email') is-invalid @enderror"
-                name="email"
-                placeholder="E-mail"
-                value="{{ old('email') }}"
-                required autocomplete="email"
-                autofocus>
-            @include('layouts.error', ['fieldName' => 'email'])
+            <h1 class="h3 mb-3 fw-normal">@lang('auth/login.title')</h1>
 
-            <label for="password">@lang('auth/login.password')</label>
-            <input
-                id="password"
-                type="password"
-                class="form-control @error('password') is-invalid @enderror"
-                name="password"
-                placeholder="Password"
-                required autocomplete="current-password">
-            @include('layouts.error', ['fieldName' => 'password'])
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" name="email" value="{{ old('email') }}">
+                <label for="floatingInput">@lang('auth/login.email')</label>
+                @include('layouts.error', ['fieldName' => 'email'])
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" name="password">
+                <label for="floatingPassword">@lang('auth/login.password')</label>
+                @include('layouts.error', ['fieldName' => 'password'])
+            </div>
 
-            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-            <label for="remember">@lang('auth/login.remember')</label>
-
-            <input type="submit" name="authorize" value="@lang('auth/login.send')">
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="remember" value="remember-me" {{ old('remember') ? 'checked' : '' }}>
+                    @lang('auth/login.remember')
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">@lang('auth/login.send')</button>
             <br>
             @if (Route::has('password.request'))
                 <a href="{{ route('password.request') }}">@lang('auth/login.forgot')</a>

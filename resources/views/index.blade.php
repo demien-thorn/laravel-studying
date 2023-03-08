@@ -3,7 +3,7 @@
 @section('title', 'Main')
 
 @section('content')
-    <h3>@lang('main.main.title')</h3>
+    <h3 class="pb-2 border-bottom">@lang('main.main.title')</h3>
     <div class="undertitle">@lang('main.main.undertitle')</div>
 
     <form action="{{ route(name: 'index') }}" method="get" class="form-container">
@@ -22,14 +22,19 @@
         <label for="recommend">@lang('main.filter.recommend')</label>
         <input type="checkbox" name="recommend" id="recommend" @if(request()->has(key: 'recommend')) checked @endif>
 
-        <input type="submit" value="@lang('main.filter.filter')">
-        <a href="{{ route(name: 'index') }}" class="button_extra_small">@lang('main.filter.reset')</a>
+        <input type="submit" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold" value="@lang('main.filter.filter')">
+        <a href="{{ route(name: 'index') }}" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
+            @lang('main.filter.reset')
+        </a>
     </form>
 
-    <div class="content-main clearfix">
-        @foreach($products as $product)
-            @include('layouts.card', compact(var_name: 'product'))
-        @endforeach
+    <div class="container px-4 py-5" id="featured-3">
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            @foreach($products as $product)
+                @include('layouts.card', compact(var_name: 'product'))
+            @endforeach
+        </div>
     </div>
+
     {{ $products->links('pagination::bootstrap-5') }}
 @endsection
