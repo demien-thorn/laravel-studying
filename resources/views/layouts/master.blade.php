@@ -187,7 +187,7 @@
             </div>
 
             <div class="col mb-3">
-                <h5>Самые популярные товары</h5>
+                <h5>@lang('main.others.top_selling')!</h5>
                 <ul class="nav flex-column">
                     @foreach($bestProducts as $bestProduct)
                         <li class="nav-item mb-2">

@@ -33,6 +33,16 @@ class Product extends Model
         return $this->belongsTo(related: Category::class);
     }
 
+    public function skus()
+    {
+        return $this->hasMany(related: Sku::class);
+    }
+
+    public function properties()
+    {
+        return $this->belongsToMany(related: Property::class);
+    }
+
     public function getPriceForCount()
     {
         if (!is_null(value: $this->pivot)) {

@@ -56,5 +56,6 @@ return [
 
     'others' => [
         'products_total' => 'Total products in this category',
+        'top_selling' => 'Most popular',
     ],
 ];
