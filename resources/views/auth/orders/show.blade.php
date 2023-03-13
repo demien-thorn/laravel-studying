@@ -19,7 +19,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($order->products as $product)
+            @foreach($products as $product)
                 <tr>
                     <td>{{ $order->created_at }}</td>
                     <td><img src="{{ Storage::url(path: $product->image) }}" alt="" height="50"></td>
@@ -29,14 +29,14 @@
                         </a>
                     </td>
                     <td><span class="button-minus">{{ $product->pivot->count }}</span></td>
-                    <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
-                    <td>{{ $product->getPriceForCount() }} <i class="fa-solid fa-hryvnia-sign"></i></td>
+                    <td>{{ $product->pivot->price }} {{ $order->currency->symbol }}</td>
+                    <td>{{ $product->pivot->price * $product->pivot->count }} {{ $order->currency->symbol }}</td>
                 </tr>
             @endforeach
             <tr>
                 <td colspan="3"><b>@lang('auth/orders/show.total'):</b></td>
                 <td colspan="2"></td>
-                <td><b>{{ $order->calculateFullSum() }} <i class="fa-solid fa-hryvnia-sign"></i></b></td>
+                <td><b>{{ $order->sum }} {{ $order->currency->symbol }}</b></td>
             </tr>
             </tbody>
         </table>

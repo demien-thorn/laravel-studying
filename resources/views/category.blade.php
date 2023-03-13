@@ -14,5 +14,5 @@
         </div>
     </div>
 
-    <div class="content-txt">Total products in this category: {{ $category->products->count() }}</div>
+    <div class="content-txt">@lang('main.others.products_total'): {{ $category->products->count() }}</div>
 @endsection

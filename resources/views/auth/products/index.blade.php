@@ -25,7 +25,7 @@
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->__('name') }}</td>
                     <td>{{ $product->category_id }}</td>
-                    <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
+                    <td>{{ $product->price }} {{ $currencySymbol }}</td>
                     <td>{{ $product->count }} @lang('main.filter.pcs')</td>
                     <td>
                         <a href="{{ route(name: 'products.show', parameters: $product) }}" class="button_extra_small">

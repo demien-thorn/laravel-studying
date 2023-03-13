@@ -21,102 +21,85 @@
     </head>
 
     <body>
-        {{--Main Content--}}
-        <main class="d-flex flex-nowrap">
-            <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 250px;">
-                <a
-                    href="{{ route(name: 'index') }}"
-                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-                    <span class="fs-4">
+    <header>
+        <div class="px-3 py-2 text-bg-dark">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="{{ route(name: 'index') }}"
+                       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-4">
                         <i class="fa-solid fa-house"></i>
                         @lang('main.nav.main')
                     </span>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a
-                            href="{{ route(name: 'categories') }}"
-                            class="nav-link @routeactive('categories')" aria-current="page">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                                <i class="fa-solid fa-bars"></i>
-                                <span class="menu-space">@lang('main.nav.categories')</span>
-                        </a>
-                    </li>
-                    @admin
+                    </a>
+
+                    <ul class="nav nav-pills mb-auto col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
-                            <a
-                                href="{{ route(name: 'categories.index') }}"
-                                class="nav-link @routeactive('categories.index')">
-                                <svg class="bi pe-none me-2" width="16" height="16">
-                                    <use xlink:href="#speedometer2"></use>
-                                </svg>
+                            <a href="{{ route(name: 'categories') }}"
+                               class="nav-link @routeactive('categories')" aria-current="page">
                                 <i class="fa-solid fa-bars"></i>
-                                <span class="menu-space">@lang('main.nav.categories') (A)</span>
-                            </a>
-                            <a
-                                href="{{ route(name: 'products.index') }}"
-                                class="nav-link @routeactive('products.index')">
-                                <svg class="bi pe-none me-2" width="16" height="16">
-                                    <use xlink:href="#speedometer2"></use>
-                                </svg>
-                                <i class="fa-brands fa-apple"></i>
-                                <span class="menu-space">@lang('main.nav.products') (A)</span>
+                                @lang('main.nav.categories')
                             </a>
                         </li>
-                    @endadmin
-                    <li>
-                        <a href="{{ route(name: 'basket') }}" class="nav-link @routeactive('basket*')">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#speedometer2"></use>
-                            </svg>
-                            <i class="fa-solid fa-basket-shopping"></i>
-                            <span class="menu-space">@lang('main.nav.basket')</span>
-                        </a>
-                    </li>
-                    @auth
                         @admin
+                        <li>
+                            <a href="{{ route(name: 'categories.index') }}"
+                               class="nav-link @routeactive('categories.index')" aria-current="page">
+                                <i class="fa-solid fa-bars"></i>
+                                @lang('main.nav.categories') (A)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route(name: 'products.index') }}"
+                               class="nav-link @routeactive('products.index')" aria-current="page">
+                                <i class="fa-brands fa-apple"></i>
+                                @lang('main.nav.products') (A)
+                            </a>
+                        </li>
+                        @endadmin
+                        <li>
+                            <a href="{{ route(name: 'basket') }}"
+                               class="nav-link @routeactive('basket*')" aria-current="page">
+                                <i class="fa-solid fa-basket-shopping"></i>
+                                @lang('main.nav.basket')
+                            </a>
+                        </li>
+                        @auth
+                            @admin
                         @else
                             <li>
-                                <a
-                                    href="{{ route(name: 'person.orders.index') }}"
-                                    class="nav-link @routeactive('person.orders.index')">
-                                    <svg class="bi pe-none me-2" width="16" height="16">
-                                        <use xlink:href="#table"></use>
-                                    </svg>
+                                <a href="{{ route(name: 'person.orders.index') }}"
+                                   class="nav-link @routeactive('person.orders.index')" aria-current="page">
                                     <i class="fa-solid fa-cart-shopping"></i>
-                                    <span class="menu-space">@lang('main.nav.orders')</span>
+                                    @lang('main.nav.orders')
                                 </a>
                             </li>
-                        @endadmin
-                    @endauth
-                    <li>
-                        <a
-                            href="{{ route(name: 'locale', parameters: __('main.set_lang')) }}"
-                            class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#people-circle"></use>
-                            </svg>
-                            <i class="fa-solid fa-language"></i>
-                            <span class="menu-space">@lang('main.set_lang')</span>
-                        </a>
-                    </li>
+                            @endadmin
+                        @endauth
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="px-3 py-2 border-bottom mb-3">
+            <div class="container d-flex flex-wrap justify-content-center">
+                <a href="{{ route(name: 'locale', parameters: __('main.set_lang')) }}"
+                   type="button" class="btn btn-light text-dark me-2">
+                    <i class="fa-solid fa-language"></i>
+                    @lang('main.set_lang')
+                </a>
+                <ul class="nav nav-pills flex-column mb-auto">
                     <li class="dropdown">
                         <span
-                            class="nav-link align-items-center text-white text-decoration-none dropdown-toggle"
+                            class="btn btn-light text-dark me-2 align-items-center dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#people-circle"></use>
-                            </svg>
                             <i class="fa-solid fa-coins"></i>
-                            {{ \App\Services\CurrencyConversion::getCurrencySymbol() }}
+                            {{ $currencySymbol }}
                         </span>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            @foreach(\App\Services\CurrencyConversion::getCurrencies() as $currency)
+                            @foreach($currencies as $currency)
                                 <li>
-                                    <a class="dropdown-item"
-                                       href="{{ route(name: 'currency', parameters: $currency->code) }}">
+                                    <a href="{{ route(name: 'currency', parameters: $currency->code) }}"
+                                       class="dropdown-item">
                                         <span class="menu-space">{{ $currency->code.' '.$currency->symbol }}</span>
                                     </a>
                                 </li>
@@ -124,84 +107,112 @@
                         </ul>
                     </li>
                 </ul>
-                <hr>
-                <div class="dropdown">
-                    <span
-                        class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        @auth
-                            <b>Cabinet</b>
-                        @else
-                            <b>Log in</b>
-                        @endauth
-                    </span>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        @auth
-                            @admin
-                                <li>
-                                    <a class="dropdown-item" href="{{ route(name: 'home') }}">
-                                        <i class="fa-solid fa-toolbox"></i>
-                                        <span class="menu-space">@lang('main.nav.admin')</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ route(name: 'reset') }}">
-                                        <i class="fa-solid fa-backward-step"></i>
-                                        <span class="menu-space">@lang('main.nav.default')</span>
-                                    </a>
-                                </li>
-                            @else
-                                <li>
-                                    <a class="dropdown-item" href="{{ route(name: 'person.orders.index') }}">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                        <span class="menu-space">@lang('main.nav.orders')</span>
-                                    </a>
-                                </li>
-                            @endadmin
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route(name: 'get-logout') }}">
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-                                    <span class="menu-space">@lang('main.nav.logout')</span>
-                                </a>
-                            </li>
-                        @endauth
 
-                        @guest
-                            <li>
-                                <a class="dropdown-item" href="{{ route(name: 'login') }}">
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                    <span class="menu-space">@lang('main.nav.authorize')</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route(name: 'register') }}">
-                                    <i class="fa-solid fa-id-card"></i>
-                                    <span class="menu-space">@lang('main.nav.register')</span>
-                                </a>
-                            </li>
-                        @endguest
-                    </ul>
+                <span class="me-lg-auto"></span>
+
+                <div class="text-end">
+                    @auth
+                        @admin
+                        <a href="{{ route(name: 'home') }}" type="button" class="btn btn-primary">
+                            <i class="fa-solid fa-toolbox"></i>
+                            @lang('main.nav.admin')
+                        </a>
+
+                        <a href="{{ route(name: 'reset') }}" type="button" class="btn btn-light text-dark me-2">
+                            <i class="fa-solid fa-backward-step"></i>
+                            @lang('main.nav.default')
+                        </a>
+                    @else
+                        <a href="{{ route(name: 'person.orders.index') }}" type="button" class="btn btn-primary">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            @lang('main.nav.orders')
+                        </a>
+                        @endadmin
+                        <a href="{{ route(name: 'get-logout') }}" type="button" class="btn btn-light text-dark me-2">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            @lang('main.nav.logout')
+                        </a>
+                    @endauth
+                    @guest
+                        <a href="{{ route(name: 'login') }}" type="button" class="btn btn-light text-dark me-2">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            @lang('main.nav.authorize')
+                        </a>
+                        <a href="{{ route(name: 'register') }}" type="button" class="btn btn-primary">
+                            <i class="fa-solid fa-id-card"></i>
+                            @lang('main.nav.register')
+                        </a>
+                    @endguest
                 </div>
             </div>
-            <div class="content-container clearfix px-4 py-5 my-5 text-center rounded-3 border shadow-lg">
-                @if(session()->has(key: 'success'))
-                    <p class="alert">{{ session()->get(key: 'success') }}</p>
-                @elseif(session()->has(key: 'warning'))
-                    <p class="alert">{{ session()->get(key: 'warning') }}</p>
-                @endif
-                @yield('content')
+        </div>
+    </header>
+
+    {{--Main Content--}}
+    <main class="d-flex flex-nowrap">
+        <div class="content-container clearfix px-4 py-5 my-5 text-center rounded-3 border shadow-lg">
+            @if(session()->has(key: 'success'))
+                <p class="alert">{{ session()->get(key: 'success') }}</p>
+            @elseif(session()->has(key: 'warning'))
+                <p class="alert">{{ session()->get(key: 'warning') }}</p>
+            @endif
+            @yield('content')
+        </div>
+    </main>
+
+    <div class="text-bg-dark">
+        <div class="container">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top">
+            <div class="col mb-3">
+                <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+                <p class="text-white">© 2022</p>
             </div>
-        </main>
+
+            <div class="col mb-3"></div>
+
+            <div class="col mb-3">
+                <h5>@lang('main.nav.categories')</h5>
+                <ul class="nav flex-column">
+                    @foreach($categories as $category)
+                        <li class="nav-item mb-2">
+                            <a href="{{ route(name: 'category', parameters: $category->code) }}"
+                               class="nav-link p-0 text-white">
+                                {{ $category->__('name') }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5>Самые популярные товары</h5>
+                <ul class="nav flex-column">
+                    @foreach($bestProducts as $bestProduct)
+                        <li class="nav-item mb-2">
+                            <a href="{{ route(
+                               name: 'product',
+                               parameters: [$bestProduct->category->code, $bestProduct->code]) }}"
+                               class="nav-link p-0 text-white">
+                                {{ $bestProduct->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </footer>
+        </div>
+    </div>
 
 
-        {{--FontAwesome icons set--}}
-        <script src="https://kit.fontawesome.com/466db28e47.js" crossorigin="anonymous"></script>
-        {{--Botstrap--}}
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous">
-        </script>
+    {{--FontAwesome icons set--}}
+    <script src="https://kit.fontawesome.com/466db28e47.js" crossorigin="anonymous"></script>
+    {{--Botstrap--}}
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous">
+    </script>
     </body>
 </html>

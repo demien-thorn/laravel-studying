@@ -25,8 +25,6 @@ class BasketController extends Controller
             session()->flash(key: 'warning', value: 'Products are unavailable to order in this amount');
         }
 
-        Order::eraseOrderSum();
-
         return redirect()->route(route: 'index');
     }
 

@@ -11,11 +11,18 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'currency_id',
+        'sum',
     ];
 
     public function products()
     {
-        return $this->belongsToMany(related: Product::class)->withPivot(columns: 'count')->withTimestamps();
+        return $this->belongsToMany(related: Product::class)->withPivot(columns: ['count', 'price'])->withTimestamps();
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(related: Currency::class);
     }
 
     public function scopeActive($query)
@@ -32,34 +39,36 @@ class Order extends Model
         return $sum;
     }
 
-    public static function eraseOrderSum()
+    public function getFullSum()
     {
-        session()->forget(keys: 'full_order_sum');
-    }
+        $sum = 0;
 
-    public static function changeFullSum($changeSum)
-    {
-        $sum = self::getFullSum() + $changeSum;
-        session(key: ['full_order_sum' => $sum]);
-    }
+        foreach ($this->products as $product) {
+            $sum += $product->price * $product->countInOrder;
+        }
 
-    public static function getFullSum()
-    {
-
-        return session(key: 'full_order_sum', default: 0);
+        return $sum;
     }
 
     public function saveOrder($name, $phone)
     {
-        if ($this->status == 0) {
-            $this->name = $name;
-            $this->phone = $phone;
-            $this->status = 1;
-            $this->save();
-            session()->forget(keys: 'orderId');
-            return true;
-        } else {
-            return false;
+        $this->name = $name;
+        $this->phone = $phone;
+        $this->status = 1;
+        $this->sum = $this->getFullSum();
+
+        $products = $this->products;
+//        dd($this);
+        $this->save();
+
+        foreach ($products as $productInOrder) {
+            $this->products()->attach(id: $productInOrder, attributes: [
+                'count' => $productInOrder->countInOrder,
+                'price' => $productInOrder->price,
+            ]);
         }
+
+        session()->forget(keys: 'order');
+        return true;
     }
 }

@@ -20,7 +20,7 @@
 
                 <div class="content-txt">
                     <b>@lang('product.price')</b>
-                    {{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}
+                    {{ $product->price }} {{ $currencySymbol }}
                 </div>
 
                 <div class="content-txt">

@@ -19,12 +19,15 @@ class MainController extends Controller
     public function index(ProductsFilterRequest $request)
     {
         $productsQuery = Product::with(relations: 'category');
+
         if ($request->filled(key: 'price_from')) {
             $productsQuery->where(column: 'price', operator: '>=', value: $request->price_from);
         }
+
         if ($request->filled(key: 'price_to')) {
             $productsQuery->where(column: 'price', operator: '<=', value: $request->price_to);
         }
+
         foreach (['hit', 'new', 'recommend'] as $field) {
             if ($request->has(key: $field)) {
                 $productsQuery->$field();
@@ -32,13 +35,13 @@ class MainController extends Controller
         }
 
         $products = $productsQuery->paginate(perPage: 6)->withPath("?".$request->getQueryString());
+
         return view(view: 'index', data: compact(var_name: 'products'));
     }
 
     public function categories()
     {
-        $categories = Category::get();
-        return view(view: 'categories', data: compact(var_name: 'categories'));
+        return view(view: 'categories');
     }
 
     public function category($code = null)

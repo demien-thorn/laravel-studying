@@ -17,7 +17,7 @@
 
     <h3 class="fs-2">{{ $product->__('name') }}</h3>
 
-    <p>@lang('card.price') {{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</p>
+    <p>@lang('card.price') {{ $product->price }} {{ $currencySymbol }}</p>
         <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
             @csrf
             @if($product->isAvailable())

@@ -49,4 +49,12 @@ return [
 
         'save' => 'Save',
     ],
+
+    'notifications' => [
+        'basket_empty' => 'Your basket is empty!'
+    ],
+
+    'others' => [
+        'products_total' => 'Total products in this category',
+    ],
 ];

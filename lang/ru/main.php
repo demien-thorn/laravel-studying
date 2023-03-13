@@ -49,4 +49,12 @@ return [
 
         'save' => 'Сохранить',
     ],
+
+    'notifications' => [
+        'basket_empty' => 'Ваша корзина пуста!'
+    ],
+
+    'others' => [
+        'products_total' => 'Всего товаров в этой категории',
+    ],
 ];

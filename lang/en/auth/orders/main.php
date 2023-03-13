@@ -8,6 +8,4 @@ return [
     'ordered_at' => 'Ordered at',
     'total' => 'Total cost',
     'actions' => 'Actions',
-
-    'open' => 'Open',
 ];

@@ -24,7 +24,7 @@
                     <td>{{ $order->name }}</td>
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->created_at->format('H:i, d M Y') }}</td>
-                    <td>{{ $order->getFullSum() }} <i class="fa-solid fa-hryvnia-sign"></i></td>
+                    <td>{{ $order->sum }} {{ $order->currency->symbol }}</td>
                     <td>
                         <a class="button_extra_small" type="button"
                             @admin
@@ -32,7 +32,7 @@
                             @else
                                 href="{{ route(name: 'person.orders.show', parameters: $order) }}"
                             @endadmin>
-                            @lang('auth/orders/main.open')
+                            @lang('main.buttons.open')
                         </a>
                     </td>
                 </tr>

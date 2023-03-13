@@ -56,8 +56,8 @@
             <label for="image">@lang('auth/categories/form.image'):</label>
             <input type="file" name="image" id="image" style="display: block" value="Upload">
 
-            <input type="submit" style="display: block" class="btn btn-primary btn-lg px-4 fw-bold"
-                   value="@lang('main.buttons.save')">
+            <input type="submit" value="@lang('main.buttons.save')"
+                   style="display: block" class="btn btn-primary btn-lg px-4 fw-bold">
         </form>
     </div>
 @endsection

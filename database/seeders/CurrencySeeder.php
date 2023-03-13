@@ -21,7 +21,7 @@ class CurrencySeeder extends Seeder
                 'code' => 'UAH',
                 'symbol' => '₴',
                 'is_main' => 1,
-                'rate' => 0,
+                'rate' => 1,
             ],
             [
                 'code' => 'USD',
