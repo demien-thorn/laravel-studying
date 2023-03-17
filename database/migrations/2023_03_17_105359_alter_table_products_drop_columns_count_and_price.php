@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
+        Schema::table(table: 'products', callback: function (Blueprint $table) {
+            $table->dropColumn(columns: ['count', 'price']);
         });
     }
 
@@ -25,8 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
+        Schema::table(table: 'products', callback: function (Blueprint $table) {
+            $table->integer(column: 'count')->default(value: 0);
+            $table->double(column: 'price')->default(value: 0);
         });
     }
 };

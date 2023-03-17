@@ -14,11 +14,13 @@ return [
         'edit_product' => 'Редактирование товара',
         'edit_property' => 'Редактирование свойства',
         'edit_property_option' => 'Редактирование варианта свойства',
+        'edit_sku' => 'Редактирование sku',
 
         'add_category' => 'Добавить категорию',
         'add_product' => 'Добавить товар',
         'add_property' => 'Добавить свойство',
         'add_property_option' => 'Добавить вариант свойства',
+        'add_sku' => 'Добавить sku',
 
         'main' => 'Главная',
         'basket' => 'Корзина',
@@ -30,6 +32,8 @@ return [
         'properties_a' => 'Свойства',
         'property_option' => 'Вариант свойства',
         'property_options' => 'Варианты свойства',
+        'sku' => 'Товарное предложение',
+        'skus' => 'Товарные предложения',
         'order' => 'Заказ',
         'orders' => 'Заказы',
 
@@ -77,7 +81,8 @@ return [
         'more' => 'Подробнее',
 
         'open' => 'Открыть',
-        'edit' => 'Редактировать',
+        'skus' => 'Skus',
+        'edit' => 'Ред-ть',
         'delete' => 'Удалить',
         'property_option' => 'Варианты свойства',
 
@@ -110,8 +115,10 @@ return [
         'description_ru' => 'Описание ru',
         'category' => 'Категория',
         'property' => 'Свойство',
+        'properties' => 'Свойства',
         'price' => 'Цена',
         'quantity' => 'Кол-во',
+        'sku_quantity' => 'Кол-во skus',
         'image' => 'Изображение',
         'actions' => 'Действия',
         'lables' => 'Лейбы',
@@ -129,5 +136,6 @@ return [
         'add_category' => 'Добавить новую категорию',
         'add_property' => 'Добавить новое свойство',
         'add_property_option' => 'Добавить вариант свойства',
+        'add_sku' => 'Добавить sku',
     ],
 ];

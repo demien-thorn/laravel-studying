@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create(table: 'sku_property_option', callback: function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger(column: 'propery_option_id');
+            $table->unsignedInteger(column: 'property_option_id');
             $table->unsignedInteger(column: 'sku_id');
             $table->timestamps();
         });

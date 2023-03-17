@@ -14,11 +14,13 @@ return [
         'edit_product' => 'Edit product',
         'edit_property' => 'Edit property',
         'edit_property_option' => 'Edit property option',
+        'edit_sku' => 'Edit sku',
 
         'add_category' => 'Add new category',
         'add_product' => 'Add new product',
         'add_property' => 'Add new property',
         'add_property_option' => 'Add new property option',
+        'add_sku' => 'Add new sku',
 
         'main' => 'Main',
         'basket' => 'Basket',
@@ -30,6 +32,8 @@ return [
         'properties_a' => 'Properties',
         'property_option' => 'Property option',
         'property_options' => 'Property options',
+        'sku' => 'Sku',
+        'skus' => 'Skus',
         'order' => 'Orders',
         'orders' => 'Orders',
 
@@ -77,6 +81,7 @@ return [
         'more' => 'More',
 
         'open' => 'Open',
+        'skus' => 'Skus',
         'edit' => 'Edit',
         'delete' => 'Delete',
         'property_option' => 'Property options',
@@ -110,8 +115,10 @@ return [
         'description_ru' => 'Description ru',
         'category' => 'Category',
         'property' => 'Property',
+        'properties' => 'Properties',
         'price' => 'Price',
         'quantity' => 'Quantity',
+        'sku_quantity' => 'SKU quantity',
         'image' => 'Image',
         'actions' => 'Actions',
         'lables' => 'Lables',
@@ -129,5 +136,6 @@ return [
         'add_category' => 'Add new category',
         'add_property' => 'Add new property',
         'add_property_option' => 'Add property option',
+        'add_sku' => 'Add sku',
     ],
 ];

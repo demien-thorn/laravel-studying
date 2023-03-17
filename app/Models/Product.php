@@ -55,7 +55,7 @@ class Product extends Model
      */
     public function properties()
     {
-        return $this->belongsToMany(related: Property::class);
+        return $this->belongsToMany(related: Property::class, table: 'property_product')->withTimestamps();
     }
 
     /**

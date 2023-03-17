@@ -35,12 +35,8 @@
                 <td>{{ $product->category_id }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.price')</td>
-                <td>{{ $product->price }} <i class="fa-solid fa-hryvnia-sign"></i></td>
-            </tr>
-            <tr>
-                <td>@lang('main.table_form.quantity')</td>
-                <td>{{ $product->count }} @lang('main.filter.pcs')</td>
+                <td>@lang('main.table_form.sku_quantity')</td>
+                <td></td>
             </tr>
             <tr>
                 <td>@lang('main.table_form.description')</td>

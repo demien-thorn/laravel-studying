@@ -32,6 +32,7 @@
                    value="@isset($product){{ $product->code }}@endisset">
 
             <label for="category_id">@lang('main.table_form.category'):</label>
+            @include('layouts.error', ['fieldName' => 'category_id'])
             <select name="category_id" id="category_id" style="display: block">
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}"
@@ -54,16 +55,6 @@
             <input type="text" name="name_ru" id="name_ru" style="display: block"
                    value="@isset($product){{ $product->name_ru }}@endisset">
 
-            <label for="price">@lang('main.table_form.price'), <i class="fa-solid fa-hryvnia-sign"></i>:</label>
-            @include('layouts.error', ['fieldName' => 'price'])
-            <input type="text" name="price" id="price" style="display: block"
-                   value="@isset($product){{ $product->price }}@endisset">
-
-            <label for="count">@lang('main.table_form.quantity'), @lang('main.filter.pcs'):</label>
-            @include('layouts.error', ['fieldName' => 'count'])
-            <input type="text" name="count" id="count" style="display: block"
-                   value="@isset($product){{ $product->count }}@endisset">
-
             <label for="description">@lang('main.table_form.description'):</label>
             @include('layouts.error', ['fieldName' => 'description'])
             <textarea name="description" id="description" cols="50" rows="5" style="display: block"
@@ -78,6 +69,20 @@
 
             <label for="image">@lang('main.table_form.image'):</label>
             <input type="file" name="image" id="image" style="display: block" value="Upload">
+
+            <label for="property">@lang('main.table_form.properties'):</label>
+            @include('layouts.error', ['fieldName' => 'property'])
+            <select name="property_id[]" id="property" style="display: block" multiple>
+                @foreach($properties as $property)
+                    <option value="{{ $property->id }}"
+                        @isset($product)
+                            @if($product->properties->contains($property->id))
+                                selected
+                            @endif
+                        @endisset
+                    >{{ $property->__('name') }}</option>
+                @endforeach
+            </select>
 
             @foreach(['hit' => 'Top sale', 'new' => 'NEW', 'recommend' => 'Recommended'] as $field => $title)
                 <label for="{{ $field }}">@lang('main.filter.'.$field)</label>

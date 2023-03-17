@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\MainController as MainC;
 
 use App\Http\Controllers\Auth\LoginController as LoginC;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\CategoryController as CatC;
 use App\Http\Controllers\Admin\ProductController as ProdC;
 use App\Http\Controllers\Admin\PropertyController as PropC;
 use App\Http\Controllers\Admin\PropertyOptionController as PropOpC;
+use App\Http\Controllers\Admin\SkuController as SkuC;
 
 use App\Http\Controllers\ResetController as ResetC;
 
@@ -61,6 +63,7 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
 
             Route::resource(name: 'categories', controller: CatC::class);
             Route::resource(name: 'products', controller: ProdC::class);
+            Route::resource(name: 'products/{product}/skus', controller: SkuC::class);
             Route::resource(name: 'properties', controller: PropC::class);
             Route::resource(name: 'properties/{property}/property-options', controller: PropOpC::class);
         });

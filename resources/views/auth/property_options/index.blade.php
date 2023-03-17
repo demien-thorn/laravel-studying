@@ -3,14 +3,13 @@
 @section('title', __('main.titles.property_options'))
 
 @section('content')
-    <h3>@lang('main.titles.property_options')</h3>
+    <h3>@lang('main.titles.property_options') "{{ $property->__('name') }}"</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>@lang('main.table_form.property')</th>
                     <th>@lang('main.table_form.name')</th>
                     <th colspan="3">@lang('main.table_form.actions')</th>
                 </tr>
@@ -19,7 +18,6 @@
                 @foreach($propertyOptions as $propertyOption)
                     <tr>
                         <td>{{ $propertyOption->id }}</td>
-                        <td>{{ $property->__('name') }}</td>
                         <td>{{ $propertyOption->__('name') }}</td>
                         <td><a class="button_extra_small" href="{{ route(
                             name: 'property-options.show',

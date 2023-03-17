@@ -13,9 +13,8 @@
                 <th>@lang('main.table_form.code')</th>
                 <th>@lang('main.table_form.name')</th>
                 <th>@lang('main.table_form.category')</th>
-                <th>@lang('main.table_form.price')</th>
-                <th>@lang('main.table_form.quantity')</th>
-                <th colspan="3">@lang('main.table_form.actions')</th>
+                <th>@lang('main.table_form.sku_quantity')</th>
+                <th colspan="4">@lang('main.table_form.actions')</th>
             </tr>
             </thead>
             <tbody>
@@ -25,11 +24,15 @@
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->__('name') }}</td>
                     <td>{{ $product->category_id }}</td>
-                    <td>{{ $product->price }} {{ $currencySymbol }}</td>
-                    <td>{{ $product->count }} @lang('main.filter.pcs')</td>
+                    <td></td>
                     <td>
                         <a href="{{ route(name: 'products.show', parameters: $product) }}" class="button_extra_small">
                             @lang('main.buttons.open')
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ route(name: 'skus.index', parameters: $product) }}" class="button_extra_small">
+                            @lang('main.buttons.skus')
                         </a>
                     </td>
                     <td>
