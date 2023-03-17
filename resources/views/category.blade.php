@@ -1,6 +1,6 @@
 @extends('layouts.master', ['file' => 'category'])
 
-@section('title', 'Category '. $category->__('name'))
+@section('title', __('main.titles.category'). $category->__('name'))
 
 @section('content')
     <h3>{{ $category->__('name') }}</h3>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class ProductsTableSeeder extends Seeder
 {
     protected string $createdAt = '2023-03-01 12:00:00';
+
     /**
      * Run the database seeds.
      *

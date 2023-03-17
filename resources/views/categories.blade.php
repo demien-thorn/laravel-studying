@@ -1,6 +1,6 @@
 @extends('layouts.master', ['file' => 'categories'])
 
-@section('title', 'All categories')
+@section('title', __('main.titles.categories'))
 
 @section('content')
     <h3>@lang('main.nav.categories')</h3>

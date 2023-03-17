@@ -22,7 +22,7 @@ class BasketController extends Controller
         if ((new Basket())->saveOrder($request->name, $request->phone, $email)) {
             session()->flash(key: 'success', value: __(key:'basket.order_processed'));
         } else {
-            session()->flash(key: 'warning', value: 'Products are unavailable to order in this amount');
+            session()->flash(key: 'warning', value: __(key: 'main.notes.product_unavailable'));
         }
 
         return redirect()->route(route: 'index');
@@ -33,7 +33,7 @@ class BasketController extends Controller
         $basket = new Basket();
         $order = $basket->getOrder();
         if (!$basket->countAvailable()) {
-            session()->flash(key: 'warning', value: 'Products are unavailable to order in this amount');
+            session()->flash(key: 'warning', value: __(key: 'main.notes.product_unavailable'));
             return redirect()->route(route: 'basket');
         }
         return view(view: 'order', data: compact(var_name: 'order'));
@@ -43,9 +43,13 @@ class BasketController extends Controller
     {
         $result = (new Basket(createOrder: true))->addProduct($product);
         if ($result) {
-            session()->flash(key: 'success', value: 'Product added: "'.$product->name.'"');
+            session()->flash(
+                key: 'success',
+                value: __(key: 'main.notes.product_add').': "'.$product->name.'"');
         } else {
-            session()->flash(key: 'warning', value: 'You can\'t order " '.$product->name.'" in this amount');
+            session()->flash(
+                key: 'warning',
+                value: __(key: 'main.notes.cant_order').' "'.$product->name.'" '.__(key: 'main.notes.amount'));
         }
 
         return redirect()->route(route: 'basket');
@@ -54,7 +58,7 @@ class BasketController extends Controller
     public function basketRemove(Product $product)
     {
         (new Basket())->removeProduct($product);
-        session()->flash(key: 'warning', value: 'Product removed: '.$product->name);
+        session()->flash(key: 'warning', value: __(key: 'main.notes.product_removed').': "'.$product->name.'"');
         return redirect()->route(route: 'basket');
     }
 }

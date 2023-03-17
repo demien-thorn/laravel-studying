@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
-class ProductsFilterRequest extends FormRequest
+class PropertyOptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,11 @@ class ProductsFilterRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['price_from' => "string", 'price_to' => "string"])] public function rules()
+    #[ArrayShape(['name' => "string", 'name_ru' => "string"])] public function rules()
     {
         return [
-            'price_from' => 'nullable|numeric|min:0',
-            'price_to' => 'nullable|numeric|min:0'
+            'name' => 'required',
+            'name_ru' => 'required'
         ];
     }
 }

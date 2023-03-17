@@ -1,6 +1,6 @@
 @extends('layouts.master', ['file' => 'index'])
 
-@section('title', 'Main')
+@section('title', __('main.titles.main'))
 
 @section('content')
     <h3 class="pb-2 border-bottom">@lang('main.main.title')</h3>

@@ -47,6 +47,10 @@ class Basket
         return $this->order;
     }
 
+    /**
+     * @param false $updateCount
+     * @return bool
+     */
     public function countAvailable($updateCount = false)
     {
         $products = collect(value: []);
@@ -67,6 +71,12 @@ class Basket
         return true;
     }
 
+    /**
+     * @param $name - customer's name
+     * @param $phone - customer's phone
+     * @param $email - customer's email
+     * @return bool
+     */
     public function saveOrder($name, $phone, $email)
     {
         if (!$this->countAvailable(updateCount: true)) {
@@ -77,18 +87,27 @@ class Basket
         return true;
     }
 
+    /**
+     * Function removing a product from the basket
+     * @param Product $product
+     */
     public function removeProduct(Product $product)
     {
         if ($this->order->products->contains($product)) {
             $pivotRow = $this->order->products->where('id', $product->id)->first();
             if ($pivotRow->countInOrder < 2) {
-                $this->order->products->pop($product);
+                $this->order->products->pop($product->id);
             } else {
                 $pivotRow->countInOrder--;
             }
         }
     }
 
+    /**
+     * Function adding a product to the basket
+     * @param Product $product
+     * @return bool
+     */
     public function addProduct(Product $product)
     {
         if ($this->order->products->contains($product)) {

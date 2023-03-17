@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Orders')
+@admin
+    @section('title', __('main.titles.orders_admin'))
+@else
+    @section('title', __('main.titles.orders'))
+@endadmin
 
 @section('content')
     <h3>@lang('auth/orders/main.title')</h3>

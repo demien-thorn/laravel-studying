@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PropertyOption extends Model
@@ -12,17 +14,23 @@ class PropertyOption extends Model
     use HasFactory, SoftDeletes, Translatable;
 
     protected $fillable = [
-        'propery_option_id',
+        'property_id',
         'name',
-        'name_en',
+        'name_ru',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function property()
     {
         return $this->belongsTo(related: Property::class);
     }
 
     //TODO: check table name and fields
+    /**
+     * @return BelongsToMany
+     */
     public function skus()
     {
         return $this->belongsToMany(related: Sku::class);

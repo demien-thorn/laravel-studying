@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(table: 'property_options', callback: function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger(column: 'property_id');
-            $table->string(column: 'name');
-            $table->string(column: 'name_ru');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(table: 'property_options');
+        Schema::table('products', function (Blueprint $table) {
+            //
+        });
     }
 };

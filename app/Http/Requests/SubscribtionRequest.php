@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class SubscribtionRequest extends FormRequest
 {
@@ -21,14 +22,14 @@ class SubscribtionRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    #[ArrayShape(['email' => "string"])] public function rules()
     {
         return [
             'email' => 'required|email'
         ];
     }
 
-    public function messages()
+    #[ArrayShape(['email' => "string"])] public function messages()
     {
         return [
             'email' => 'E-mail field must contain a specific e-mail address'

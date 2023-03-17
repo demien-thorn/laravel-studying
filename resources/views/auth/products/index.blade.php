@@ -1,21 +1,21 @@
 @extends('layouts.master')
 
-@section('title', 'Товары')
+@section('title', __('main.titles.products_a'))
 
 @section('content')
-    <h3>@lang('auth/products/main.title')</h3>
+    <h3>@lang('main.titles.products_a')</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
             <tr>
                 <th>#</th>
-                <th>@lang('auth/products/main.code')</th>
-                <th>@lang('auth/products/main.name')</th>
-                <th>@lang('auth/products/main.category')</th>
-                <th>@lang('auth/products/main.price')</th>
-                <th>@lang('auth/products/main.quantity')</th>
-                <th colspan="3">@lang('auth/products/main.actions')</th>
+                <th>@lang('main.table_form.code')</th>
+                <th>@lang('main.table_form.name')</th>
+                <th>@lang('main.table_form.category')</th>
+                <th>@lang('main.table_form.price')</th>
+                <th>@lang('main.table_form.quantity')</th>
+                <th colspan="3">@lang('main.table_form.actions')</th>
             </tr>
             </thead>
             <tbody>
@@ -46,11 +46,9 @@
                     </td>
                 </tr>
             @endforeach
-            <tr>
-                <td colspan="9">
-                    <a href="{{ route(name: 'products.create') }}" class="ordering">@lang('auth/products/main.add')</a>
-                </td>
-            </tr>
+            <tr><td colspan="9"><a href="{{ route(name: 'products.create') }}" class="ordering">
+                @lang('main.table_form.add_product')
+            </a></td></tr>
             </tbody>
         </table>
         {{ $products->links('pagination::bootstrap-5') }}

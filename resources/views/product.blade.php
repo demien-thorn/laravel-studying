@@ -1,6 +1,6 @@
 @extends('layouts.master', ['file' => 'product'])
 
-@section('title', 'Product')
+@section('title', __('main.titles.product'))
 
 @section('content')
     <h3>{{ $product->__('name') }}</h3>

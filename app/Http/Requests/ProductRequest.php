@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ProductRequest extends FormRequest
 {
@@ -21,7 +22,13 @@ class ProductRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    #[ArrayShape([
+        'code' => "string",
+        'name' => "string",
+        'price' => "string",
+        'count' => "string",
+        'description' => "string"
+    ])] public function rules()
     {
         $rules = [
             'code' => 'required|min:3|max:25',
@@ -38,7 +45,7 @@ class ProductRequest extends FormRequest
         return $rules;
     }
 
-    public function messages()
+    #[ArrayShape(['required' => "string", 'min' => "string", 'code.min' => "string"])] public function messages()
     {
         return [
             'required' => 'The ":attribute" field is required',

@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'Categories')
+@section('title', __('main.titles.categories'))
 
 @section('content')
-    <h3>@lang('auth/categories/main.title')</h3>
+    <h3>@lang('main.titles.categories')</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>@lang('auth/categories/main.code')</th>
-                    <th>@lang('auth/categories/main.name')</th>
-                    <th colspan="3">@lang('auth/categories/main.actions')</th>
+                    <th>@lang('main.table_form.code')</th>
+                    <th>@lang('main.table_form.name')</th>
+                    <th colspan="3">@lang('main.table_form.actions')</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
                 <tr>
                     <td colspan="6">
                         <a href="{{ route(name: 'categories.create') }}" class="ordering">
-                            @lang('auth/categories/main.add')
+                            @lang('main.table_form.add_category')
                         </a>
                     </td>
                 </tr>

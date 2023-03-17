@@ -6,7 +6,7 @@
         <meta name="description" content="Demien site>">
         <meta name="keywords" content="k>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@lang('main.e_shop'): @yield('title')</title>
+        <title>@lang('main.titles.e_shop'): @yield('title')</title>
 
         <link href="/css/style.css" rel="stylesheet"> {{--Common CSS files--}}
 
@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="{{ route(name: 'index') }}"
-                       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-4">
                         <i class="fa-solid fa-house"></i>
                         @lang('main.nav.main')
@@ -34,46 +34,41 @@
                     </a>
 
                     <ul class="nav nav-pills mb-auto col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                        <li>
-                            <a href="{{ route(name: 'categories') }}"
-                               class="nav-link @routeactive('categories')" aria-current="page">
-                                <i class="fa-solid fa-bars"></i>
-                                @lang('main.nav.categories')
-                            </a>
-                        </li>
+                        <li><a href="{{ route(name: 'categories') }}"
+                            class="nav-link @routeactive('categories')" aria-current="page">
+                            <i class="fa-solid fa-bars"></i>
+                            @lang('main.nav.categories')
+                        </a></li>
                         @admin
-                        <li>
-                            <a href="{{ route(name: 'categories.index') }}"
-                               class="nav-link @routeactive('categories.index')" aria-current="page">
-                                <i class="fa-solid fa-bars"></i>
-                                @lang('main.nav.categories') (A)
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route(name: 'products.index') }}"
-                               class="nav-link @routeactive('products.index')" aria-current="page">
-                                <i class="fa-brands fa-apple"></i>
-                                @lang('main.nav.products') (A)
-                            </a>
-                        </li>
+                        <li><a href="{{ route(name: 'categories.index') }}"
+                            class="nav-link @routeactive('categories.index')" aria-current="page">
+                            <i class="fa-solid fa-bars"></i>
+                            @lang('main.nav.categories') (A)
+                        </a></li>
+                        <li><a href="{{ route(name: 'products.index') }}"
+                            class="nav-link @routeactive('products.index')" aria-current="page">
+                            <i class="fa-brands fa-apple"></i>
+                            @lang('main.nav.products') (A)
+                        </a></li>
+                        <li><a href="{{ route(name: 'properties.index') }}"
+                            class="nav-link @routeactive('propert*')" aria-current="page">
+                            <i class="fa-solid fa-list-check"></i>
+                            @lang('main.nav.properties')
+                        </a></li>
                         @endadmin
-                        <li>
-                            <a href="{{ route(name: 'basket') }}"
-                               class="nav-link @routeactive('basket*')" aria-current="page">
-                                <i class="fa-solid fa-basket-shopping"></i>
-                                @lang('main.nav.basket')
-                            </a>
-                        </li>
+                        <li><a href="{{ route(name: 'basket') }}"
+                            class="nav-link @routeactive('basket*')" aria-current="page">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                            @lang('main.nav.basket')
+                        </a></li>
                         @auth
                             @admin
                         @else
-                            <li>
-                                <a href="{{ route(name: 'person.orders.index') }}"
-                                   class="nav-link @routeactive('person.orders.index')" aria-current="page">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    @lang('main.nav.orders')
-                                </a>
-                            </li>
+                            <li><a href="{{ route(name: 'person.orders.index') }}"
+                                class="nav-link @routeactive('person.orders.index')" aria-current="page">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                @lang('main.nav.orders')
+                            </a></li>
                             @endadmin
                         @endauth
                     </ul>
@@ -97,12 +92,10 @@
                         </span>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                             @foreach($currencies as $currency)
-                                <li>
-                                    <a href="{{ route(name: 'currency', parameters: $currency->code) }}"
-                                       class="dropdown-item">
-                                        <span class="menu-space">{{ $currency->code.' '.$currency->symbol }}</span>
-                                    </a>
-                                </li>
+                                <li><a href="{{ route(name: 'currency', parameters: $currency->code) }}"
+                                    class="dropdown-item">
+                                    <span class="menu-space">{{ $currency->code.' '.$currency->symbol }}</span>
+                                </a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -136,7 +129,7 @@
                     @guest
                         <a href="{{ route(name: 'login') }}" type="button" class="btn btn-light text-dark me-2">
                             <i class="fa-solid fa-right-to-bracket"></i>
-                            @lang('main.nav.authorize')
+                            @lang('main.nav.auth')
                         </a>
                         <a href="{{ route(name: 'register') }}" type="button" class="btn btn-primary">
                             <i class="fa-solid fa-id-card"></i>
@@ -176,12 +169,10 @@
                 <h5>@lang('main.nav.categories')</h5>
                 <ul class="nav flex-column">
                     @foreach($categories as $category)
-                        <li class="nav-item mb-2">
-                            <a href="{{ route(name: 'category', parameters: $category->code) }}"
-                               class="nav-link p-0 text-white">
-                                {{ $category->__('name') }}
-                            </a>
-                        </li>
+                        <li class="nav-item mb-2"><a href="{{ route(name: 'category', parameters: $category->code) }}"
+                            class="nav-link p-0 text-white">
+                            {{ $category->__('name') }}
+                        </a></li>
                     @endforeach
                 </ul>
             </div>
@@ -191,11 +182,11 @@
                 <ul class="nav flex-column">
                     @foreach($bestProducts as $bestProduct)
                         <li class="nav-item mb-2">
-                            <a href="{{ route(
-                               name: 'product',
-                               parameters: [$bestProduct->category->code, $bestProduct->code]) }}"
-                               class="nav-link p-0 text-white">
-                                {{ $bestProduct->name }}
+                            <a class="nav-link p-0 text-white"
+                                href="{{ route(
+                                    name: 'product',
+                                    parameters: [$bestProduct->category->code, $bestProduct->code]) }}">
+                                {{ $bestProduct->__('name') }}
                             </a>
                         </li>
                     @endforeach

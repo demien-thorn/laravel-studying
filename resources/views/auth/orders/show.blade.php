@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Order #'.$order->id)
+@section('title', __('main.titles.order').'#'.$order->id)
 
 @section('content')
     <h3>@lang('auth/orders/show.title') #{{ $order->id }}</h3>
