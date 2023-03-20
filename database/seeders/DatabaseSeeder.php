@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(class: ProductsTableSeeder::class);
         $this->call(class: CurrencySeeder::class);
 
-        $this->call(class: OrdersTableSeeder::class);
-        $this->call(class: OrderProductTableSeeder::class);
         $this->call(class: PropertiesTableSeeder::class);
         $this->call(class: PropertyOptionsTableSeeder::class);
     }

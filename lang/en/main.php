@@ -95,10 +95,10 @@ return [
 
     'notes' => [
         'basket_empty' => 'Your basket is empty!',
-        'product_add' => 'Product added',
-        'product_removed' => 'Product removed',
-        'product_unavailable' => 'Products are unavailable to order in this amount',
-        'cant_order' => 'You can\'t order',
+        'add' => 'Product added',
+        'removed' => 'Product removed',
+        'unavailable' => 'Products are unavailable to order in this amount',
+        'order' => 'You can\'t order',
         'amount' => 'in this amount',
     ],
 

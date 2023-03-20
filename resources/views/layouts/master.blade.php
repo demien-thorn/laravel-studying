@@ -180,13 +180,17 @@
             <div class="col mb-3">
                 <h5>@lang('main.others.top_selling')!</h5>
                 <ul class="nav flex-column">
-                    @foreach($bestProducts as $bestProduct)
+                    @foreach($bestSkus as $bestSku)
                         <li class="nav-item mb-2">
                             <a class="nav-link p-0 text-white"
                                 href="{{ route(
-                                    name: 'product',
-                                    parameters: [$bestProduct->category->code, $bestProduct->code]) }}">
-                                {{ $bestProduct->__('name') }}
+                                    name: 'sku',
+                                    parameters: [
+                                        $bestSku->product->category->code,
+                                        $bestSku->product->code,
+                                        $bestSku
+                                    ]) }}">
+                                {{ $bestSku->product->__('name') }}
                             </a>
                         </li>
                     @endforeach

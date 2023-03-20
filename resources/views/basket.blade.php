@@ -17,32 +17,34 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($order->products as $product)
+            @foreach($order->skus as $sku)
                 <tr>
                     <td>
-                        <img src="{{ Storage::url(path: $product->image) }}" alt="" width="50px">
+                        <img src="{{ Storage::url(path: $sku->product->image) }}" alt="" width="50px">
                     </td>
                     <td>
-                        <a href="{{ route(name: 'product', parameters: [$product->category->code, $product->code]) }}">
-                            {{ $product->__('name') }}
+                        <a href="{{ route(
+                            name: 'sku',
+                            parameters: [$sku->product->category->code, $sku->product->code, $sku]) }}">
+                            {{ $sku->product->__('name') }}
                         </a>
                     </td>
                     <td>
                         <div class="form-inline">
-                            <span class="count-goods">{{ $product->countInOrder }}</span>
-                            <form action="{{ route(name: 'basket-remove', parameters: $product) }}" method="post">
+                            <span class="count-goods">{{ $sku->countInOrder }}</span>
+                            <form action="{{ route(name: 'basket-remove', parameters: $sku) }}" method="post">
                                 <button type="submit" class="button-minus">-</button>
                                 @csrf
                             </form>
-                            <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
+                            <form action="{{ route(name: 'basket-add', parameters: $sku) }}" method="post">
                                 <button type="submit" class="button-plus">+</button>
                                 @csrf
                             </form>
                         </div>
                     </td>
-                    <td>{{ $product->price }} {{ $currencySymbol }}</td>
+                    <td>{{ $sku->price }} {{ $currencySymbol }}</td>
                     <td>
-                        {{ $product->price * $product->countInOrder }}
+                        {{ $sku->price * $sku->countInOrder }}
                         {{ $currencySymbol }}
                     </td>
                 </tr>

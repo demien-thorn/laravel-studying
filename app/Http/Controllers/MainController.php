@@ -7,8 +7,13 @@ use App\Http\Requests\SubscribtionRequest;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
+use App\Models\Sku;
 use App\Models\Subscription;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -18,25 +23,27 @@ class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request)
     {
-        $productsQuery = Product::with(relations: 'category');
+        $skusQuery = Sku::with(relations: ['product', 'product.category']);
 
         if ($request->filled(key: 'price_from')) {
-            $productsQuery->where(column: 'price', operator: '>=', value: $request->price_from);
+            $skusQuery->where(column: 'price', operator: '>=', value: $request->price_from);
         }
 
         if ($request->filled(key: 'price_to')) {
-            $productsQuery->where(column: 'price', operator: '<=', value: $request->price_to);
+            $skusQuery->where(column: 'price', operator: '<=', value: $request->price_to);
         }
 
         foreach (['hit', 'new', 'recommend'] as $field) {
             if ($request->has(key: $field)) {
-                $productsQuery->$field();
+                $skusQuery->whereHas(relation: 'product', callback: function ($query) use ($field) {
+                    $query->$field();
+                });
             }
         }
 
-        $products = $productsQuery->paginate(perPage: 6)->withPath("?".$request->getQueryString());
+        $skus = $skusQuery->paginate(perPage: 6)->withPath("?".$request->getQueryString());
 
-        return view(view: 'index', data: compact(var_name: 'products'));
+        return view(view: 'index', data: compact(var_name: 'skus'));
     }
 
     public function categories()
@@ -50,17 +57,34 @@ class MainController extends Controller
         return view(view: 'category', data: compact(var_name: 'category'));
     }
 
-    public function product($category, $productCode)
+    /**
+     * @param $categoryCode
+     * @param $productCode
+     * @param Sku $skus
+     * @return Application|Factory|View
+     */
+    public function sku($categoryCode, $productCode, Sku $skus)
     {
-        $product = Product::withTrashed()->byCode($productCode)->firstOrFail();
-        return view(view: 'product', data: compact(var_name: 'product'));
+        if ($skus->product->code != $productCode) {
+            abort(code: 404, message: 'Product not found');
+        }
+        if ($skus->product->category->code != $categoryCode) {
+            abort(code: 404, message: 'Category not found');
+        }
+
+        return view(view: 'product', data: compact(var_name: 'skus'));
     }
 
-    public function subscribe(SubscribtionRequest $request, Product $product)
+    /**
+     * @param SubscribtionRequest $request
+     * @param Sku $skus
+     * @return RedirectResponse
+     */
+    public function subscribe(SubscribtionRequest $request, Sku $skus)
     {
         Subscription::create([
             'email' => $request->email,
-            'product_id' => $product->id,
+            'sku_id' => $skus->id,
         ]);
 
         return redirect()->back()->with(key: 'success', value: 'Thank you! We\'ll inform you');

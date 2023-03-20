@@ -1,39 +1,48 @@
 <div class="feature col content-section">
     <div class="lables-section">
-        @if($product->isNew())
+        @if($sku->product->isNew())
             <div class="label new-label">@lang('main.filter.new')</div>
         @endif
-        @if($product->isHit())
+        @if($sku->product->isHit())
             <div class="label top-sale-label">@lang('main.filter.hit')</div>
         @endif
-        @if($product->isRecommend())
+        @if($sku->product->isRecommend())
             <div class="label recommended-label">@lang('main.filter.recommend')</div>
         @endif
     </div>
 
     <div class="d-inline-flex align-items-center justify-content-center fs-2 mb-3">
-        <img src="{{ Storage::url(path: $product->image) }}" alt="" width="200px">
+        <img src="{{ Storage::url(path: $sku->product->image) }}" alt="" width="200px">
     </div>
 
-    <h3 class="fs-2">{{ $product->__('name') }}</h3>
+    <h3 class="fs-2">{{ $sku->product->__('name') }}</h3>
 
-    <p>@lang('card.price') {{ $product->price }} {{ $currencySymbol }}</p>
-        <form action="{{ route(name: 'basket-add', parameters: $product) }}" method="post">
-            @csrf
-            @if($product->isAvailable())
-                <button type="submit" role="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
-                    @lang('main.buttons.basket')
-                </button>
-            @else
-                <button disabled class="btn btn-outline-secondary btn-lg px-4">
-                    @lang('main.buttons.unavailable')
-                </button>
-            @endif
-            <a role="button" class="btn btn-outline-secondary btn-lg px-4"
-                href="{{ route(
-                    name: 'product',
-                    parameters: [isset($category) ? $category->code : $product->category->code, $product->code]) }}">
-                @lang('main.buttons.more')
-            </a>
-        </form>
+    @isset($sku->product->properties)
+        @foreach($sku->propertyOptions as $propertyOption)
+            <h6>{{ $propertyOption->property->__('name') }}: {{ $propertyOption->__('name') }}</h6>
+        @endforeach
+    @endisset
+
+    <p>@lang('card.price') {{ $sku->price }} {{ $currencySymbol }}</p>
+
+    <form action="{{ route(name: 'basket-add', parameters: $sku) }}" method="post">
+        @csrf
+        @if($sku->isAvailable())
+            <button type="submit" role="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
+                @lang('main.buttons.basket')
+            </button>
+        @else
+            <button disabled class="btn btn-outline-secondary btn-lg px-4">
+                @lang('main.buttons.unavailable')
+            </button>
+        @endif
+        <a role="button" class="btn btn-outline-secondary btn-lg px-4"
+            href="{{ route(
+                name: 'sku',
+                parameters: [isset($category)
+                    ? $category->code
+                    : $sku->product->category->code, $sku->product->code, $sku->id]) }}">
+            @lang('main.buttons.more')
+        </a>
+    </form>
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -15,13 +16,13 @@ class OrderController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(middleware: 'auth');
     }
 
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
@@ -31,7 +32,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $products = $order->products()->withTrashed()->get();
-        return view(view: 'auth.orders.show', data: compact('order', 'products'));
+        $skus = $order->skus()->withTrashed()->get();
+        return view(view: 'auth.orders.show', data: compact('order', 'skus'));
     }
 }

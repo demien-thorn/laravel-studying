@@ -36,7 +36,7 @@ use App\Models\Category;
 
 
 Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
-    Auth::routes(['reset' => false, 'confirm' => false, 'verify' => false]);
+    Auth::routes(options: ['reset' => false, 'confirm' => false, 'verify' => false]);
 
     Route::get(uri: 'locale/{locale}', action: [MainC::class, 'changeLocale'])->name(name: 'locale');
     Route::get(uri: 'currency/{currencyCode}', action: [MainC::class, 'changeCurrency'])->name(name: 'currency');
@@ -71,23 +71,23 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
 
     Route::get(uri: '/', action: [MainC::class, 'index'])->name(name: 'index');
     Route::get(uri: '/categories', action: [MainC::class, 'categories'])->name(name: 'categories');
-    Route::post(uri: 'subscription/{product}', action: [MainC::class, 'subscribe'])->name(name: 'subscription');
+    Route::post(uri: 'subscription/{skus}', action: [MainC::class, 'subscribe'])->name(name: 'subscription');
 
     Route::group(
         attributes: ['prefix' => 'basket'],
         routes: function () {
-        Route::post(uri: '/add/{product}', action: [BasketC::class, 'basketAdd'])->name(name: 'basket-add');
+        Route::post(uri: '/add/{skus}', action: [BasketC::class, 'basketAdd'])->name(name: 'basket-add');
 
         Route::group(
             attributes: ['middleware' => 'basket_not_empty'],
             routes: function () {
             Route::get(uri: '/', action: [BasketC::class, 'basket'])->name(name: 'basket');
             Route::get(uri: '/place', action: [BasketC::class, 'basketPlace'])->name(name: 'basket-place');
-            Route::post(uri: '/remove/{product}', action:[BasketC::class, 'basketRemove'])->name(name: 'basket-remove');
+            Route::post(uri: '/remove/{skus}', action:[BasketC::class, 'basketRemove'])->name(name: 'basket-remove');
             Route::post(uri: '/place', action: [BasketC::class, 'basketConfirm'])->name(name: 'basket-confirm');
         });
     });
 
     Route::get(uri: '/{category}', action: [MainC::class, 'category'])->name(name: 'category');
-    Route::get(uri: '/{category?}/{product?}', action: [MainC::class, 'product'])->name(name: 'product');
+    Route::get(uri: '/{category}/{product}/{skus}', action: [MainC::class, 'sku'])->name(name: 'sku');
 });

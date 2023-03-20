@@ -17,36 +17,36 @@ class Subscription extends Model
      */
     protected $fillable = [
         'email',
-        'product_id'
+        'sku_id'
     ];
 
     /**
      * @param $query
-     * @param $productId
+     * @param $skuId
      * @return mixed
      */
-    public function scopeActiveByProductId($query, $productId)
+    public function scopeActiveBySkuId($query, $skuId)
     {
-        return $query->where('status', 0)->where('product_id', $productId);
+        return $query->where('status', 0)->where('sku_id', $skuId);
     }
 
     /**
      * @return BelongsTo
      */
-    public function product()
+    public function sku()
     {
-        return $this->belongsTo(related: Product::class);
+        return $this->belongsTo(related: Sku::class);
     }
 
     /**
-     * @param Product $product
+     * @param Sku $sku
      */
-    public static function sendEmailsBySubscription(Product $product)
+    public static function sendEmailsBySubscription(Sku $sku)
     {
-        $subscriptions = self::activeByProductId($product->id)->get();
+        $subscriptions = self::activeBySkuId($sku->id)->get();
 
         foreach ($subscriptions as $subscription) {
-            Mail::to(users: $subscription->email)->send(mailable: new SendSubscriptionMessage($product));
+            Mail::to(users: $subscription->email)->send(mailable: new SendSubscriptionMessage(sku: $sku));
             $subscription->status = 1;
             $subscription->save();
         }

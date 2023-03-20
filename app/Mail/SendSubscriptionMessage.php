@@ -2,26 +2,27 @@
 
 namespace App\Mail;
 
-use App\Models\Product;
+use App\Models\Sku;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use JetBrains\PhpStorm\Pure;
 
 class SendSubscriptionMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected Product $product;
+    protected Sku $sku;
 
     /**
      * SendSubscriptionMessage constructor.
-     * @param Product $product
+     * @param Sku $sku
      */
-    public function __construct(Product $product)
+    public function __construct(Sku $sku)
     {
-        $this->product = $product;
+        $this->sku = $sku;
     }
 
     /**
@@ -41,11 +42,11 @@ class SendSubscriptionMessage extends Mailable
      *
      * @return Content
      */
-    public function content()
+    #[Pure] public function content()
     {
         return new Content(
             view: 'mail.subscription',
-            with: ['product' => $this->product]
+            with: ['sku' => $this->sku]
         );
     }
 

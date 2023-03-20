@@ -7,23 +7,25 @@
 
 <table>
     <tbody>
-    @foreach($order->products as $product)
+    @foreach($order->skus as $sku)
         <tr>
             <td>
-                <img src="{{ Storage::url(path: $product->image) }}" alt="" width="50px">
+                <img src="{{ Storage::url(path: $sku->product->image) }}" alt="" width="50px">
             </td>
             <td>
-                <a href="{{ route(name: 'product', parameters: [$product->category->code, $product->code]) }}">
-                    {{ $product->__('name') }}
+                <a href="{{ route(
+                    name: 'sku',
+                    parameters: [$sku->product->category->code, $sku->product->code, $sku]) }}">
+                    {{ $sku->product->__('name') }}
                 </a>
             </td>
             <td>
                 <div class="form-inline">
-                    <span class="count-goods">{{ $product->countInOrder }}</span>
+                    <span class="count-goods">{{ $sku->countInOrder }}</span>
                 </div>
             </td>
-            <td>{{ $product->price }} {{ $currencySymbol }}</td>
-            <td>{{ $product->getPriceForCount() }} {{ $currencySymbol }}</td>
+            <td>{{ $sku->price }} {{ $currencySymbol }}</td>
+            <td>{{ $sku->getPriceForCount() }} {{ $currencySymbol }}</td>
         </tr>
     @endforeach
     </tbody>

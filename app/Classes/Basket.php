@@ -5,7 +5,7 @@ namespace App\Classes;
 
 use App\Mail\OrderCreated;
 use App\Models\Order;
-use App\Models\Product;
+use App\Models\Sku;
 use App\Services\CurrencyConversion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -21,9 +21,6 @@ class Basket
     public function __construct($createOrder = false)
     {
         $order = session(key: 'order');
-//        $order->currency_id = CurrencyConversion::getCurrentCurrencyFromSession()->id;
-//        session(['order' => $order]);
-//        dd($order);
 
         if (is_null(value: $order) && $createOrder) {
             $data = [];
@@ -32,7 +29,7 @@ class Basket
             }
             $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession()->id;
 
-            $this->order = new Order($data);
+            $this->order = new Order(attributes: $data);
             session(key: ['order' => $this->order]);
         } else {
             $this->order = $order;
@@ -53,20 +50,20 @@ class Basket
      */
     public function countAvailable($updateCount = false)
     {
-        $products = collect(value: []);
-        foreach ($this->order->products as $orderProduct) {
-            $product = Product::find($orderProduct->id);
-            if ($orderProduct->countInOrder > $product->count) {
+        $skus = collect(value: []);
+        foreach ($this->order->skus as $orderSku) {
+            $sku = Sku::find($orderSku->id);
+            if ($orderSku->countInOrder > $sku->count) {
                 return false;
             }
             if ($updateCount) {
-                $product->count -= $orderProduct->countInOrder;
-                $products->push(values: $product);
+                $sku->count -= $orderSku->countInOrder;
+                $skus->push(values: $sku);
             }
         }
 
         if ($updateCount) {
-            $products->map->save();
+            $skus->map->save();
         }
         return true;
     }
@@ -82,21 +79,21 @@ class Basket
         if (!$this->countAvailable(updateCount: true)) {
             return false;
         }
-        $this->order->saveOrder($name, $phone);
-        Mail::to($email)->send(new OrderCreated($name, $this->getOrder()));
+        $this->order->saveOrder(name: $name, phone: $phone);
+        Mail::to(users: $email)->send(mailable: new OrderCreated(name: $name, order: $this->getOrder()));
         return true;
     }
 
     /**
      * Function removing a product from the basket
-     * @param Product $product
+     * @param Sku $sku
      */
-    public function removeProduct(Product $product)
+    public function removeSku(Sku $sku)
     {
-        if ($this->order->products->contains($product)) {
-            $pivotRow = $this->order->products->where('id', $product->id)->first();
+        if ($this->order->skus->contains($sku)) {
+            $pivotRow = $this->order->skus->where('id', $sku->id)->first();
             if ($pivotRow->countInOrder < 2) {
-                $this->order->products->pop($product->id);
+                $this->order->skus->pop($sku->id);
             } else {
                 $pivotRow->countInOrder--;
             }
@@ -105,23 +102,23 @@ class Basket
 
     /**
      * Function adding a product to the basket
-     * @param Product $product
+     * @param Sku $sku
      * @return bool
      */
-    public function addProduct(Product $product)
+    public function addSku(Sku $sku)
     {
-        if ($this->order->products->contains($product)) {
-            $pivotRow = $this->order->products->where('id', $product->id)->first();
-            if ($pivotRow->countInOrder >= $product->count) {
+        if ($this->order->skus->contains($sku)) {
+            $pivotRow = $this->order->skus->where('id', $sku->id)->first();
+            if ($pivotRow->countInOrder >= $sku->count) {
                 return false;
             }
             $pivotRow->countInOrder++;
         } else {
-            if ($product->count == 0) {
+            if ($sku->count == 0) {
                 return false;
             }
-            $product->countInOrder = 1;
-            $this->order->products->push($product);
+            $sku->countInOrder = 1;
+            $this->order->skus->push($sku);
         }
 
         return true;
