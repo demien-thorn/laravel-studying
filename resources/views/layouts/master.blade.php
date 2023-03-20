@@ -6,7 +6,7 @@
         <meta name="description" content="Demien site>">
         <meta name="keywords" content="k>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@lang('main.titles.e_shop'): @yield('title')</title>
+        <title>@yield('title')</title>
 
         <link href="/css/style.css" rel="stylesheet"> {{--Common CSS files--}}
 
@@ -29,7 +29,7 @@
                         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-4">
                         <i class="fa-solid fa-house"></i>
-                        @lang('main.nav.main')
+                        @lang('nav.main')
                     </span>
                     </a>
 
@@ -37,29 +37,29 @@
                         <li><a href="{{ route(name: 'categories') }}"
                             class="nav-link @routeactive('categories')" aria-current="page">
                             <i class="fa-solid fa-bars"></i>
-                            @lang('main.nav.categories')
+                            @lang('nav.categories')
                         </a></li>
                         @admin
                         <li><a href="{{ route(name: 'categories.index') }}"
                             class="nav-link @routeactive('categories.index')" aria-current="page">
                             <i class="fa-solid fa-bars"></i>
-                            @lang('main.nav.categories') (A)
+                            @lang('nav.categories') (A)
                         </a></li>
                         <li><a href="{{ route(name: 'products.index') }}"
                             class="nav-link @routeactive('products.index')" aria-current="page">
                             <i class="fa-brands fa-apple"></i>
-                            @lang('main.nav.products') (A)
+                            @lang('nav.products') (A)
                         </a></li>
                         <li><a href="{{ route(name: 'properties.index') }}"
                             class="nav-link @routeactive('propert*')" aria-current="page">
                             <i class="fa-solid fa-list-check"></i>
-                            @lang('main.nav.properties')
+                            @lang('nav.properties')
                         </a></li>
                         @endadmin
                         <li><a href="{{ route(name: 'basket') }}"
                             class="nav-link @routeactive('basket*')" aria-current="page">
                             <i class="fa-solid fa-basket-shopping"></i>
-                            @lang('main.nav.basket')
+                            @lang('nav.basket')
                         </a></li>
                         @auth
                             @admin
@@ -67,7 +67,7 @@
                             <li><a href="{{ route(name: 'person.orders.index') }}"
                                 class="nav-link @routeactive('person.orders.index')" aria-current="page">
                                 <i class="fa-solid fa-cart-shopping"></i>
-                                @lang('main.nav.orders')
+                                @lang('nav.orders')
                             </a></li>
                             @endadmin
                         @endauth
@@ -108,32 +108,32 @@
                         @admin
                         <a href="{{ route(name: 'home') }}" type="button" class="btn btn-primary">
                             <i class="fa-solid fa-toolbox"></i>
-                            @lang('main.nav.admin')
+                            @lang('nav.admin')
                         </a>
 
                         <a href="{{ route(name: 'reset') }}" type="button" class="btn btn-light text-dark me-2">
                             <i class="fa-solid fa-backward-step"></i>
-                            @lang('main.nav.default')
+                            @lang('nav.default')
                         </a>
                     @else
                         <a href="{{ route(name: 'person.orders.index') }}" type="button" class="btn btn-primary">
                             <i class="fa-solid fa-cart-shopping"></i>
-                            @lang('main.nav.orders')
+                            @lang('nav.orders')
                         </a>
                         @endadmin
                         <a href="{{ route(name: 'get-logout') }}" type="button" class="btn btn-light text-dark me-2">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            @lang('main.nav.logout')
+                            @lang('nav.logout')
                         </a>
                     @endauth
                     @guest
                         <a href="{{ route(name: 'login') }}" type="button" class="btn btn-light text-dark me-2">
                             <i class="fa-solid fa-right-to-bracket"></i>
-                            @lang('main.nav.auth')
+                            @lang('nav.auth')
                         </a>
                         <a href="{{ route(name: 'register') }}" type="button" class="btn btn-primary">
                             <i class="fa-solid fa-id-card"></i>
-                            @lang('main.nav.register')
+                            @lang('nav.register')
                         </a>
                     @endguest
                 </div>
@@ -166,7 +166,7 @@
             <div class="col mb-3"></div>
 
             <div class="col mb-3">
-                <h5>@lang('main.nav.categories')</h5>
+                <h5>@lang('nav.categories')</h5>
                 <ul class="nav flex-column">
                     @foreach($categories as $category)
                         <li class="nav-item mb-2"><a href="{{ route(name: 'category', parameters: $category->code) }}"
@@ -178,7 +178,7 @@
             </div>
 
             <div class="col mb-3">
-                <h5>@lang('main.others.top_selling')!</h5>
+                <h5>@lang('main.main.top_selling')!</h5>
                 <ul class="nav flex-column">
                     @foreach($bestSkus as $bestSku)
                         <li class="nav-item mb-2">

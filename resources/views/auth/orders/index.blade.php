@@ -1,13 +1,17 @@
 @extends('layouts.master')
 
 @admin
-    @section('title', __('main.titles.orders_admin'))
+    @section('title', __('title.orders_admin'))
 @else
-    @section('title', __('main.titles.orders'))
+    @section('title', __('title.orders'))
 @endadmin
 
 @section('content')
-    <h3>@lang('auth/orders/main.title')</h3>
+    @admin
+        <h3>@lang('titles.orders_admin')</h3>
+    @else
+        <h3>@lang('titles.orders')</h3>
+    @endadmin
 
     <div class="content-main clearfix">
         <table class="order-table">
@@ -29,16 +33,14 @@
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->created_at->format('H:i, d M Y') }}</td>
                     <td>{{ $order->sum }} {{ $order->currency->symbol }}</td>
-                    <td>
-                        <a class="button_extra_small" type="button"
-                            @admin
-                                href="{{ route(name: 'orders.show', parameters: $order) }}"
-                            @else
-                                href="{{ route(name: 'person.orders.show', parameters: $order) }}"
-                            @endadmin>
-                            @lang('main.buttons.open')
-                        </a>
-                    </td>
+                    <td><a class="button_extra_small" type="button"
+                        @admin
+                            href="{{ route(name: 'orders.show', parameters: $order) }}"
+                        @else
+                            href="{{ route(name: 'person.orders.show', parameters: $order) }}"
+                        @endadmin>
+                        @lang('buttons.open')
+                    </a></td>
                 </tr>
             @endforeach
             </tbody>

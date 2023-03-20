@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', __('main.titles.product').' '.$product->__('name'))
+@section('title', __('title.product').': '.$product->__('name'))
 
 @section('content')
     <h3>{{ $product->__('name') }}</h3>
@@ -9,8 +9,8 @@
         <table class="order-table">
             <thead>
             <tr>
-                <th>@lang('main.table_form.field')</th>
-                <th>@lang('main.table_form.value')</th>
+                <th>@lang('form.field')</th>
+                <th>@lang('form.value')</th>
             </tr>
             </thead>
             <tbody>
@@ -19,41 +19,41 @@
                 <td>{{ $product->id }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.code')</td>
+                <td>@lang('form.code')</td>
                 <td>{{ $product->code }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.name')</td>
+                <td>@lang('form.name')</td>
                 <td>{{ $product->name }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.name_ru')</td>
+                <td>@lang('form.name_ru')</td>
                 <td>{{ $product->name_ru }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.category')</td>
+                <td>@lang('form.category')</td>
                 <td>{{ $product->category_id }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.sku_quantity')</td>
+                <td>@lang('form.sku_quantity')</td>
                 <td></td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.description')</td>
+                <td>@lang('form.description')</td>
                 <td>{{ $product->description }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.description_ru')</td>
+                <td>@lang('form.description_ru')</td>
                 <td>{{ $product->description_ru }}</td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.image')</td>
+                <td>@lang('form.image')</td>
                 <td>
                     <img src="{{ Storage::url(path: $product->image) }}" alt="" height="200">
                 </td>
             </tr>
             <tr>
-                <td>@lang('main.table_form.lables')</td>
+                <td>@lang('form.lables')</td>
                 <td>
                     @if($product->isNew())
                         <div class="label new-label">@lang('main.filter.new')</div>

@@ -23,17 +23,17 @@
         @endforeach
     @endisset
 
-    <p>@lang('card.price') {{ $sku->price }} {{ $currencySymbol }}</p>
+    <p>@lang('form.price'): {{ $sku->price }} {{ $currencySymbol }}</p>
 
     <form action="{{ route(name: 'basket-add', parameters: $sku) }}" method="post">
         @csrf
         @if($sku->isAvailable())
             <button type="submit" role="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
-                @lang('main.buttons.basket')
+                @lang('buttons.basket')
             </button>
         @else
             <button disabled class="btn btn-outline-secondary btn-lg px-4">
-                @lang('main.buttons.unavailable')
+                @lang('buttons.unavailable')
             </button>
         @endif
         <a role="button" class="btn btn-outline-secondary btn-lg px-4"
@@ -42,7 +42,7 @@
                 parameters: [isset($category)
                     ? $category->code
                     : $sku->product->category->code, $sku->product->code, $sku->id]) }}">
-            @lang('main.buttons.more')
+            @lang('buttons.more')
         </a>
     </form>
 </div>

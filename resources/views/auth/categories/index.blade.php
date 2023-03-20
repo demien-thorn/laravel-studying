@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
-@section('title', __('main.titles.categories'))
+@section('title', __('title.categories'))
 
 @section('content')
-    <h3>@lang('main.titles.categories')</h3>
+    <h3>@lang('titles.categories')</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>@lang('main.table_form.code')</th>
-                    <th>@lang('main.table_form.name')</th>
-                    <th colspan="3">@lang('main.table_form.actions')</th>
+                    <th>@lang('form.code')</th>
+                    <th>@lang('form.name')</th>
+                    <th colspan="3">@lang('form.actions')</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,36 +21,23 @@
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->code }}</td>
                         <td>{{ $category->__('name') }}</td>
-                        <td>
-                            <a
-                                href="{{ route(name: 'categories.show', parameters: $category) }}"
-                                class="button_extra_small">
-                                @lang('main.buttons.open')
-                            </a>
-                        </td>
-                        <td>
-                            <a
-                                href="{{ route(name: 'categories.edit', parameters: $category) }}"
-                                class="button_extra_small">
-                                @lang('main.buttons.edit')
-                            </a>
-                        </td>
-                        <td>
-                            <form action="{{ route(name: 'categories.destroy', parameters: $category) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" value="@lang('main.buttons.delete')" class="button_extra_small">
-                            </form>
-                        </td>
+                        <td><a class="button_extra_small"
+                            href="{{ route(name: 'categories.show', parameters: $category) }}">
+                            @lang('buttons.open')
+                        </a></td>
+                        <td><a class="button_extra_small"
+                            href="{{ route(name: 'categories.edit', parameters: $category) }}">
+                            @lang('buttons.edit')
+                        </a></td>
+                        <td><form action="{{ route(name: 'categories.destroy', parameters: $category) }}" method="post">
+                            @csrf @method('DELETE')
+                            <input type="submit" value="@lang('buttons.delete')" class="button_extra_small">
+                        </form></td>
                     </tr>
                 @endforeach
-                <tr>
-                    <td colspan="6">
-                        <a href="{{ route(name: 'categories.create') }}" class="ordering">
-                            @lang('main.table_form.add_category')
-                        </a>
-                    </td>
-                </tr>
+                <tr><td colspan="6"><a href="{{ route(name: 'categories.create') }}" class="ordering">
+                    @lang('buttons.add_category')
+                </a></td></tr>
             </tbody>
         </table>
         {{ $categories->links('pagination::bootstrap-5') }}

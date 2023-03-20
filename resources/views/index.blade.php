@@ -1,9 +1,9 @@
 @extends('layouts.master', ['file' => 'index'])
 
-@section('title', __('main.titles.main'))
+@section('title', __('title.main'))
 
 @section('content')
-    <h3 class="pb-2 border-bottom">@lang('main.main.title')</h3>
+    <h3 class="pb-2 border-bottom">@lang('titles.main')</h3>
     <div class="undertitle">@lang('main.main.undertitle')</div>
 
     <form action="{{ route(name: 'index') }}" method="get" class="form-container">

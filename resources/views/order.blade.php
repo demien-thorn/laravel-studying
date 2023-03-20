@@ -1,9 +1,9 @@
 @extends('layouts.master', ['file' => 'order'])
 
-@section('title', __('main.titles.checkout'))
+@section('title', __('title.checkout'))
 
 @section('content')
-    <h3>@lang('order.title')</h3>
+    <h3>@lang('titles.checkout')</h3>
 
     <div class="content-main clearfix">
         <div class="form-container">
@@ -23,7 +23,7 @@
                     <input type="email" name="email" id="email" placeholder="E-mail" style="display: block">
                 @endguest
                 <input type="submit" value="@lang('order.confirm')"
-                       class="btn btn-primary btn-lg px-4 fw-bold" style="display: block" >
+                    class="btn btn-primary btn-lg px-4 fw-bold" style="display: block" >
             </form>
         </div>
     </div>

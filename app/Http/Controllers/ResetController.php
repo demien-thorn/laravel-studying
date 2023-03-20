@@ -22,7 +22,7 @@ class ResetController extends Controller
             }
         }
 
-        session()->flash(key: 'success', value: 'Project has been set to default');
+        session()->flash(key: 'success', value: __(key:'notes.reset'));
         return redirect()->route(route: 'index');
     }
 }

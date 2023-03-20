@@ -1,27 +1,27 @@
 @extends('layouts.master', ['file' => 'product'])
 
-@section('title', __('main.titles.product'))
+@section('title', __('title.product').': '.$skus->product->__('name'))
 
 @section('content')
     <h3>{{ $skus->product->__('name') }}</h3>
-    <div class="undertitle">@lang('product.undertitle') {{ $skus->product->category->__('name') }}</div>
+    <div class="undertitle">@lang('titles.category'): {{ $skus->product->category->__('name') }}</div>
 
     <div class="container px-4 py-5" id="featured-3">
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
             <div class="content-section-middle">
                 <img src="{{ Storage::url(path: $skus->product->image) }}" alt="" width="200">
                 <div class="content-txt">
-                    <b>@lang('product.code')</b>
+                    <b>@lang('form.code'):</b>
                     {{ $skus->product->code }}
                 </div>
 
                 <div class="content-txt">
-                    <b>@lang('product.description')</b>
+                    <b>@lang('form.description'):</b>
                     {{ $skus->product->__('description') }}
                 </div>
 
                 <div class="content-txt">
-                    <b>@lang('product.price')</b>
+                    <b>@lang('form.price'):</b>
                     {{ $skus->price }} {{ $currencySymbol }}
                 </div>
 
@@ -35,7 +35,7 @@
                 @endisset
 
                 <div class="content-txt">
-                    <b>@lang('product.quantity')</b>
+                    <b>@lang('form.quantity'):</b>
                     {{ $skus->count }}
                     @lang('main.filter.pcs')
                 </div>
@@ -45,14 +45,14 @@
                         action="{{ route(name: 'basket-add', parameters: $skus->product) }}">
                         @csrf
                         <input type="submit" name="basket" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold"
-                               value="@lang('product.basket')">
+                           value="@lang('buttons.basket')">
                     </form>
                 @else
                     <button disabled class="btn btn-outline-secondary btn-lg px-4">
-                        @lang('product.unavailable')
+                        @lang('buttons.unavailable')
                     </button>
                     <button disabled class="btn btn-outline-secondary btn-lg px-4">
-                        @lang('product.notification')
+                        @lang('buttons.inform')
                     </button>
                     <div class="alert">
                         @if($errors->get('email'))
@@ -64,7 +64,7 @@
                         @csrf
                         <input type="email" name="email">
                         <input type="submit" class="btn btn-outline-secondary btn-lg px-4"
-                               value="@lang('product.send')">
+                           value="@lang('buttons.send')">
                     </form>
                 @endif
             </div>

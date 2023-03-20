@@ -1,16 +1,16 @@
 @extends('layouts.master')
 
 @isset($sku)
-    @section('title', __('main.titles.edit_sku').' '.$sku->product->__('name'))
+    @section('title', __('title.edit_sku').' '.$sku->product->__('name'))
 @else
-    @section('title', __('main.titles.add_sku'))
+    @section('title', __('title.add_sku'))
 @endisset
 
 @section('content')
     @isset($sku)
-        <h3>@lang('main.titles.edit_sku') "{{ $sku->product->__('name') }}"</h3>
+        <h3>@lang('titles.edit_sku') "{{ $sku->product->__('name') }}"</h3>
     @else
-        <h3>@lang('main.titles.add_sku')</h3>
+        <h3>@lang('titles.add_sku')</h3>
     @endisset
 
     <div class="content-main clearfix">
@@ -25,17 +25,15 @@
             @endisset
             @csrf
 
-            <label for="price">@lang('main.table_form.price'), <i class="fa-solid fa-hryvnia-sign"></i>:</label>
+            <label for="price">@lang('form.price'), <i class="fa-solid fa-hryvnia-sign"></i>:</label>
             @include('layouts.error', ['fieldName' => 'price'])
             <input type="text" name="price" id="price" style="display: block"
                    value="@isset($sku){{ $sku->price }}@endisset">
 
-            <label for="count">@lang('main.table_form.quantity'), @lang('main.filter.pcs'):</label>
+            <label for="count">@lang('form.quantity'), @lang('main.filter.pcs'):</label>
             @include('layouts.error', ['fieldName' => 'count'])
             <input type="text" name="count" id="count" style="display: block"
                    value="@isset($sku){{ $sku->count }}@endisset">
-
-
 
             @foreach($product->properties as $property)
                 <label for="property_id[{{ $property->id }}]">{{ $property->name }}:</label>
@@ -54,11 +52,7 @@
                 </select>
             @endforeach
 
-
-
-
-
-            <input type="submit" value="@lang('main.buttons.save')"
+            <input type="submit" value="@lang('buttons.save')"
                style="display: block" class="btn btn-primary btn-lg px-4 fw-bold">
         </form>
     </div>

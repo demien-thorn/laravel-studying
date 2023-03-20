@@ -1,17 +1,18 @@
+
 @extends('layouts.master')
 
-@section('title', __('main.titles.property_options'))
+@section('title', __('title.property_options'))
 
 @section('content')
-    <h3>@lang('main.titles.property_options') "{{ $property->__('name') }}"</h3>
+    <h3>@lang('titles.property_options') "{{ $property->__('name') }}"</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>@lang('main.table_form.name')</th>
-                    <th colspan="3">@lang('main.table_form.actions')</th>
+                    <th>@lang('form.name')</th>
+                    <th colspan="3">@lang('form.actions')</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,30 +23,26 @@
                         <td><a class="button_extra_small" href="{{ route(
                             name: 'property-options.show',
                             parameters: [$property, $propertyOption]) }}">
-                            @lang('main.buttons.open')
+                            @lang('buttons.open')
                         </a></td>
                         <td><a class="button_extra_small" href="{{ route(
                             name: 'property-options.edit',
                             parameters: [$property, $propertyOption]) }}">
-                            @lang('main.buttons.edit')
+                            @lang('buttons.edit')
                         </a></td>
-                        <td><form method="post"
-                            action="{{ route(
-                                name: 'property-options.destroy',
-                                parameters: [$property, $propertyOption]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="@lang('main.buttons.delete')" class="button_extra_small">
+                        <td><form method="post" action="{{ route(
+                            name: 'property-options.destroy',
+                            parameters: [$property, $propertyOption]) }}">
+                            @csrf @method('DELETE')
+                            <input type="submit" value="@lang('buttons.delete')" class="button_extra_small">
                         </form></td>
                     </tr>
                 @endforeach
-                <tr><td colspan="6">
-                    <a class="ordering" href="{{ route(
-                        name: 'property-options.create',
-                        parameters: $property) }}">
-                        @lang('main.table_form.add_property_option')
-                    </a>
-                </td></tr>
+                <tr><td colspan="6"><a class="ordering" href="{{ route(
+                    name: 'property-options.create',
+                    parameters: $property) }}">
+                    @lang('buttons.add_property_option')
+                </a></td></tr>
             </tbody>
         </table>
         {{ $propertyOptions->links('pagination::bootstrap-5') }}

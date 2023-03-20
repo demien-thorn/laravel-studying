@@ -1,19 +1,18 @@
 @extends('layouts.master', ['file' => 'basket'])
 
-@section('title', __('main.titles.basket'))
+@section('title', __('title.basket'))
 
 @section('content')
-    <h3>@lang('basket.title')</h3>
-    <div class="undertitle">@lang('basket.undertitle')</div>
+    <h3>@lang('titles.basket')</h3>
 
     <div class="content-main clearfix">
         <table class="order-table">
             <thead>
             <tr>
-                <th colspan="2">@lang('basket.name')</th>
-                <th>@lang('basket.amount')</th>
-                <th>@lang('basket.price')</th>
-                <th>@lang('basket.cost')</th>
+                <th colspan="2">@lang('form.name')</th>
+                <th>@lang('form.quantity')</th>
+                <th>@lang('form.price')</th>
+                <th>@lang('form.cost')</th>
             </tr>
             </thead>
             <tbody>
@@ -50,13 +49,15 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="3"><b>@lang('basket.total')</b></td>
+                <td colspan="3"><b>@lang('form.total'):</b></td>
                 <td></td>
                 <td><b>{{ $order->getFullSum() }} {{ $currencySymbol }}</b></td>
             </tr>
             <tr>
                 <td colspan="5">
-                    <a href="{{ route(name: 'basket-place') }}" type="button" class="ordering">@lang('basket.order')</a>
+                    <a href="{{ route(name: 'basket-place') }}" type="button" class="ordering">
+                        @lang('form.order')
+                    </a>
                 </td>
             </tr>
             </tbody>

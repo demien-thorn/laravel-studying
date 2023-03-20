@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
-@section('title', __('main.titles.register'))
+@section('title', __('title.register'))
 
 @section('content')
-    <h3>@lang('main.titles.register')</h3>
+    <h3>@lang('titles.register')</h3>
 
     <div class="form-container">
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            <label for="name">@lang('main.table_form.user_name')</label>
+            <label for="name">@lang('form.user_name')</label>
             <input
                 id="name"
                 type="text"
@@ -20,7 +20,7 @@
                 autofocus>
             @include('layouts.error', ['fieldName' => 'name'])
 
-            <label for="email">@lang('main.table_form.email')</label>
+            <label for="email">@lang('form.email')</label>
             <input
                 id="email"
                 type="email"
@@ -31,7 +31,7 @@
                 required autocomplete="email">
             @include('layouts.error', ['fieldName' => 'email'])
 
-            <label for="password">@lang('main.table_form.password')</label>
+            <label for="password">@lang('form.password')</label>
             <input
                 id="password"
                 type="password"
@@ -41,7 +41,7 @@
                 required autocomplete="new-password">
             @include('layouts.error', ['fieldName' => 'password'])
 
-            <label for="password-confirm">@lang('main.table_form.password_confirm')</label>
+            <label for="password-confirm">@lang('form.password_confirm')</label>
             <input
                 id="password-confirm"
                 type="password"
@@ -49,7 +49,7 @@
                 placeholder="Confirm password"
                 required autocomplete="new-password">
 
-            <input type="submit" name="register" value="@lang('main.buttons.register')">
+            <input type="submit" name="register" value="@lang('buttons.register')">
         </form>
     </div>
 @endsection

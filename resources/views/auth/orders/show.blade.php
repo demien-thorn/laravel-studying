@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title', __('main.titles.order').'#'.$order->id)
+@section('title', __('title.order').'#'.$order->id)
 
 @section('content')
-    <h3>@lang('auth/orders/show.title') #{{ $order->id }}</h3>
+    <h3>@lang('titles.order') #{{ $order->id }}</h3>
     <div class="undertitle">@lang('auth/orders/show.customer'): {{ $order->name }}</div>
     <div class="undertitle">@lang('auth/orders/show.phone'): {{ $order->phone }}</div>
 
