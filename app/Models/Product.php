@@ -153,6 +153,6 @@ class Product extends Model
      */
     public function getPriceAttribute($value)
     {
-        return round(num: CurrencyConversion::convert($value));
+        return round(num: CurrencyConversion::convert(sum: $value));
     }
 }

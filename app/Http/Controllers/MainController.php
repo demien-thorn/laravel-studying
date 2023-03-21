@@ -21,6 +21,10 @@ use JetBrains\PhpStorm\NoReturn;
 
 class MainController extends Controller
 {
+    /**
+     * @param ProductsFilterRequest $request
+     * @return Application|Factory|View
+     */
     public function index(ProductsFilterRequest $request)
     {
         $skusQuery = Sku::with(relations: ['product', 'product.category']);

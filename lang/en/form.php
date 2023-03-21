@@ -22,6 +22,8 @@ return [
     'lables' => 'Lables',
     'count' => 'Products in category',
     'total' => 'Total cost',
+    'phone' => 'Phone',
+    'ordered_at' => 'Datetime of order',
     'order' => 'Place an order',
 
     'field' => 'Field',

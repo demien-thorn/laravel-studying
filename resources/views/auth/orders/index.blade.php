@@ -18,11 +18,11 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>@lang('auth/orders/main.name')</th>
-                <th>@lang('auth/orders/main.phone')</th>
-                <th>@lang('auth/orders/main.ordered_at')</th>
-                <th>@lang('auth/orders/main.total')</th>
-                <th>@lang('auth/orders/main.actions')</th>
+                <th>@lang('form.name')</th>
+                <th>@lang('form.phone')</th>
+                <th>@lang('form.ordered_at')</th>
+                <th>@lang('form.total')</th>
+                <th>@lang('form.actions')</th>
             </tr>
             </thead>
             <tbody>
