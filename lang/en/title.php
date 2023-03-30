@@ -13,12 +13,14 @@ return [
     'edit_property' => 'Edit property',
     'edit_property_option' => 'Edit property option',
     'edit_sku' => 'Edit sku',
+    'edit_coupon' => 'Edit coupon',
 
     'add_category' => 'Add new category',
     'add_product' => 'Add new product',
     'add_property' => 'Add new property',
     'add_property_option' => 'Add new property option',
     'add_sku' => 'Add new sku',
+    'add_coupon' => 'Add new coupon',
 
     'main' => 'Main',
     'basket' => 'Basket',
@@ -28,6 +30,8 @@ return [
     'products' => 'Products',
     'property' => 'Property',
     'properties' => 'Properties',
+    'coupon' => 'Сoupon',
+    'coupons' => 'Сoupons',
     'property_option' => 'Property option',
     'property_options' => 'Property options',
     'sku' => 'Sku',

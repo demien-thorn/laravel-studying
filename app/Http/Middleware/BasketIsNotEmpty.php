@@ -26,7 +26,7 @@ class BasketIsNotEmpty
         }
 
         session()->forget(keys: 'order');
-        session()->flash(key: 'warning', value: __(key: 'main.notifications.basket_empty'));
+        session()->flash(key: 'warning', value: __(key: 'notes.basket_empty'));
         return redirect()->route(route: 'index');
     }
 }

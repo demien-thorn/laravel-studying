@@ -28,7 +28,7 @@
                     <a href="{{ route(name: 'index') }}"
                         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-4">
-                        <i class="fa-solid fa-house"></i>
+                        <i class="fa-solid fa-house fa-flip"></i>
                         @lang('nav.main')
                     </span>
                     </a>
@@ -36,39 +36,44 @@
                     <ul class="nav nav-pills mb-auto col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li><a href="{{ route(name: 'categories') }}"
                             class="nav-link @routeactive('categories')" aria-current="page">
-                            <i class="fa-solid fa-bars"></i>
+                            <i class="fa-solid fa-bars fa-shake"></i>
                             @lang('nav.categories')
                         </a></li>
                         @admin
                         <li><a href="{{ route(name: 'categories.index') }}"
                             class="nav-link @routeactive('categories.index')" aria-current="page">
-                            <i class="fa-solid fa-bars"></i>
+                            <i class="fa-solid fa-list-ul fa-shake"></i>
                             @lang('nav.categories') (A)
                         </a></li>
                         <li><a href="{{ route(name: 'products.index') }}"
                             class="nav-link @routeactive('products.index')" aria-current="page">
-                            <i class="fa-brands fa-apple"></i>
+                            <i class="fa-brands fa-apple fa-bounce"></i>
                             @lang('nav.products') (A)
                         </a></li>
                         <li><a href="{{ route(name: 'properties.index') }}"
                             class="nav-link @routeactive('propert*')" aria-current="page">
-                            <i class="fa-solid fa-list-check"></i>
+                            <i class="fa-solid fa-clipboard-list fa-fade"></i>
                             @lang('nav.properties')
+                        </a></li>
+                        <li><a href="{{ route(name: 'coupons.index') }}"
+                            class="nav-link @routeactive('coupon*')" aria-current="page">
+                            <i class="fa-solid fa-tags fa-beat-fade"></i>
+                            @lang('nav.coupons')
                         </a></li>
                         @endadmin
                         <li><a href="{{ route(name: 'basket') }}"
                             class="nav-link @routeactive('basket*')" aria-current="page">
-                            <i class="fa-solid fa-basket-shopping"></i>
+                            <i class="fa-solid fa-basket-shopping fa-beat"></i>
                             @lang('nav.basket')
                         </a></li>
                         @auth
                             @admin
-                        @else
-                            <li><a href="{{ route(name: 'person.orders.index') }}"
-                                class="nav-link @routeactive('person.orders.index')" aria-current="page">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                @lang('nav.orders')
-                            </a></li>
+                            @else
+                                <li><a href="{{ route(name: 'person.orders.index') }}"
+                                    class="nav-link @routeactive('person.orders.index')" aria-current="page">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    @lang('nav.orders')
+                                </a></li>
                             @endadmin
                         @endauth
                     </ul>
@@ -145,9 +150,9 @@
     <main class="d-flex flex-nowrap">
         <div class="content-container clearfix px-4 py-5 my-5 text-center rounded-3 border shadow-lg">
             @if(session()->has(key: 'success'))
-                <p class="alert">{{ session()->get(key: 'success') }}</p>
+                <p class="alert alert-danger">{{ session()->get(key: 'success') }}</p>
             @elseif(session()->has(key: 'warning'))
-                <p class="alert">{{ session()->get(key: 'warning') }}</p>
+                <p class="alert alert-danger">{{ session()->get(key: 'warning') }}</p>
             @endif
             @yield('content')
         </div>

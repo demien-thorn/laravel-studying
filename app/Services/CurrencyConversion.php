@@ -68,7 +68,14 @@ class CurrencyConversion
             $targetCurrency = self::$container[$targetCurrencyCode];
         }
 
-        return $sum / $originCurrency->rate * $targetCurrency->rate;
+        $roundingSum = $sum / $originCurrency->rate * $targetCurrency->rate;
+        if ($roundingSum %10 >=5) {
+            $roundedSum = ceil(num: $roundingSum / 10) * 10;
+        } else {
+            $roundedSum = floor(num: $roundingSum / 10) * 10;
+        }
+
+        return $roundedSum;
     }
 
     public static function getCurrencySymbol()

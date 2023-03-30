@@ -146,13 +146,4 @@ class Product extends Model
     {
         return $this->recommend === 1;
     }
-
-    /**
-     * @param $value
-     * @return float
-     */
-    public function getPriceAttribute($value)
-    {
-        return round(num: CurrencyConversion::convert(sum: $value));
-    }
 }

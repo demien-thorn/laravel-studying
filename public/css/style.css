@@ -148,7 +148,6 @@ body {
 
 /*Forms*/
 .form-container {
-    margin: 20px 0 0;
     text-align: center;
     font-family: 'Anton', sans-serif;
 }
@@ -158,6 +157,7 @@ body {
 .form-container input[type="email"],
 .form-container input[type="file"],
 .form-container input[type="submit"],
+.form-container input[type="date"],
 .form-container select,
 .form-container textarea {
     margin: 5px auto;
@@ -184,7 +184,7 @@ body {
 
 .alert {
     margin: 0 auto;
-    width: 300px;
+    width: 400px;
     text-align: center;
     background-color: #ffbdbd;
     font-family: 'Anton', sans-serif;

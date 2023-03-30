@@ -18,6 +18,7 @@ class Order extends Model
         'user_id',
         'currency_id',
         'sum',
+        'coupon_id',
     ];
 
     /**
@@ -34,6 +35,17 @@ class Order extends Model
     public function currency()
     {
         return $this->belongsTo(related: Currency::class);
+    }
+
+    /**
+     * This method creates the relation between order and Coupon class
+     * which is responsable for the coupon functional in the orders.
+     *
+     * @return BelongsTo
+     */
+    public function coupon()
+    {
+        return $this->belongsTo(related: Coupon::class);
     }
 
     /**
@@ -60,12 +72,16 @@ class Order extends Model
     /**
      * @return float|int
      */
-    public function getFullSum()
+    public function getFullSum($withCoupon = true)
     {
         $sum = 0;
 
         foreach ($this->skus as $sku) {
             $sum += $sku->price * $sku->countInOrder;
+        }
+
+        if ($withCoupon && $this->hasCoupon()) {
+            $sum = $this->coupon->applyCost($sum, $this->currency);
         }
 
         return $sum;
@@ -95,5 +111,15 @@ class Order extends Model
 
         session()->forget(keys: 'order');
         return true;
+    }
+
+    /**
+     * Method checks whether the coupon has been already added to an order or not.
+     *
+     * @return mixed
+     */
+    public function hasCoupon()
+    {
+        return $this->coupon;
     }
 }

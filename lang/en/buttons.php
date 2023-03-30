@@ -18,6 +18,7 @@ return [
 
     'save' => 'Save',
     'send' => 'Send',
+    'add' => 'Add',
 
     'login' => 'Login',
     'register' => 'Register',
@@ -28,4 +29,5 @@ return [
     'add_property' => 'Add new property',
     'add_property_option' => 'Add property option',
     'add_sku' => 'Add sku',
+    'add_coupon' => 'Add coupon',
 ];

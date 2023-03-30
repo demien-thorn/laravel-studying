@@ -4,6 +4,7 @@ namespace App\Classes;
 
 
 use App\Mail\OrderCreated;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Sku;
 use App\Services\CurrencyConversion;
@@ -122,5 +123,26 @@ class Basket
         }
 
         return true;
+    }
+
+    /**
+     * Method gets a coupon (which is an object of a Coupon model) in it's argument
+     * and associates it with coupon in the order
+     *
+     * Usage: BasketController->setCoupon
+     *
+     * @param Coupon $coupon - gets a coupon when customer indicates it
+     */
+    public function setCoupon(Coupon $coupon)
+    {
+        $this->order->coupon()->associate(model: $coupon);
+    }
+
+    /**
+     * This method clears the coupon from the basket if it is't available when adding it by a customer to an order
+     */
+    public function clearCoupon()
+    {
+        $this->order->coupon()->dissociate();
     }
 }

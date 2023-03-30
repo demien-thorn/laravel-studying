@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Basket;
+use App\Http\Requests\AddCouponRequest;
+use App\Models\Coupon;
 use App\Models\Sku;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,8 +20,15 @@ class BasketController extends Controller
 
     public function basketConfirm(Request $request)
     {
+        $basket = new Basket();
+        if ($basket->getOrder()->hasCoupon() && !$basket->getOrder()->coupon->availableForUse()) {
+            $basket->clearCoupon();
+            session()->flash(key: 'warning', value: __(key: 'notes.coupon_unavailable'));
+            return redirect()->route(route: 'basket');
+        }
+
         $email = Auth::check() ? Auth::user()->email : $request->email;
-        if ((new Basket())->saveOrder(name: $request->name, phone: $request->phone, email: $email)) {
+        if ($basket->saveOrder(name: $request->name, phone: $request->phone, email: $email)) {
             session()->flash(key: 'success', value: __(key: 'notes.order_processed'));
         } else {
             session()->flash(key: 'warning', value: __(key: 'notes.unavailable'));
@@ -67,6 +76,33 @@ class BasketController extends Controller
     {
         (new Basket())->removeSku(sku: $skus);
         session()->flash(key: 'warning', value: __(key: 'notes.removed').': "'.$skus->product->__('name').'"');
+
+        return redirect()->route(route: 'basket');
+    }
+
+    /**
+     * Method gets the coupon searching it by the field "code" from request (getting first record).
+     * When found - checks whether the coupon is available ($coupon->availableForUse()):
+     *     if it is - sets this coupon ((new Basket())->setCoupon(coupon: $coupon))
+     *     with a notification that the specific coupon was added to an order;
+     *
+     *     if it's not - shows a notification that the specific coupon can't be added to an order.
+     *
+     * After all in any case - redirects back to the basket.
+     *
+     * @param AddCouponRequest $request - gets info about the coupon added
+     * @return RedirectResponse - redirects back to the basket
+     */
+    public function setCoupon(AddCouponRequest $request)
+    {
+        $coupon = Coupon::where('code', $request->coupon)->first();
+        if ($coupon->availableForUse()) {
+            (new Basket())->setCoupon(coupon: $coupon);
+            session()->flash(key: 'success', value: __(key: 'notes.coupon_added').': "'.$coupon->code.'"');
+        } else {
+            session()->flash(key: 'warning', value: __(key: 'notes.coupon_unavailable').': "'.$coupon->code.'"');
+        }
+
         return redirect()->route(route: 'basket');
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Order $order */ ?>
+
 @admin
     @section('title', __('title.orders_admin'))
 @else

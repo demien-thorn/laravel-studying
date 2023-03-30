@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController as ProdC;
 use App\Http\Controllers\Admin\PropertyController as PropC;
 use App\Http\Controllers\Admin\PropertyOptionController as PropOpC;
 use App\Http\Controllers\Admin\SkuController as SkuC;
+use App\Http\Controllers\Admin\CouponController as CouponC;
 
 use App\Http\Controllers\ResetController as ResetC;
 
@@ -66,6 +67,7 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
             Route::resource(name: 'products/{product}/skus', controller: SkuC::class);
             Route::resource(name: 'properties', controller: PropC::class);
             Route::resource(name: 'properties/{property}/property-options', controller: PropOpC::class);
+            Route::resource(name: 'coupons', controller: CouponC::class);
         });
 //    });
 
@@ -85,6 +87,7 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
             Route::get(uri: '/place', action: [BasketC::class, 'basketPlace'])->name(name: 'basket-place');
             Route::post(uri: '/remove/{skus}', action:[BasketC::class, 'basketRemove'])->name(name: 'basket-remove');
             Route::post(uri: '/place', action: [BasketC::class, 'basketConfirm'])->name(name: 'basket-confirm');
+            Route::post(uri: 'coupon', action: [BasketC::class, 'setCoupon'])->name(name: 'set-coupon');
         });
     });
 

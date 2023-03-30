@@ -10,6 +10,7 @@ return [
     'categories' => 'Categories',
     'products' => 'Products',
     'properties' => 'Properties',
+    'coupons' => 'Coupons',
     'basket' => 'Basket',
 
     'admin' => 'Admin',

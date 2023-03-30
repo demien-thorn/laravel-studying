@@ -10,6 +10,7 @@ return [
     'categories' => 'Категории',
     'products' => 'Товары',
     'properties' => 'Свойства',
+    'coupons' => 'Купоны',
     'basket' => 'Корзина',
 
     'admin' => 'Админка',
