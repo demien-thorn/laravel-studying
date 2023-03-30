@@ -20,12 +20,12 @@ class Sku extends Model
      */
     protected $fillable = ['product_id', 'count', 'price',];
 
-//    /**
-//     * Contains array of the fieldnames which are used when generating an api-request.
-//     *
-//     * @var string[]
-//     */
-//    protected $visible = ['id', 'count', 'price', 'product_name'];
+    /**
+     * Contains array of the fieldnames which are used when generating an api-request.
+     *
+     * @var string[]
+     */
+    protected $visible = ['id', 'count', 'price', 'product_name'];
 
     /**
      * @return BelongsTo
@@ -35,21 +35,21 @@ class Sku extends Model
         return $this->belongsTo(related: Product::class);
     }
 
-//    /**
-//     * Rerurns skus which count is greater then 0.
-//     *
-//     * Note: "scope"-methods are usable when we copy the name of the "scope"-method after "scope..." in it's name.
-//     * The copied method must start with a small character.
-//     *
-//     * Usage: App\Http\Controllers\Api\SkusController
-//     *
-//     * @param $query - contains a query to DB
-//     * @return mixed - some responsed data from DB
-//     */
-//    public function scopeAvailable($query)
-//    {
-//        return $query->where('count', '>', 0);
-//    }
+    /**
+     * Rerurns skus which count is greater then 0.
+     *
+     * Note: "scope"-methods are usable when we copy the name of the "scope"-method after "scope..." in it's name.
+     * The copied method must start with a small character.
+     *
+     * Usage: App\Http\Controllers\Api\SkusController
+     *
+     * @param $query - contains a query to DB
+     * @return mixed - some responsed data from DB
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->where('count', '>', 0);
+    }
 
     /**
      * @return BelongsToMany
@@ -89,13 +89,13 @@ class Sku extends Model
         return round(num: CurrencyConversion::convert(sum: $value));
     }
 
-//    /**
-//     * Method returns product's name when calling API.
-//     *
-//     * @return mixed - product's name
-//     */
-//    public function getProductNameAttribute()
-//    {
-//        return $this->product->name;
-//    }
+    /**
+     * Method returns product's name when calling API.
+     *
+     * @return mixed - product's name
+     */
+    public function getProductNameAttribute()
+    {
+        return $this->product->name;
+    }
 }
