@@ -15,6 +15,7 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'property_option' => 'Property options',
+    'update_token' => 'Update token',
 
     'save' => 'Save',
     'send' => 'Send',
@@ -28,6 +29,7 @@ return [
     'add_category' => 'Add new category',
     'add_property' => 'Add new property',
     'add_property_option' => 'Add property option',
+    'add_merchant' => 'Add merchant',
     'add_sku' => 'Add sku',
     'add_coupon' => 'Add coupon',
 ];

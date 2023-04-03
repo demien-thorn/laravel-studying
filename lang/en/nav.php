@@ -11,6 +11,7 @@ return [
     'products' => 'Products',
     'properties' => 'Properties',
     'coupons' => 'Coupons',
+    'merchants' => 'Merchants',
     'basket' => 'Basket',
 
     'admin' => 'Admin',

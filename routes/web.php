@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PropertyController as PropC;
 use App\Http\Controllers\Admin\PropertyOptionController as PropOpC;
 use App\Http\Controllers\Admin\SkuController as SkuC;
 use App\Http\Controllers\Admin\CouponController as CouponC;
+use App\Http\Controllers\Admin\MerchantController as MerchC;
 
 use App\Http\Controllers\ResetController as ResetC;
 
@@ -68,6 +69,11 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
             Route::resource(name: 'properties', controller: PropC::class);
             Route::resource(name: 'properties/{property}/property-options', controller: PropOpC::class);
             Route::resource(name: 'coupons', controller: CouponC::class);
+            Route::resource(name: 'merchants', controller: MerchC::class);
+            Route::get(
+                uri: 'merchant/{merchant}/update_token',
+                action: [MerchC::class, 'updateToken']
+            )->name(name: 'merchants.update_token');
         });
 //    });
 

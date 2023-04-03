@@ -49,4 +49,5 @@ return [
     'password' => 'Password',
     'password_confirm' => 'Confirm password',
     'user_name' => 'Name',
+    'token' => 'Token',
 ];

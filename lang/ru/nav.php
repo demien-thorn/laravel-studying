@@ -11,6 +11,7 @@ return [
     'products' => 'Товары',
     'properties' => 'Свойства',
     'coupons' => 'Купоны',
+    'merchants' => 'Поставщики',
     'basket' => 'Корзина',
 
     'admin' => 'Админка',

@@ -60,6 +60,11 @@
                             <i class="fa-solid fa-tags fa-beat-fade"></i>
                             @lang('nav.coupons')
                         </a></li>
+                        <li><a href="{{ route(name: 'merchants.index') }}"
+                            class="nav-link @routeactive('merchant*')" aria-current="page">
+                            <i class="fa-solid fa-truck-plane fa-spin"></i>
+                            @lang('nav.merchants')
+                        </a></li>
                         @endadmin
                         <li><a href="{{ route(name: 'basket') }}"
                             class="nav-link @routeactive('basket*')" aria-current="page">

@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get(uri: '/user', action: function (Request $request) {
-    return $request->user();
-});
 
-Route::get(uri: 'skus', action: [SkusC::class, 'getSkus']);
+Route::middleware(['middleware' => 'auth:api'])->group(callback: function () {
+    Route::get(uri: 'skus', action: [SkusC::class, 'getSkus']);
+});

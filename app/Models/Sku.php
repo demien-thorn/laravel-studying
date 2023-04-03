@@ -14,7 +14,7 @@ class Sku extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * Contains array of the fieldnames which required to fill when creatin new SKU.
+     * Contains array of the fieldnames which required to fill when creating new SKU.
      *
      * @var string[]
      */

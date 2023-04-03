@@ -14,6 +14,7 @@ return [
     'edit_property_option' => 'Ред-е вар-та св-ва',
     'edit_sku' => 'Ред-е sku',
     'edit_coupon' => 'Ред-е купона',
+    'edit_merchant' => 'Ред-е поставщика',
 
     'add_category' => 'Добавить категорию',
     'add_product' => 'Добавить товар',
@@ -21,6 +22,7 @@ return [
     'add_property_option' => 'Добавить вар-т свойства',
     'add_sku' => 'Добавить sku',
     'add_coupon' => 'Добавить купон',
+    'add_merchant' => 'Добавить поставщика',
 
     'main' => 'Главная',
     'basket' => 'Корзина',
@@ -30,6 +32,8 @@ return [
     'products' => 'Товары',
     'property' => 'Свойство',
     'properties' => 'Свойства',
+    'merchant' => 'Поставщик',
+    'merchants' => 'Поставщики',
     'coupon' => 'Купон',
     'coupons' => 'Купоны',
     'property_option' => 'Вар-т свойства',
