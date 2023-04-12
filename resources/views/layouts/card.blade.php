@@ -1,5 +1,7 @@
+<?php /** @var App\Models\Sku $sku */ ?>
+
 <div class="feature col content-section">
-    <div class="lables-section">
+    <div class="labels-section">
         @if($sku->product->isNew())
             <div class="label new-label">@lang('main.filter.new')</div>
         @endif

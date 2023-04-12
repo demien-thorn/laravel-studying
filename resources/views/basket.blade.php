@@ -62,7 +62,7 @@
                 <td></td>
                 @if($order->hasCoupon())
                     <td>
-                        <strike>{{ $order->getFullSum(false) }}</strike>
+                        <del>{{ $order->getFullSum(false) }}</del>
                         <b>{{ $order->getFullSum() }}{{ $currencySymbol }}</b>
                     </td>
                 @else

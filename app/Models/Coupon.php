@@ -14,14 +14,14 @@ class Coupon extends Model
     use HasFactory;
 
     /**
-     * This array of values indicates the columns we need to fill when createing a new coupon.
+     * This array of values indicates the columns we need to fill when creating a new coupon.
      *
      * @var string[]
      */
     protected $fillable = ['code', 'value', 'type', 'currency_id', 'only_once', 'expired_at', 'description',];
 
     /**
-     * Converts field "expired_at" into a formating type (for we could apply the ->format('') method further).
+     * Converts field "expired_at" into a formatting type (for we could apply the ->format('') method further).
      *
      * @var string[]
      */
@@ -48,7 +48,7 @@ class Coupon extends Model
     }
 
     /**
-     * Method checks wheter the coupon's field "type" indicated as 1 or 0.
+     * Method checks whether the coupon's field "type" indicated as 1 or 0.
      *
      * @return bool
      */
@@ -58,7 +58,7 @@ class Coupon extends Model
     }
 
     /**
-     * Method checks wheter the coupon's field "only_once" indicated as 1 or 0.
+     * Method checks whether the coupon's field "only_once" indicated as 1 or 0.
      *
      * @return bool
      */
@@ -68,10 +68,10 @@ class Coupon extends Model
     }
 
     /**
-     * Method checks if coupon is available not for only one use (method isOnlyOnce())
+     * Method checks if a coupon is available not for only one use (method isOnlyOnce())
      * or whether it was in use in any other orders or not;
      * if it's not - returns the date of expiring of the coupon
-     * (checks if it's null or if the current date is greater then it's expiring date).
+     * (checks if it's null or if the current date is greater than it's expiring date).
      * In any other cases - returns false.
      *
      * Usage: BasketController->setCoupon

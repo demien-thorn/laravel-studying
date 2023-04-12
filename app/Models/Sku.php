@@ -14,14 +14,14 @@ class Sku extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * Contains array of the fieldnames which required to fill when creating new SKU.
+     * Contains an array of the fieldnames which required to fill when creating new SKU.
      *
      * @var string[]
      */
     protected $fillable = ['product_id', 'count', 'price',];
 
     /**
-     * Contains array of the fieldnames which are used when generating an api-request.
+     * Contains an array of the fieldnames which are used when generating an api-request.
      *
      * @var string[]
      */
@@ -36,15 +36,16 @@ class Sku extends Model
     }
 
     /**
-     * Rerurns skus which count is greater then 0.
+     * Returns skus which count is greater than 0.
      *
-     * Note: "scope"-methods are usable when we copy the name of the "scope"-method after "scope..." in it's name.
+     * Note: "scope"-methods are usable when we copy the name of the "scope"-method after "scope..."
+     * in its name.
      * The copied method must start with a small character.
      *
      * Usage: App\Http\Controllers\Api\SkusController
      *
      * @param $query - contains a query to DB
-     * @return mixed - some responsed data from DB
+     * @return mixed - some responded data from DB
      */
     public function scopeAvailable($query)
     {

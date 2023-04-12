@@ -11,6 +11,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    public mixed $skus;
+
     /**
      * @var string[]
      */
@@ -39,7 +41,7 @@ class Order extends Model
 
     /**
      * This method creates the relation between order and Coupon class
-     * which is responsable for the coupon functional in the orders.
+     * which is responsible for the coupon functional in the orders.
      *
      * @return BelongsTo
      */

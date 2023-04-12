@@ -86,7 +86,13 @@ class Basket
     }
 
     /**
-     * Function removing a product from the basket
+     * Method removing a product from the basket.
+     *
+     * If there is sku in an order we're interacting with, method finds first record from DB (using sku's id)
+     * and then checks how much of these in an order;
+     * if it's count before interact is less than 2, then removes a product from the basket;
+     * if it's 2 or more - just removing one peace of it.
+     *
      * @param Sku $sku
      */
     public function removeSku(Sku $sku)
@@ -102,7 +108,17 @@ class Basket
     }
 
     /**
-     * Function adding a product to the basket
+     * Method adding a product to the basket.
+     *
+     * If there is sku in an order we're interacting with, method finds first record from DB (using sku's id)
+     * and then checks how much of these in an order;
+     * if sku is already in the order and:
+     *     there is more peaces in order then available to purchase - returns false;
+     *     in other case - adds one more peace to an order;
+     * if sku is NOT already in an order:
+     *     if the count of sku is 0 - returns false;
+     *     in other case - sets quantity of sku in an order as 1 and adds it to an order.
+     *
      * @param Sku $sku
      * @return bool
      */
@@ -126,7 +142,7 @@ class Basket
     }
 
     /**
-     * Method gets a coupon (which is an object of a Coupon model) in it's argument
+     * Method gets a coupon (which is an object of a Coupon model) in its argument
      * and associates it with coupon in the order
      *
      * Usage: BasketController->setCoupon
@@ -139,7 +155,7 @@ class Basket
     }
 
     /**
-     * This method clears the coupon from the basket if it is't available when adding it by a customer to an order
+     * This method clears the coupon from the basket if it isn't available when adding it by a customer to an order
      */
     public function clearCoupon()
     {

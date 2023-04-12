@@ -116,20 +116,20 @@
                 <div class="text-end">
                     @auth
                         @admin
-                        <a href="{{ route(name: 'home') }}" type="button" class="btn btn-primary">
-                            <i class="fa-solid fa-toolbox"></i>
-                            @lang('nav.admin')
-                        </a>
+                            <a href="{{ route(name: 'home') }}" type="button" class="btn btn-primary">
+                                <i class="fa-solid fa-toolbox"></i>
+                                @lang('nav.admin')
+                            </a>
 
-                        <a href="{{ route(name: 'reset') }}" type="button" class="btn btn-light text-dark me-2">
-                            <i class="fa-solid fa-backward-step"></i>
-                            @lang('nav.default')
-                        </a>
-                    @else
-                        <a href="{{ route(name: 'person.orders.index') }}" type="button" class="btn btn-primary">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            @lang('nav.orders')
-                        </a>
+                            <a href="{{ route(name: 'reset') }}" type="button" class="btn btn-light text-dark me-2">
+                                <i class="fa-solid fa-backward-step"></i>
+                                @lang('nav.default')
+                            </a>
+                        @else
+                            <a href="{{ route(name: 'person.orders.index') }}" type="button" class="btn btn-primary">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                @lang('nav.orders')
+                            </a>
                         @endadmin
                         <a href="{{ route(name: 'get-logout') }}" type="button" class="btn btn-light text-dark me-2">
                             <i class="fa-solid fa-right-from-bracket"></i>
@@ -191,18 +191,15 @@
                 <h5>@lang('main.main.top_selling')!</h5>
                 <ul class="nav flex-column">
                     @foreach($bestSkus as $bestSku)
-                        <li class="nav-item mb-2">
-                            <a class="nav-link p-0 text-white"
-                                href="{{ route(
-                                    name: 'sku',
-                                    parameters: [
-                                        $bestSku->product->category->code,
-                                        $bestSku->product->code,
-                                        $bestSku
-                                    ]) }}">
-                                {{ $bestSku->product->__('name') }}
-                            </a>
-                        </li>
+                        <li class="nav-item mb-2"><a class="nav-link p-0 text-white" href="{{ route(
+                            name: 'sku',
+                            parameters: [
+                                $bestSku->product->category->code,
+                                $bestSku->product->code,
+                                $bestSku
+                        ]) }}">
+                            {{ $bestSku->product->__('name') }}
+                        </a></li>
                     @endforeach
                 </ul>
             </div>

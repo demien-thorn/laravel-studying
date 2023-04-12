@@ -82,13 +82,13 @@ class BasketController extends Controller
 
     /**
      * Method gets the coupon searching it by the field "code" from request (getting first record).
-     * When found - checks whether the coupon is available ($coupon->availableForUse()):
+     * When found - check whether the coupon is available ($coupon->availableForUse()):
      *     if it is - sets this coupon ((new Basket())->setCoupon(coupon: $coupon))
      *     with a notification that the specific coupon was added to an order;
      *
      *     if it's not - shows a notification that the specific coupon can't be added to an order.
      *
-     * After all in any case - redirects back to the basket.
+     * After all, in any case - redirect back to the basket.
      *
      * @param AddCouponRequest $request - gets info about the coupon added
      * @return RedirectResponse - redirects back to the basket
