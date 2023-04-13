@@ -1,5 +1,7 @@
 @extends('layouts.master', ['file' => 'order'])
 
+<?php /** @var App\Models\Order $order */ ?>
+
 @section('title', __('title.checkout'))
 
 @section('content')

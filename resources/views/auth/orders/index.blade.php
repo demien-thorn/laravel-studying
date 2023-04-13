@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-<?php /** @var App\Models\Order $order */ ?>
+<?php /** @var App\Models\Order $orders */ ?>
 
 @admin
     @section('title', __('title.orders_admin'))

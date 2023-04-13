@@ -1,5 +1,7 @@
 @extends('layouts.master', ['file' => 'product'])
 
+<?php /** @var App\Models\Sku $skus */ ?>
+
 @section('title', __('title.product').': '.$skus->product->__('name'))
 
 @section('content')

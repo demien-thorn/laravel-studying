@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class CategoriesComposer
 {
-    public function compose(View $view)
+    public function compose(View $view): void
     {
         $categories = Category::get();
         $view->with(key: 'categories', value: $categories);

@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Category $product */ ?>
+
 @isset($product)
     @section('title', __('title.edit_product').' '.$product->__('name'))
 @else

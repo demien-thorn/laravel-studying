@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class CurrenciesComposer
 {
-    public function compose(View $view)
+    public function compose(View $view): void
     {
         $currencies = CurrencyConversion::getCurrencies();
         $view->with(key: 'currencies', value: $currencies);

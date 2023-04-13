@@ -19,7 +19,7 @@ class PropertyController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Application|View|Factory
     {
         $properties = Property::paginate(10);
         return view(view: 'auth.properties.index', data: compact(var_name: 'properties'));
@@ -30,7 +30,7 @@ class PropertyController extends Controller
      *
      * @return Factory|Application|View
      */
-    public function create()
+    public function create(): View|Application|Factory
     {
         return view(view: 'auth.properties.form');
     }
@@ -41,7 +41,7 @@ class PropertyController extends Controller
      * @param  PropertyRequest  $request
      * @return RedirectResponse
      */
-    public function store(PropertyRequest $request)
+    public function store(PropertyRequest $request): RedirectResponse
     {
         Property::create($request->all());
         return redirect()->route(route: 'properties.index');
@@ -53,7 +53,7 @@ class PropertyController extends Controller
      * @param  Property  $property
      * @return Factory|Application|View
      */
-    public function show(Property $property)
+    public function show(Property $property): View|Application|Factory
     {
         return view(view: 'auth.properties.show', data: compact(var_name: 'property'));
     }
@@ -64,7 +64,7 @@ class PropertyController extends Controller
      * @param  Property  $property
      * @return Factory|Application|View
      */
-    public function edit(Property $property)
+    public function edit(Property $property): View|Application|Factory
     {
         return view(view: 'auth.properties.form', data: compact(var_name: 'property'));
     }
@@ -76,7 +76,7 @@ class PropertyController extends Controller
      * @param  Property  $property
      * @return RedirectResponse
      */
-    public function update(PropertyRequest $request, Property $property)
+    public function update(PropertyRequest $request, Property $property): RedirectResponse
     {
         $property->update(attributes: $request->all());
         return redirect()->route(route: 'properties.index');
@@ -88,7 +88,7 @@ class PropertyController extends Controller
      * @param  Property  $property
      * @return RedirectResponse
      */
-    public function destroy(Property $property)
+    public function destroy(Property $property): RedirectResponse
     {
         $property->delete();
         return redirect()->route(route: 'properties.index');

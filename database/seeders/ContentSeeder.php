@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -78,7 +77,7 @@ class ContentSeeder extends Seeder
     ];
 
     /**
-     * Contains informations about basic products and categories
+     * Contains information about basic products and categories
      *
      * @var array|array[]
      */
@@ -276,14 +275,14 @@ class ContentSeeder extends Seeder
         ],
     ];
 
-
+//TODO: check IDE's warnings about function below
     /**
      * Run the database seeds.
-     * Generates basic categories, products, product's properties and property options
+     * Generates basic categories, products, product properties and property options
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach ($this->properties as $property) {
             $property['created_at'] = Carbon::now();

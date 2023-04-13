@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Mail;
 
 class Basket
 {
-    protected $order;
+    protected mixed $order;
 
     /**
      * Basket constructor.
      * @param bool $createOrder
      */
-    public function __construct($createOrder = false)
+    public function __construct(bool $createOrder = false)
     {
         $order = session(key: 'order');
 
@@ -40,18 +40,18 @@ class Basket
     /**
      * @return mixed
      */
-    public function getOrder()
+    public function getOrder(): mixed
     {
         return $this->order;
     }
 
     /**
-     * @param false $updateCount
+     * @param bool $updateCount
      * @return bool
      */
-    public function countAvailable($updateCount = false)
+    public function countAvailable(bool $updateCount = false): bool
     {
-        $skus = collect(value: []);
+        $skus = collect();
         foreach ($this->order->skus as $orderSku) {
             $sku = Sku::find($orderSku->id);
             if ($orderSku->countInOrder > $sku->count) {
@@ -75,7 +75,7 @@ class Basket
      * @param $email - customer's email
      * @return bool
      */
-    public function saveOrder($name, $phone, $email)
+    public function saveOrder($name, $phone, $email): bool
     {
         if (!$this->countAvailable(updateCount: true)) {
             return false;
@@ -95,7 +95,7 @@ class Basket
      *
      * @param Sku $sku
      */
-    public function removeSku(Sku $sku)
+    public function removeSku(Sku $sku): void
     {
         if ($this->order->skus->contains($sku)) {
             $pivotRow = $this->order->skus->where('id', $sku->id)->first();
@@ -113,7 +113,7 @@ class Basket
      * If there is sku in an order we're interacting with, method finds first record from DB (using sku's id)
      * and then checks how much of these in an order;
      * if sku is already in the order and:
-     *     there is more peaces in order then available to purchase - returns false;
+     *     there is more peace in order than available to purchase - returns false;
      *     in other case - adds one more peace to an order;
      * if sku is NOT already in an order:
      *     if the count of sku is 0 - returns false;
@@ -122,7 +122,7 @@ class Basket
      * @param Sku $sku
      * @return bool
      */
-    public function addSku(Sku $sku)
+    public function addSku(Sku $sku): bool
     {
         if ($this->order->skus->contains($sku)) {
             $pivotRow = $this->order->skus->where('id', $sku->id)->first();
@@ -143,13 +143,13 @@ class Basket
 
     /**
      * Method gets a coupon (which is an object of a Coupon model) in its argument
-     * and associates it with coupon in the order
+     * and associates it with a coupon in the order
      *
      * Usage: BasketController->setCoupon
      *
      * @param Coupon $coupon - gets a coupon when customer indicates it
      */
-    public function setCoupon(Coupon $coupon)
+    public function setCoupon(Coupon $coupon): void
     {
         $this->order->coupon()->associate(model: $coupon);
     }
@@ -157,7 +157,7 @@ class Basket
     /**
      * This method clears the coupon from the basket if it isn't available when adding it by a customer to an order
      */
-    public function clearCoupon()
+    public function clearCoupon(): void
     {
         $this->order->coupon()->dissociate();
     }

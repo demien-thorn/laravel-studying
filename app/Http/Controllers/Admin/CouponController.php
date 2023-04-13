@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 
 class CouponController extends Controller
 {
@@ -20,7 +19,7 @@ class CouponController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $coupons = Coupon::paginate(10);
         return view(view: 'auth.coupons.index', data: compact(var_name: 'coupons'));
@@ -28,11 +27,11 @@ class CouponController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * Returns a blade with form for creating a new coupon.
+     * Returns a blade with a form for creating a new coupon.
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view(view: 'auth.coupons.form');
     }
@@ -47,13 +46,13 @@ class CouponController extends Controller
      * In foreach() cycle we take the checkbox fields "type" and "only_once"
      * and giving them value "1" if they exist for the DB record.
      *
-     * Also we check if the request has values in field "type;
-     * if it's not - unsets the value from field "currency_id"
+     * Also, we check if the request has values in field "type;
+     * if it's not - unsetting the value from field "currency_id"
      *
      * @param CouponRequest $request - gets all the info from the form
      * @return RedirectResponse - redirects to the main coupon page
      */
-    public function store(CouponRequest $request)
+    public function store(CouponRequest $request): RedirectResponse
     {
         $params = $request->all();
         foreach (['type', 'only_once'] as $fieldName) {
@@ -76,7 +75,7 @@ class CouponController extends Controller
      * @param Coupon $coupon - gets the record of the coupon from DB
      * @return Application|Factory|View
      */
-    public function show(Coupon $coupon)
+    public function show(Coupon $coupon): View|Factory|Application
     {
         return view(view: 'auth.coupons.show', data: compact(var_name: 'coupon'));
     }
@@ -84,12 +83,12 @@ class CouponController extends Controller
     /**
      * Show the form for editing the specified resource.
      * Gets in the argument specific coupon we want to edit
-     * and returns a blade with form for editing a new coupon.
+     * and returns a blade with a form for editing a new coupon.
      *
      * @param Coupon $coupon
      * @return Application|Factory|View
      */
-    public function edit(Coupon $coupon)
+    public function edit(Coupon $coupon): View|Factory|Application
     {
         return view(view: 'auth.coupons.form', data: compact(var_name: 'coupon'));
     }
@@ -98,17 +97,17 @@ class CouponController extends Controller
      * Update the specified resource in storage.
      * Updates the record in DB for the coupon we get from method's argument.
      *
-     * In foreach() cycle we take the checkbox fields "type" and "only_once"
+     * In the foreach () cycle, we take the checkbox fields "type" and "only_once"
      * and giving them value "1" if they exist for the DB record; if they're not - giving them value "0".
      *
-     * Also we check if the request has values in field "type;
+     * Also, we check if the request has values in field "type;
      * if it's not - sets the value for "currency_id" as null.
      *
      * @param CouponRequest $request - gets the info from the form when the coupon is edited
      * @param Coupon $coupon - gets the specific coupon we need to update
      * @return RedirectResponse - redirects to the main coupon page
      */
-    public function update(CouponRequest $request, Coupon $coupon)
+    public function update(CouponRequest $request, Coupon $coupon): RedirectResponse
     {
         $params = $request->all();
         foreach (['type', 'only_once'] as $fieldName) {
@@ -133,7 +132,7 @@ class CouponController extends Controller
      * @param Coupon $coupon - gets the coupon we need to delete
      * @return RedirectResponse - redirects to the main coupon page
      */
-    public function destroy(Coupon $coupon)
+    public function destroy(Coupon $coupon): RedirectResponse
     {
         $coupon->delete();
         return redirect()->route(route: 'coupons.index');

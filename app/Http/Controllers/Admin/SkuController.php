@@ -19,9 +19,9 @@ class SkuController extends Controller
      * @param Product $product
      * @return Application|Factory|View
      */
-    public function index(Product $product)
+    public function index(Product $product): Factory|View|Application
     {
-        $skus = $product->skus()->paginate(10);
+        $skus = $product->skus()->paginate(perPage: 10);
         return view(view: 'auth.skus.index', data: compact('skus', 'product'));
     }
 
@@ -31,7 +31,7 @@ class SkuController extends Controller
      * @param Product $product
      * @return Application|Factory|View
      */
-    public function create(Product $product)
+    public function create(Product $product): View|Factory|Application
     {
         return view(view: 'auth.skus.form', data: compact(var_name: 'product'));
     }
@@ -43,7 +43,7 @@ class SkuController extends Controller
      * @param Product $product
      * @return RedirectResponse
      */
-    public function store(SkuRequest $request, Product $product)
+    public function store(SkuRequest $request, Product $product): RedirectResponse
     {
         $params = $request->all();
         $params['product_id'] = $request->product->id;
@@ -59,7 +59,7 @@ class SkuController extends Controller
      * @param Sku $sku
      * @return Application|Factory|View
      */
-    public function show(Product $product, Sku $sku)
+    public function show(Product $product, Sku $sku): View|Factory|Application
     {
         return view(view: 'auth.skus.show', data: compact('product', 'sku'));
     }
@@ -71,7 +71,7 @@ class SkuController extends Controller
      * @param Sku $sku
      * @return Application|Factory|View
      */
-    public function edit(Product $product, Sku $sku)
+    public function edit(Product $product, Sku $sku): View|Factory|Application
     {
         return view(view: 'auth.skus.form', data: compact('product', 'sku'));
     }
@@ -84,7 +84,7 @@ class SkuController extends Controller
      * @param Sku $sku
      * @return RedirectResponse
      */
-    public function update(SkuRequest $request, Product $product, Sku $sku)
+    public function update(SkuRequest $request, Product $product, Sku $sku): RedirectResponse
     {
         $params = $request->all();
         $params['product_id'] = $request->product->id;
@@ -100,7 +100,7 @@ class SkuController extends Controller
      * @param Sku $sku
      * @return RedirectResponse
      */
-    public function destroy(Product $product, Sku $sku)
+    public function destroy(Product $product, Sku $sku): RedirectResponse
     {
         $sku->delete();
         return redirect()->route(route: 'skus.index', parameters: $product);

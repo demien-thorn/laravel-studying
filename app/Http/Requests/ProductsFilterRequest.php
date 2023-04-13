@@ -12,7 +12,7 @@ class ProductsFilterRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class ProductsFilterRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['price_from' => "string", 'price_to' => "string"])] public function rules()
+    #[ArrayShape(['price_from' => "string", 'price_to' => "string"])] public function rules(): array
     {
         return [
             'price_from' => 'nullable|numeric|min:0',

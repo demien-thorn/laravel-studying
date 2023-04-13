@@ -4,13 +4,17 @@ namespace App\Services;
 
 use App\Models\Currency;
 use Carbon\Carbon;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Session\SessionManager;
+use Illuminate\Session\Store;
 
 class CurrencyConversion
 {
     const DEFAULT_CURRENCY_CODE = 'UAH';
     protected static $container;
 
-    public static function loadContainer()
+    public static function loadContainer(): void
     {
         if (is_null(value: self::$container)) {
             $currencies = Currency::get();
@@ -20,17 +24,26 @@ class CurrencyConversion
         }
     }
 
-    public static function getCurrencies()
+    /**
+     * @return mixed
+     */
+    public static function getCurrencies(): mixed
     {
         self::loadContainer();
         return self::$container;
     }
 
-    public static function getCurrencyFromSession()
+    /**
+     * @return Application|SessionManager|Store|mixed
+     */
+    public static function getCurrencyFromSession(): mixed
     {
         return session(key: 'currency', default: self::DEFAULT_CURRENCY_CODE);
     }
 
+    /**
+     * @return mixed|void
+     */
     public static function getCurrentCurrencyFromSession()
     {
         self::loadContainer();
@@ -43,7 +56,14 @@ class CurrencyConversion
         }
     }
 
-    public static function convert($sum, $originCurrencyCode = self::DEFAULT_CURRENCY_CODE, $targetCurrencyCode = null)
+    /**
+     * @throws GuzzleException
+     */
+    public static function convert(
+        $sum,
+        $originCurrencyCode = self::DEFAULT_CURRENCY_CODE,
+        $targetCurrencyCode = null
+    ): float|int
     {
         self::loadContainer();
 
@@ -88,11 +108,14 @@ class CurrencyConversion
         return $currency->symbol;
     }
 
+    /**
+     * @return mixed|void
+     */
     public static function getBaseCurrency()
     {
         self::loadContainer();
 
-        foreach (self::$container as $code => $currency) {
+        foreach (self::$container as $currency) {
             if ($currency->isMain()) {
                 return $currency;
             }

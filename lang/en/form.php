@@ -28,7 +28,7 @@ return [
     'type' => 'Absolut value',
     'expired_at' => 'Expires at',
 
-    'lables' => 'Lables',
+    'labels' => 'Labels',
     'count' => 'Products in category',
 
     'total' => 'Total cost',

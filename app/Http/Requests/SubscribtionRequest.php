@@ -12,7 +12,7 @@ class SubscribtionRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,14 +22,14 @@ class SubscribtionRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['email' => "string"])] public function rules()
+    #[ArrayShape(['email' => "string"])] public function rules(): array
     {
         return [
             'email' => 'required|email'
         ];
     }
 
-    #[ArrayShape(['email' => "string"])] public function messages()
+    #[ArrayShape(['email' => "string"])] public function messages(): array
     {
         return [
             'email' => 'E-mail field must contain a specific e-mail address'

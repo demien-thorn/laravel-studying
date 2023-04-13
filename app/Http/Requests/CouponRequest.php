@@ -10,11 +10,11 @@ class CouponRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      * If you need this request to work, change the return value from false to true.
-     * Also when in use replaces the standard Request class in the Controllers.
+     * Also, when in use replaces the standard Request class in the Controllers.
      *
      * @return bool - indicates whether this class is enabled or disabled
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -29,7 +29,7 @@ class CouponRequest extends FormRequest
         'code' => "string",
         'value' => "string",
         'currency_id' => "string"
-    ])] public function rules()
+    ])] public function rules(): array
     {
         return [
             'code' => 'required|min:6|max:8',

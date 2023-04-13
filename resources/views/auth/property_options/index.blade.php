@@ -1,6 +1,11 @@
 
 @extends('layouts.master')
 
+<?php /**
+ * @var App\Models\PropertyOption $propertyOptions
+ * @var App\Models\Property $property
+ */ ?>
+
 @section('title', __('title.property_options'))
 
 @section('content')

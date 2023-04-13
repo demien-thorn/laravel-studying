@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\PropertyOption $propertyOption */ ?>
+
 @section('title', __('title.property_option').': '.$propertyOption->__('name'))
 
 @section('content')

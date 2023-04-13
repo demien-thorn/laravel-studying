@@ -30,7 +30,7 @@ class Sku extends Model
     /**
      * @return BelongsTo
      */
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(related: Product::class);
     }
@@ -47,7 +47,7 @@ class Sku extends Model
      * @param $query - contains a query to DB
      * @return mixed - some responded data from DB
      */
-    public function scopeAvailable($query)
+    public function scopeAvailable($query): mixed
     {
         return $query->where('count', '>', 0);
     }
@@ -55,7 +55,7 @@ class Sku extends Model
     /**
      * @return BelongsToMany
      */
-    public function propertyOptions()
+    public function propertyOptions(): BelongsToMany
     {
         return $this->belongsToMany(related: PropertyOption::class, table: 'sku_property_option')->withTimestamps();
     }
@@ -63,7 +63,7 @@ class Sku extends Model
     /**
      * @return bool
      */
-    public function isAvailable()
+    public function isAvailable(): bool
     {
         return !$this->product->trashed() && $this->count > 0;
     }
@@ -71,7 +71,7 @@ class Sku extends Model
     /**
      * @return float|int|mixed
      */
-    public function getPriceForCount()
+    public function getPriceForCount(): mixed
     {
         if (!is_null(value: $this->pivot)) {
             return $this->pivot->count * $this->price;
@@ -83,9 +83,9 @@ class Sku extends Model
      * Method calls the CurrencyConversion::convert method to convert prices of products to other currencies.
      *
      * @param $value - gets the price of the product
-     * @return float - returns the converted out price
+     * @return float|int - returns the converted out price
      */
-    public function getPriceAttribute($value)
+    public function getPriceAttribute($value): float|int
     {
         return round(num: CurrencyConversion::convert(sum: $value));
     }
@@ -95,7 +95,7 @@ class Sku extends Model
      *
      * @return mixed - product's name
      */
-    public function getProductNameAttribute()
+    public function getProductNameAttribute(): mixed
     {
         return $this->product->name;
     }

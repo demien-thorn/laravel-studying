@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -19,7 +18,7 @@ class CategoryController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $categories = Category::paginate(3);
         return view(view: 'auth.categories.index', data: compact(var_name: 'categories'));
@@ -30,7 +29,7 @@ class CategoryController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view(view: 'auth.categories.form');
     }
@@ -41,7 +40,7 @@ class CategoryController extends Controller
      * @param  CategoryRequest  $request
      * @return RedirectResponse
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequest $request): RedirectResponse
     {
         $params = $request->all();
         unset($params['image']);
@@ -60,7 +59,7 @@ class CategoryController extends Controller
      * @param  Category  $category
      * @return Application|Factory|View
      */
-    public function show(Category $category)
+    public function show(Category $category): View|Factory|Application
     {
         return view(view: 'auth.categories.show', data: compact(var_name: 'category'));
     }
@@ -71,7 +70,7 @@ class CategoryController extends Controller
      * @param  Category  $category
      * @return Application|Factory|View
      */
-    public function edit(Category $category)
+    public function edit(Category $category): View|Factory|Application
     {
         return view(view: 'auth.categories.form', data: compact(var_name: 'category'));
     }
@@ -83,7 +82,7 @@ class CategoryController extends Controller
      * @param  Category  $category
      * @return RedirectResponse
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
         $params = $request->all();
         unset($params['image']);
@@ -103,7 +102,7 @@ class CategoryController extends Controller
      * @param  Category  $category
      * @return RedirectResponse
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
         return redirect()->route(route: 'categories.index');

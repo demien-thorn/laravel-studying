@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Property $property */ ?>
+
 @isset($property)
     @section('title', __('title.edit_property').' '.$property->__('name'))
 @else

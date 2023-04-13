@@ -12,7 +12,7 @@ class PropertyOptionRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class PropertyOptionRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['name' => "string", 'name_ru' => "string"])] public function rules()
+    #[ArrayShape(['name' => "string", 'name_ru' => "string"])] public function rules(): array
     {
         return [
             'name' => 'required',

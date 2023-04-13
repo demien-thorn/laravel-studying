@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Sku $sku */ ?>
+
 @section('title', __('title.sku').' '.$sku->product->__('name'))
 
 @section('content')

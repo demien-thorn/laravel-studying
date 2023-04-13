@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Sku $sku */ ?>
+
 @isset($sku)
     @section('title', __('title.edit_sku').' '.$sku->product->__('name'))
 @else

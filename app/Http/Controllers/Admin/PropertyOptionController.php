@@ -11,8 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Response;
-
 
 class PropertyOptionController extends Controller
 {
@@ -22,7 +20,7 @@ class PropertyOptionController extends Controller
      * @param Property $property
      * @return Application|Factory|View
      */
-    public function index(Property $property)
+    public function index(Property $property): Application|View|Factory
     {
         $propertyOptions = PropertyOption::where('property_id', $property->id)->paginate(10);
         return view(view: 'auth.property_options.index', data: compact('propertyOptions', 'property'));
@@ -34,7 +32,7 @@ class PropertyOptionController extends Controller
      * @param Property $property
      * @return Factory|Application|View
      */
-    public function create(Property $property)
+    public function create(Property $property): View|Application|Factory
     {
         return view(view: 'auth.property_options.form', data: compact(var_name: 'property'));
     }
@@ -46,7 +44,7 @@ class PropertyOptionController extends Controller
      * @param Property $property
      * @return RedirectResponse
      */
-    public function store(PropertyOptionRequest $request, Property $property)
+    public function store(PropertyOptionRequest $request, Property $property): RedirectResponse
     {
         $params = $request->all();
         $params['property_id'] = $request->property->id;
@@ -61,9 +59,9 @@ class PropertyOptionController extends Controller
      * @param PropertyOption $propertyOption
      * @return Factory|Application|View
      */
-    public function show(Property $property, PropertyOption $propertyOption)
+    public function show(Property $property, PropertyOption $propertyOption): View|Application|Factory
     {
-        return \view(view: 'auth.property_options.show', data: compact(var_name: 'propertyOption'));
+        return view(view: 'auth.property_options.show', data: compact(var_name: 'propertyOption'));
     }
 
     /**
@@ -73,7 +71,7 @@ class PropertyOptionController extends Controller
      * @param PropertyOption $propertyOption
      * @return Factory|Application|View
      */
-    public function edit(Property $property, PropertyOption $propertyOption)
+    public function edit(Property $property, PropertyOption $propertyOption): View|Application|Factory
     {
         return view(view: 'auth.property_options.form', data: compact('property', 'propertyOption'));
     }
@@ -86,10 +84,13 @@ class PropertyOptionController extends Controller
      * @param PropertyOption $propertyOption
      * @return RedirectResponse
      */
-    public function update(PropertyOptionRequest $request, Property $property, PropertyOption $propertyOption)
+    public function update(
+        PropertyOptionRequest $request,
+        Property $property,
+        PropertyOption $propertyOption): RedirectResponse
     {
         $params = $request->all();
-        $propertyOption->update($params);
+        $propertyOption->update(attributes: $params);
         return redirect()->route(route: 'property-options.index', parameters: $property);
     }
 
@@ -100,7 +101,7 @@ class PropertyOptionController extends Controller
      * @param PropertyOption $propertyOption
      * @return RedirectResponse
      */
-    public function destroy(Property $property, PropertyOption $propertyOption)
+    public function destroy(Property $property, PropertyOption $propertyOption): RedirectResponse
     {
         $propertyOption->delete();
         return redirect()->route(route: 'property-options.index', parameters: $property);

@@ -21,7 +21,7 @@ class Currency extends Model
      * @param $code
      * @return mixed
      */
-    public function scopeByCode($query, $code)
+    public function scopeByCode($query, $code): mixed
     {
         return $query->where('code', $code);
     }
@@ -29,7 +29,7 @@ class Currency extends Model
     /**
      * @return bool
      */
-    public function isMain()
+    public function isMain(): bool
     {
         return $this->is_main === 1;
     }

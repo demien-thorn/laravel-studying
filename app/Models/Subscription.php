@@ -25,7 +25,7 @@ class Subscription extends Model
      * @param $skuId
      * @return mixed
      */
-    public function scopeActiveBySkuId($query, $skuId)
+    public function scopeActiveBySkuId($query, $skuId): mixed
     {
         return $query->where('status', 0)->where('sku_id', $skuId);
     }
@@ -33,7 +33,7 @@ class Subscription extends Model
     /**
      * @return BelongsTo
      */
-    public function sku()
+    public function sku(): BelongsTo
     {
         return $this->belongsTo(related: Sku::class);
     }
@@ -41,7 +41,7 @@ class Subscription extends Model
     /**
      * @param Sku $sku
      */
-    public static function sendEmailsBySubscription(Sku $sku)
+    public static function sendEmailsBySubscription(Sku $sku): void
     {
         $subscriptions = self::activeBySkuId($sku->id)->get();
 

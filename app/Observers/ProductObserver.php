@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Product;
+use App\Models\Sku;
 use App\Models\Subscription;
 
 class ProductObserver
@@ -10,15 +10,15 @@ class ProductObserver
     /**
      * Handle the Product "updated" event.
      *
-     * @param  Product  $product
+     * @param Sku $sku
      * @return void
      */
-    public function updating(Product $product)
+    public function updating(Sku $sku): void
     {
-        $oldCount = $product->getOriginal(key: 'count');
+        $oldCount = $sku->getOriginal(key: 'count');
 
-        if ($oldCount == 0 && $product->count > 0) {
-            Subscription::sendEmailsBySubscription($product);
+        if ($oldCount == 0 && $sku->count > 0) {
+            Subscription::sendEmailsBySubscription(sku: $sku);
         }
     }
 }

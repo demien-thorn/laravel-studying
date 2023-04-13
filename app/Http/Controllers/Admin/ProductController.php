@@ -11,7 +11,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -21,7 +20,7 @@ class ProductController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $products = Product::paginate(5);
         return view(view: 'auth.products.index', data: compact(var_name: 'products'));
@@ -32,7 +31,7 @@ class ProductController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         $categories = Category::get();
         $properties = Property::get();
@@ -45,7 +44,7 @@ class ProductController extends Controller
      * @param ProductRequest $request
      * @return RedirectResponse
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request): RedirectResponse
     {
         $params = $request->all();
         unset($params['image']);
@@ -63,7 +62,7 @@ class ProductController extends Controller
      * @param  Product  $product
      * @return Application|Factory|View
      */
-    public function show(Product $product)
+    public function show(Product $product): View|Factory|Application
     {
         return view(view: 'auth.products.show', data: compact(var_name: 'product'));
     }
@@ -74,7 +73,7 @@ class ProductController extends Controller
      * @param Product $product
      * @return Application|Factory|View
      */
-    public function edit(Product $product)
+    public function edit(Product $product): View|Factory|Application
     {
         $categories = Category::get();
         $properties = Property::get();
@@ -88,7 +87,7 @@ class ProductController extends Controller
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, Product $product): RedirectResponse
     {
         $params = $request->all();
         unset($params['image']);
@@ -115,7 +114,7 @@ class ProductController extends Controller
      * @param Product $product
      * @return RedirectResponse
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
         return redirect()->route(route: 'products.index');

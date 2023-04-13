@@ -11,8 +11,6 @@ class Order extends Model
 {
     use HasFactory;
 
-    public mixed $skus;
-
     /**
      * @var string[]
      */
@@ -26,7 +24,7 @@ class Order extends Model
     /**
      * @return BelongsToMany
      */
-    public function skus()
+    public function skus(): BelongsToMany
     {
         return $this->belongsToMany(related: Sku::class)->withPivot(columns: ['count', 'price'])->withTimestamps();
     }
@@ -34,7 +32,7 @@ class Order extends Model
     /**
      * @return BelongsTo
      */
-    public function currency()
+    public function currency(): BelongsTo
     {
         return $this->belongsTo(related: Currency::class);
     }
@@ -45,7 +43,7 @@ class Order extends Model
      *
      * @return BelongsTo
      */
-    public function coupon()
+    public function coupon(): BelongsTo
     {
         return $this->belongsTo(related: Coupon::class);
     }
@@ -54,15 +52,15 @@ class Order extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeActive($query)
+    public function scopeActive($query): mixed
     {
         return $query->where('status', 1);
     }
 
     /**
-     * @return int
+     * @return float|int
      */
-    public function calculateFullSum()
+    public function calculateFullSum(): float|int
     {
         $sum = 0;
         foreach ($this->skus()->withTrashed()->get() as $sku) {
@@ -72,9 +70,10 @@ class Order extends Model
     }
 
     /**
+     * @param bool $withCoupon
      * @return float|int
      */
-    public function getFullSum($withCoupon = true)
+    public function getFullSum(bool $withCoupon = true): float|int
     {
         $sum = 0;
 
@@ -94,12 +93,12 @@ class Order extends Model
      * @param $phone
      * @return bool
      */
-    public function saveOrder($name, $phone)
+    public function saveOrder($name, $phone): bool
     {
-        $this->name = $name;
-        $this->phone = $phone;
+        $this->name   = $name;
+        $this->phone  = $phone;
         $this->status = 1;
-        $this->sum = $this->getFullSum();
+        $this->sum    = $this->getFullSum();
 
         $skus = $this->skus;
         $this->save();
@@ -120,7 +119,7 @@ class Order extends Model
      *
      * @return mixed
      */
-    public function hasCoupon()
+    public function hasCoupon(): mixed
     {
         return $this->coupon;
     }

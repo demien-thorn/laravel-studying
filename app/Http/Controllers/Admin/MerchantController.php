@@ -9,19 +9,18 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class MerchantController extends Controller
 {
     /**
      * Display a listing of the resource.
      * Gets all merchants from DB and put it into variable
-     * which is used further as a data when showing us merchants.
-     * We use paginate to sho anly 10 merchants per page.
+     * which is used further as data when showing us merchants.
+     * We use paginate to show only 10 merchants per page.
      *
      * @return Application|Factory|View - returns view "index"
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $merchants = Merchant::paginate(10);
         return view(view: 'auth.merchants.index', data: compact(var_name: 'merchants'));
@@ -32,7 +31,7 @@ class MerchantController extends Controller
      *
      * @return Application|Factory|View - returns view "form"
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view(view: 'auth.merchants.form');
     }
@@ -40,12 +39,12 @@ class MerchantController extends Controller
     /**
      * Store a newly created resource in storage.
      * Gets all data from the form (via Request) and creates a new record in DB.
-     * Then redirects to the main merchant page.
+     * Then redirect to the main merchant page.
      *
      * @param Request $request - gets all data from the form
      * @return RedirectResponse - redirects to the main merchant page
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         Merchant::create($request->all());
         return redirect()->route(route: 'merchants.index');
@@ -58,7 +57,7 @@ class MerchantController extends Controller
      * @param Merchant $merchant - gets the specific merchant from DB we need to take a look at
      * @return Application|Factory|View - returns view "show"
      */
-    public function show(Merchant $merchant)
+    public function show(Merchant $merchant): View|Factory|Application
     {
         return view(view: 'auth.merchants.show', data: compact(var_name: 'merchant'));
     }
@@ -70,7 +69,7 @@ class MerchantController extends Controller
      * @param Merchant $merchant - gets the specific merchant from DB we need to edit
      * @return Application|Factory|View - returns view "form"
      */
-    public function edit(Merchant $merchant)
+    public function edit(Merchant $merchant): View|Factory|Application
     {
         return view(view: 'auth.merchants.form', data: compact(var_name: 'merchant'));
     }
@@ -84,7 +83,7 @@ class MerchantController extends Controller
      * @param Merchant $merchant - gets the specific merchant from DB we need to update
      * @return RedirectResponse - redirects to the main merchant page
      */
-    public function update(Request $request, Merchant $merchant)
+    public function update(Request $request, Merchant $merchant): RedirectResponse
     {
         $merchant->update(attributes: $request->all());
         return redirect()->route(route: 'merchants.index');
@@ -97,13 +96,13 @@ class MerchantController extends Controller
      * @param Merchant $merchant - gets the specific merchant from DB we need to delete
      * @return RedirectResponse - redirects to the main merchant page
      */
-    public function destroy(Merchant $merchant)
+    public function destroy(Merchant $merchant): RedirectResponse
     {
         $merchant->delete();
         return redirect()->route(route: 'merchants.index');
     }
 
-    public function updateToken(Merchant $merchant)
+    public function updateToken(Merchant $merchant): RedirectResponse
     {
         session()->flash(
             key: 'success',

@@ -30,7 +30,7 @@ class SendSubscriptionMessage extends Mailable
      *
      * @return Envelope
      */
-    public function envelope()
+    public function envelope(): Envelope
     {
         return new Envelope(
             subject: 'Subscription Message',
@@ -42,7 +42,7 @@ class SendSubscriptionMessage extends Mailable
      *
      * @return Content
      */
-    #[Pure] public function content()
+    #[Pure] public function content(): Content
     {
         return new Content(
             view: 'mail.subscription',
@@ -55,7 +55,7 @@ class SendSubscriptionMessage extends Mailable
      *
      * @return array
      */
-    public function attachments()
+    public function attachments(): array
     {
         return [];
     }

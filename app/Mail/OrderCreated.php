@@ -8,7 +8,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use JetBrains\PhpStorm\Pure;
 
 class OrderCreated extends Mailable
 {
@@ -33,7 +32,7 @@ class OrderCreated extends Mailable
      * Get the message envelope.
      *
      */
-    public function envelope()
+    public function envelope(): Envelope
     {
         return new Envelope(
             subject: 'Congrats! Your order has been created.',
@@ -44,7 +43,7 @@ class OrderCreated extends Mailable
      * Get the message content definition.
      *
      */
-    #[Pure] public function content()
+    public function content(): Content
     {
         $fullSum = $this->order->getFullSum();
         return new Content(
@@ -62,7 +61,7 @@ class OrderCreated extends Mailable
      *
      * @return array
      */
-    public function attachments()
+    public function attachments(): array
     {
         return [];
     }

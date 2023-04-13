@@ -12,7 +12,7 @@ class CategoryRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
         'code' => "string",
         'name' => "string",
         'description' => "string"
-    ])] public function rules()
+    ])] public function rules(): array
     {
         $rules = [
             'code' => 'required|min:3|max:15|unique:categories,code',
@@ -46,7 +46,7 @@ class CategoryRequest extends FormRequest
         'min' => "string",
         'max' => "string",
         'code.min' => "string"
-    ])] public function messages()
+    ])] public function messages(): array
     {
         return [
             'required' => 'The ":attribute" field is required',

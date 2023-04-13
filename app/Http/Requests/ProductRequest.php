@@ -12,7 +12,7 @@ class ProductRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
         'code' => "string",
         'name' => "string",
         'description' => "string"
-    ])] public function rules()
+    ])] public function rules(): array
     {
         $rules = [
             'code' => 'required|min:3|max:25',
@@ -41,7 +41,11 @@ class ProductRequest extends FormRequest
         return $rules;
     }
 
-    #[ArrayShape(['required' => "string", 'min' => "string", 'code.min' => "string"])] public function messages()
+    #[ArrayShape([
+        'required' => "string",
+        'min' => "string",
+        'code.min' => "string"
+    ])] public function messages(): array
     {
         return [
             'required' => 'The ":attribute" field is required',

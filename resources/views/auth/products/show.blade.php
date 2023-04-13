@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Category $product */ ?>
+
 @section('title', __('title.product').': '.$product->__('name'))
 
 @section('content')
@@ -53,7 +55,7 @@
                 </td>
             </tr>
             <tr>
-                <td>@lang('form.lables')</td>
+                <td>@lang('form.labels')</td>
                 <td>
                     @if($product->isNew())
                         <div class="label new-label">@lang('main.filter.new')</div>

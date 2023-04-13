@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -25,13 +28,17 @@ class OrderController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    public function index(): Renderable
     {
         $orders = Auth::user()->orders()->active()->paginate(5);
         return view(view: 'auth.orders.index', data: compact(var_name: 'orders'));
     }
 
-    public function show(Order $order)
+    /**
+     * @param Order $order
+     * @return Application|Factory|View|RedirectResponse
+     */
+    public function show(Order $order): View|Factory|RedirectResponse|Application
     {
         if (!Auth::user()->orders->contains($order)) {
             return back();

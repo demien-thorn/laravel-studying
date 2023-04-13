@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Traits\Translatable;
-use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,7 +36,7 @@ class Product extends Model
     /**
      * @return BelongsTo
      */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(related: Category::class);
     }
@@ -45,7 +44,7 @@ class Product extends Model
     /**
      * @return HasMany
      */
-    public function skus()
+    public function skus(): HasMany
     {
         return $this->hasMany(related: Sku::class);
     }
@@ -53,7 +52,7 @@ class Product extends Model
     /**
      * @return BelongsToMany
      */
-    public function properties()
+    public function properties(): BelongsToMany
     {
         return $this->belongsToMany(related: Property::class, table: 'property_product')->withTimestamps();
     }
@@ -64,7 +63,7 @@ class Product extends Model
      * @param $code
      * @return mixed
      */
-    public function scopeByCode($query, $code)
+    public function scopeByCode($query, $code): mixed
     {
         return $query->where('code', $code);
     }
@@ -74,7 +73,7 @@ class Product extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeHit($query)
+    public function scopeHit($query): mixed
     {
         return $query->where('hit', 1);
     }
@@ -83,7 +82,7 @@ class Product extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeNew($query)
+    public function scopeNew($query): mixed
     {
         return $query->where('new', 1);
     }
@@ -92,7 +91,7 @@ class Product extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeRecommend($query)
+    public function scopeRecommend($query): mixed
     {
         return $query->where('recommend', 1);
     }
@@ -101,7 +100,7 @@ class Product extends Model
     /**
      * @param $value
      */
-    public function setNewAttribute($value)
+    public function setNewAttribute($value): void
     {
         $this->attributes['new'] = $value === 'on' ? 1 :0;
     }
@@ -109,7 +108,7 @@ class Product extends Model
     /**
      * @param $value
      */
-    public function setHitAttribute($value)
+    public function setHitAttribute($value): void
     {
         $this->attributes['hit'] = $value === 'on' ? 1 :0;
     }
@@ -117,7 +116,7 @@ class Product extends Model
     /**
      * @param $value
      */
-    public function setRecommendAttribute($value)
+    public function setRecommendAttribute($value): void
     {
         $this->attributes['recommend'] = $value === 'on' ? 1 :0;
     }
@@ -126,7 +125,7 @@ class Product extends Model
     /**
      * @return bool
      */
-    public function isHit()
+    public function isHit(): bool
     {
         return $this->hit === 1;
     }
@@ -134,7 +133,7 @@ class Product extends Model
     /**
      * @return bool
      */
-    public function isNew()
+    public function isNew(): bool
     {
         return $this->new === 1;
     }
@@ -142,7 +141,7 @@ class Product extends Model
     /**
      * @return bool
      */
-    public function isRecommend()
+    public function isRecommend(): bool
     {
         return $this->recommend === 1;
     }

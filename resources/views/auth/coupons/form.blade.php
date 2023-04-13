@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Coupon $coupon */ ?>
+
 @isset($coupon)
     @section('title', __('title.edit_coupon').': '.$coupon->code)
 @else

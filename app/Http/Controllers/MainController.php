@@ -6,18 +6,13 @@ use App\Http\Requests\ProductsFilterRequest;
 use App\Http\Requests\SubscribtionRequest;
 use App\Models\Category;
 use App\Models\Currency;
-use App\Models\Product;
 use App\Models\Sku;
 use App\Models\Subscription;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
-use JetBrains\PhpStorm\NoReturn;
 
 class MainController extends Controller
 {
@@ -25,7 +20,7 @@ class MainController extends Controller
      * @param ProductsFilterRequest $request
      * @return Application|Factory|View
      */
-    public function index(ProductsFilterRequest $request)
+    public function index(ProductsFilterRequest $request): View|Factory|Application
     {
         $skusQuery = Sku::with(relations: ['product', 'product.category']);
 
@@ -50,12 +45,19 @@ class MainController extends Controller
         return view(view: 'index', data: compact(var_name: 'skus'));
     }
 
-    public function categories()
+    /**
+     * @return Application|Factory|View
+     */
+    public function categories(): View|Factory|Application
     {
         return view(view: 'categories');
     }
 
-    public function category($code = null)
+    /**
+     * @param $code
+     * @return Application|Factory|View
+     */
+    public function category($code = null): View|Factory|Application
     {
         $category = Category::where('code', $code)->first();
         return view(view: 'category', data: compact(var_name: 'category'));
@@ -67,7 +69,7 @@ class MainController extends Controller
      * @param Sku $skus
      * @return Application|Factory|View
      */
-    public function sku($categoryCode, $productCode, Sku $skus)
+    public function sku($categoryCode, $productCode, Sku $skus): View|Factory|Application
     {
         if ($skus->product->code != $productCode) {
             abort(code: 404, message: 'Product not found');
@@ -84,7 +86,7 @@ class MainController extends Controller
      * @param Sku $skus
      * @return RedirectResponse
      */
-    public function subscribe(SubscribtionRequest $request, Sku $skus)
+    public function subscribe(SubscribtionRequest $request, Sku $skus): RedirectResponse
     {
         Subscription::create([
             'email' => $request->email,
@@ -94,7 +96,11 @@ class MainController extends Controller
         return redirect()->back()->with(key: 'success', value: 'Thank you! We\'ll inform you');
     }
 
-    public function changeLocale($locale)
+    /**
+     * @param $locale
+     * @return RedirectResponse
+     */
+    public function changeLocale($locale): RedirectResponse
     {
         $availableLocales = ['en', 'ru'];
         if (!in_array(needle: $locale, haystack: $availableLocales)) {
@@ -105,7 +111,11 @@ class MainController extends Controller
         return redirect()->back();
     }
 
-    public function changeCurrency($currencyCode)
+    /**
+     * @param $currencyCode
+     * @return RedirectResponse
+     */
+    public function changeCurrency($currencyCode): RedirectResponse
     {
         $currency = Currency::byCode($currencyCode)->firstOrFail();
         session(key: ['currency' => $currency->code]);

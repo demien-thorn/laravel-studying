@@ -12,7 +12,7 @@ class SkuRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class SkuRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['price' => "string", 'count' => "string"])] public function rules()
+    #[ArrayShape(['price' => "string", 'count' => "string"])] public function rules(): array
     {
         return [
             'price' => 'required|numeric|min:1',

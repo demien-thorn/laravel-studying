@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class ResetController extends Controller
 {
-    public function reset()
+    /**
+     * @return RedirectResponse
+     */
+    public function reset(): RedirectResponse
     {
         Artisan::call(command: 'migrate:fresh --seed');
 

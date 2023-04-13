@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class BestProductsComposer
 {
-    public function compose(View $view)
+    public function compose(View $view): void
     {
         $bestSkuIds = Order::get()->map->skus->flatten()->map->pivot->mapToGroups(function ($pivot) {
             return [$pivot->sku_id => $pivot->count];

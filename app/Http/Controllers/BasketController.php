@@ -6,19 +6,29 @@ use App\Classes\Basket;
 use App\Http\Requests\AddCouponRequest;
 use App\Models\Coupon;
 use App\Models\Sku;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
-    public function basket()
+    /**
+     * @return Application|Factory|View
+     */
+    public function basket(): View|Factory|Application
     {
         $order = (new Basket())->getOrder();
         return view(view: 'basket', data: compact(var_name: 'order'));
     }
 
-    public function basketConfirm(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function basketConfirm(Request $request): RedirectResponse
     {
         $basket = new Basket();
         if ($basket->getOrder()->hasCoupon() && !$basket->getOrder()->coupon->availableForUse()) {
@@ -37,7 +47,10 @@ class BasketController extends Controller
         return redirect()->route(route: 'index');
     }
 
-    public function basketPlace()
+    /**
+     * @return Application|Factory|View|RedirectResponse
+     */
+    public function basketPlace(): View|Factory|RedirectResponse|Application
     {
         $basket = new Basket();
         $order = $basket->getOrder();
@@ -52,7 +65,7 @@ class BasketController extends Controller
      * @param Sku $skus
      * @return RedirectResponse
      */
-    public function basketAdd(Sku $skus)
+    public function basketAdd(Sku $skus): RedirectResponse
     {
         $result = (new Basket(createOrder: true))->addSku(sku: $skus);
         if ($result) {
@@ -72,7 +85,7 @@ class BasketController extends Controller
      * @param Sku $skus
      * @return RedirectResponse
      */
-    public function basketRemove(Sku $skus)
+    public function basketRemove(Sku $skus): RedirectResponse
     {
         (new Basket())->removeSku(sku: $skus);
         session()->flash(key: 'warning', value: __(key: 'notes.removed').': "'.$skus->product->__('name').'"');
@@ -93,7 +106,7 @@ class BasketController extends Controller
      * @param AddCouponRequest $request - gets info about the coupon added
      * @return RedirectResponse - redirects back to the basket
      */
-    public function setCoupon(AddCouponRequest $request)
+    public function setCoupon(AddCouponRequest $request): RedirectResponse
     {
         $coupon = Coupon::where('code', $request->coupon)->first();
         if ($coupon->availableForUse()) {

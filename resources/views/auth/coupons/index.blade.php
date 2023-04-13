@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Coupon $coupon */ ?>
+
 @section('title', __('title.coupons'))
 
 @section('content')

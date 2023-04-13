@@ -4,25 +4,30 @@ namespace App\Services;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class CurrencyRates
 {
-    public static function getRates()
+    /**
+     * @throws GuzzleException
+     * @throws Exception
+     */
+    public static function getRates(): void
     {
         $baseCurrency = CurrencyConversion::getBaseCurrency();
 
         $url = config(key: 'currency_rates.api_url').'?base='.$baseCurrency->code;
 
         $client = new Client();
-        $responce = $client->request(
+        $response = $client->request(
             method: 'GET',
             uri: $url,
             options: ['headers' => ['apikey' => 'RdXtz6F2qsoafyInpVOLGV7ZTzEWgmqz']]);
-        if ($responce->getStatusCode() !== 200) {
+        if ($response->getStatusCode() !== 200) {
             throw new Exception(message: 'There is a problem with a currency rate service');
         }
 
-        $rates = json_decode(json: $responce->getBody()->getContents(), associative: true)['rates'];
+        $rates = json_decode(json: $response->getBody()->getContents(), associative: true)['rates'];
 
         foreach (CurrencyConversion::getCurrencies() as $currency) {
             if (!$currency->isMain()) {

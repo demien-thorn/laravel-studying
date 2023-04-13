@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+<?php /** @var App\Models\Category $category */ ?>
+
 @section('title', __('title.categories'))
 
 @section('content')

@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -45,7 +45,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->is_admin === 1;
     }
@@ -53,7 +53,7 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(related: Order::class);
     }

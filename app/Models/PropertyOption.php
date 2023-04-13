@@ -22,7 +22,7 @@ class PropertyOption extends Model
     /**
      * @return BelongsTo
      */
-    public function property()
+    public function property(): BelongsTo
     {
         return $this->belongsTo(related: Property::class);
     }
@@ -31,7 +31,7 @@ class PropertyOption extends Model
     /**
      * @return BelongsToMany
      */
-    public function skus()
+    public function skus(): BelongsToMany
     {
         return $this->belongsToMany(related: Sku::class);
     }

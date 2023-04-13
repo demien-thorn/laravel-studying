@@ -32,7 +32,7 @@ class Coupon extends Model
      *
      * @return HasMany
      */
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(related: Order::class);
     }
@@ -42,7 +42,7 @@ class Coupon extends Model
      *
      * @return BelongsTo
      */
-    public function currency()
+    public function currency(): BelongsTo
     {
         return $this->belongsTo(related: Currency::class);
     }
@@ -52,7 +52,7 @@ class Coupon extends Model
      *
      * @return bool
      */
-    public function isAbsolute()
+    public function isAbsolute(): bool
     {
         return $this->type === 1;
     }
@@ -62,7 +62,7 @@ class Coupon extends Model
      *
      * @return bool
      */
-    public function isOnlyOnce()
+    public function isOnlyOnce(): bool
     {
         return $this->only_once === 1;
     }
@@ -78,7 +78,7 @@ class Coupon extends Model
      *
      * @return bool
      */
-    public function availableForUse()
+    public function availableForUse(): bool
     {
         $this->refresh();
         if (!$this->isOnlyOnce() || $this->orders->count() === 0) {
@@ -92,7 +92,7 @@ class Coupon extends Model
      * @param Currency|null $currency
      * @return float|int
      */
-    public function applyCost($price, Currency $currency = null)
+    public function applyCost($price, Currency $currency = null): float|int
     {
         if ($this->isAbsolute()) {
             return $price - CurrencyConversion::convert(

@@ -1,5 +1,7 @@
 @extends('layouts.master', ['file' => 'index'])
 
+<?php /** @var App\Models\Sku $skus */ ?>
+
 @section('title', __('title.main'))
 
 @section('content')
