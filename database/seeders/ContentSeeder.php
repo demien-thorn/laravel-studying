@@ -275,6 +275,54 @@ class ContentSeeder extends Seeder
         ],
     ];
 
+    /**
+     * Contains information about basic coupons
+     *
+     * @var array|array[]
+     */
+    private array $coupons = [
+        [
+            'code' => '10%',
+            'value' => 10,
+            'type' => 0,
+            'currency_id' => null,
+            'only_once' => 0,
+            'description' => 'Купон на 10%',
+        ],
+        [
+            'code' => '26%',
+            'value' => 26,
+            'type' => 0,
+            'currency_id' => null,
+            'only_once' => 1,
+            'description' => 'Купон на 26% (одноразовый)',
+        ],
+        [
+            'code' => 'UAH',
+            'value' => 3000,
+            'type' => 1,
+            'currency_id' => 1,
+            'only_once' => 0,
+            'description' => 'Купон на 3000 гривен',
+        ],
+        [
+            'code' => 'USD',
+            'value' => '47',
+            'type' => 1,
+            'currency_id' => 2,
+            'only_once' => 1,
+            'description' => 'Купон на 47 долларов (одноразовый)',
+        ],
+        [
+            'code' => 'EUR',
+            'value' => '35',
+            'type' => 1,
+            'currency_id' => 3,
+            'only_once' => 0,
+            'description' => 'Купон на 35 евро',
+        ],
+    ];
+
 //TODO: check IDE's warnings about function below
     /**
      * Run the database seeds.
@@ -284,9 +332,17 @@ class ContentSeeder extends Seeder
      */
     public function run(): void
     {
+        foreach ($this->coupons as $coupon) {
+            $coupon['created_at'] = Carbon::now()->subDays(value: 20);
+            $coupon['updated_at'] = Carbon::now()->subDays(value: 20);
+            $coupon['expired_at'] = Carbon::now()->addMonth();
+
+            DB::table(table: 'coupons')->insert(values: $coupon);
+        }
+
         foreach ($this->properties as $property) {
-            $property['created_at'] = Carbon::now();
-            $property['updated_at'] = Carbon::now();
+            $property['created_at'] = Carbon::now()->subMonth();
+            $property['updated_at'] = Carbon::now()->subMonth();
 
             $options = $property['options'];
             unset($property['options']);
@@ -294,8 +350,8 @@ class ContentSeeder extends Seeder
             $propertyId = DB::table(table: 'properties')->insertGetId(values: $property);
 
             foreach ($options as $option) {
-                $option['created_at'] = Carbon::now();
-                $option['updated_at'] = Carbon::now();
+                $option['created_at'] = Carbon::now()->subMonth();
+                $option['updated_at'] = Carbon::now()->subMonth();
                 $option['property_id'] = $propertyId;
 
                 DB::table(table: 'property_options')->insert(values: $option);
@@ -303,8 +359,8 @@ class ContentSeeder extends Seeder
         }
 
         foreach ($this->categories as $category) {
-            $category['created_at'] = Carbon::now();
-            $category['updated_at'] = Carbon::now();
+            $category['created_at'] = Carbon::now()->subMonth();
+            $category['updated_at'] = Carbon::now()->subMonth();
 
             $products = $category['products'];
             unset($category['products']);
@@ -312,8 +368,8 @@ class ContentSeeder extends Seeder
             $categoryId = DB::table(table: 'categories')->insertGetId(values: $category);
 
             foreach ($products as $product) {
-                $product['created_at'] = Carbon::now();
-                $product['updated_at'] = Carbon::now();
+                $product['created_at'] = Carbon::now()->subMonth();
+                $product['updated_at'] = Carbon::now()->subMonth();
                 $product['hit'] = !boolval(value: rand(min: 0, max: 4));
                 $product['recommend'] = !boolval(value: rand(min: 0, max: 2));
                 $product['category_id'] = $categoryId;
@@ -333,8 +389,8 @@ class ContentSeeder extends Seeder
                     foreach ($properties as $propertyId) {
                         $productData['product_id'] = $productId;
                         $productData['property_id'] = $propertyId;
-                        $productData['created_at'] = Carbon::now();
-                        $productData['updated_at'] = Carbon::now();
+                        $productData['created_at'] = Carbon::now()->subMonth();
+                        $productData['updated_at'] = Carbon::now()->subMonth();
 
                         DB::table(table: 'property_product')->insert(values: $productData);
                     }
@@ -343,16 +399,16 @@ class ContentSeeder extends Seeder
                         $skusData['product_id'] = $productId;
                         $skusData['count'] = rand(min: 1, max: 100);
                         $skusData['price'] = $price;
-                        $skusData['created_at'] = Carbon::now();
-                        $skusData['updated_at'] = Carbon::now();
+                        $skusData['created_at'] = Carbon::now()->subMonth();
+                        $skusData['updated_at'] = Carbon::now()->subMonth();
 
                         $skuId = DB::table(table: 'skus')->insertGetId(values: $skusData);
 
                         foreach ($skuOptions as $skuOption) {
                             $skuData['sku_id'] = $skuId;
                             $skuData['property_option_id'] = $skuOption;
-                            $skuData['created_at'] = Carbon::now();
-                            $skuData['updated_at'] = Carbon::now();
+                            $skuData['created_at'] = Carbon::now()->subMonth();
+                            $skuData['updated_at'] = Carbon::now()->subMonth();
 
                             DB::table(table: 'sku_property_option')->insert(values: $skuData);
                         }
@@ -363,8 +419,8 @@ class ContentSeeder extends Seeder
                     $skusData['product_id'] = $productId;
                     $skusData['count'] = rand(min: 1, max: 100);
                     $skusData['price'] = $price;
-                    $skusData['created_at'] = Carbon::now();
-                    $skusData['updated_at'] = Carbon::now();
+                    $skusData['created_at'] = Carbon::now()->subMonth();
+                    $skusData['updated_at'] = Carbon::now()->subMonth();
 
                     DB::table(table: 'skus')->insert(values: $skusData);
                 }
