@@ -28,7 +28,7 @@ class AddCouponRequest extends FormRequest
     #[ArrayShape(['coupon' => "string"])] public function rules(): array
     {
         return [
-            'coupon' => 'required|min:6|max:8|exists:coupons,code'
+            'coupon' => 'required|min:3|max:15|exists:coupons,code'
         ];
     }
 

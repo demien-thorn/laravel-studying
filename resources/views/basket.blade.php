@@ -44,8 +44,21 @@
                     </td>
                 </tr>
             @endforeach
-            <tr><td colspan="5">
-                @if(!$order->hasCoupon())
+{{--            <tr><td colspan="5">--}}
+{{--                @if(!$order->hasCoupon())--}}
+{{--                    <form class="form-container" method="post" action="{{ route(name: 'set-coupon') }}">--}}
+{{--                        @csrf--}}
+{{--                        <b>@lang('form.add_coupon')</b>--}}
+{{--                        <input type="text" name="coupon">--}}
+{{--                        <input type="submit" name="" value="@lang('buttons.add')">--}}
+{{--                        @include('layouts.error', ['fieldName' => 'coupon'])--}}
+{{--                    </form>--}}
+{{--                @else--}}
+{{--                    <div class="form-container">@lang('notes.coupon_in_use'): {{ $order->coupon->code }}</div>--}}
+{{--                @endif--}}
+{{--            </td></tr>--}}
+            @if(!$order->hasCoupon())
+                <tr><td colspan="5">
                     <form class="form-container" method="post" action="{{ route(name: 'set-coupon') }}">
                         @csrf
                         <b>@lang('form.add_coupon')</b>
@@ -53,10 +66,21 @@
                         <input type="submit" name="" value="@lang('buttons.add')">
                         @include('layouts.error', ['fieldName' => 'coupon'])
                     </form>
+                </td></tr>
                 @else
-                    <div class="form-container">@lang('notes.coupon_in_use'): {{ $order->coupon->code }}</div>
+                <tr>
+                    <td colspan="3">
+                        <div class="form-container">@lang('notes.coupon_in_use'): {{ $order->coupon->code }}</div>
+                    </td>
+                    <td colspan="2">
+                        <form class="form-container" method="post" action="{{ route(name: 'remove-coupon') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">@lang('buttons.remove')</button>
+                        </form>
+                    </td>
+                </tr>
                 @endif
-            </td></tr>
+
             <tr>
                 <td colspan="3"><b>@lang('form.total'):</b></td>
                 <td></td>

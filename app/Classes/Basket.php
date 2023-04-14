@@ -161,4 +161,11 @@ class Basket
     {
         $this->order->coupon()->dissociate();
     }
+
+    public function removeCoupon(): void
+    {
+        if ($this->order->hasCoupon()) {
+            $this->order->coupon()->dissociate();
+        }
+    }
 }

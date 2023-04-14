@@ -118,4 +118,25 @@ class BasketController extends Controller
 
         return redirect()->route(route: 'basket');
     }
+
+    /**
+     * This method checks whether an order has the coupon:
+     *    if so - removes coupon from an order and shows a notification;
+     *    if not - just shows a warning that coupon doesn't exist;
+     * In any case - redirects back to the basket.
+     *
+     * @return RedirectResponse - redirects back to the basket
+     */
+    public function removeCoupon(): RedirectResponse
+    {
+        $basket = new Basket();
+        $order = $basket->getOrder();
+        if ($order->hasCoupon()) {
+            $basket->removeCoupon();
+            session()->flash(key: 'success', value: __(key: 'notes.coupon_removed'));
+        } else {
+            session()->flash(key: 'warning', value: __(key: 'notes.coupon_not_exist'));
+        }
+        return redirect()->route(route: 'basket');
+    }
 }

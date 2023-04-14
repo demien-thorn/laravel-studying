@@ -19,6 +19,7 @@ return [
     'coupon_in_use' => 'Уже используется купон',
     'coupon_unavailable' => 'Купон не может быть использован',
     'coupon_added' => 'Добавлен купон',
+    'coupon_removed' => 'Купон удалён',
 
     'for_merchant' => 'Для поставщика',
     'token_updated' => 'токен обновлён',

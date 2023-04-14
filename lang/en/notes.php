@@ -15,10 +15,11 @@ return [
     'order' => 'You can\'t order',
     'amount' => 'in this amount',
 
-    'coupon_not_exist' => 'Such coupon doesn\'t exists',
+    'coupon_not_exist' => 'This coupon doesn\'t exists',
     'coupon_in_use' => 'Coupon is already in use',
     'coupon_unavailable' => 'Coupon is unavailable',
     'coupon_added' => 'Coupon added',
+    'coupon_removed' => 'Coupon removed',
 
     'for_merchant' => 'For merchant',
     'token_updated' => 'token updated',

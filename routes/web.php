@@ -94,6 +94,7 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
             Route::post(uri: '/remove/{skus}', action:[BasketC::class, 'basketRemove'])->name(name: 'basket-remove');
             Route::post(uri: '/place', action: [BasketC::class, 'basketConfirm'])->name(name: 'basket-confirm');
             Route::post(uri: 'coupon', action: [BasketC::class, 'setCoupon'])->name(name: 'set-coupon');
+            Route::post(uri: 'coupon/remove', action: [BasketC::class, 'removeCoupon'])->name(name: 'remove-coupon');
         });
     });
 

@@ -20,6 +20,7 @@ return [
     'save' => 'Save',
     'send' => 'Send',
     'add' => 'Add',
+    'remove' => 'Remove',
 
     'login' => 'Login',
     'register' => 'Register',
