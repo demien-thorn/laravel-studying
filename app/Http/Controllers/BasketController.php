@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Auth;
 class BasketController extends Controller
 {
     /**
-     * @return Application|Factory|View
+     * Method creates a new order adn shows us a basket view.
+     *
+     * @return Application|Factory|View - returns the basket view with data from $order variable
      */
     public function basket(): View|Factory|Application
     {
@@ -25,8 +27,20 @@ class BasketController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse
+     * This method gets the Request datda from the form in its argument.
+     *
+     * We create a new Basket object and then check whether it has a coupon and is it available.
+     * If for some reason it's not - we remove coupon, send a warning and redirect back to the basket.
+     *
+     * If everything is alright with coupon, we get an email.
+     * If customers are authorized, we get it from their data; if not - they must indicate their email in the form.
+     * If everything is right and the order was saved - send a notification.
+     * If something went wrong - we send a warning.
+     *
+     * In any case - redirect back to the index page.
+     *
+     * @param Request $request - gets info from the form
+     * @return RedirectResponse - redirects to the indicated page
      */
     public function basketConfirm(Request $request): RedirectResponse
     {
@@ -48,6 +62,11 @@ class BasketController extends Controller
     }
 
     /**
+     * In this method, we create a new Basket object and then put order data to the variable.
+     * Then we check if customers can purchase the products in the indicated amount.
+     * If they can't for some reason - send a warning and redirect back to the basket.
+     * In any other case - redirect to the checkout page with order data (from the variable).
+     *
      * @return Application|Factory|View|RedirectResponse
      */
     public function basketPlace(): View|Factory|RedirectResponse|Application
@@ -62,8 +81,13 @@ class BasketController extends Controller
     }
 
     /**
-     * @param Sku $skus
-     * @return RedirectResponse
+     * This method gets the sku we want to add to the basket in its argument.
+     * Then we call to a Basket's addSku() method (look at the method's describtion for more info).
+     * If true - show the success notification; if false - show the warning.
+     * In any case - redirect back to the basket.
+     *
+     * @param Sku $skus - sku we want to add
+     * @return RedirectResponse - redirect back to the basket
      */
     public function basketAdd(Sku $skus): RedirectResponse
     {
@@ -71,24 +95,30 @@ class BasketController extends Controller
         if ($result) {
             session()->flash(
                 key: 'success',
-                value: __(key: 'notes.add').': "'.$skus->product->__('name').'"');
+                value: __(key: 'notes.add').': "'.$skus->product->__('name').'"'
+            );
         } else {
             session()->flash(
                 key: 'warning',
-                value: __(key: 'notes.order').' "'.$skus->product->__('name').'" '.__(key: 'notes.amount'));
+                value: __(key: 'notes.order').' "'.$skus->product->__('name').'" '.__(key: 'notes.amount')
+            );
         }
 
         return redirect()->route(route: 'basket');
     }
 
     /**
-     * @param Sku $skus
-     * @return RedirectResponse
+     * This method gets the sku we want to remove in its argument.
+     * Then a current Basket object calls its method removeSku() using an argument.
+     * After that - redirects back to the basket with notification of the success removing.
+     *
+     * @param Sku $skus - sku we want to remove
+     * @return RedirectResponse - redirects back to the basket
      */
     public function basketRemove(Sku $skus): RedirectResponse
     {
         (new Basket())->removeSku(sku: $skus);
-        session()->flash(key: 'warning', value: __(key: 'notes.removed').': "'.$skus->product->__('name').'"');
+        session()->flash(key: 'success', value: __(key: 'notes.removed').': "'.$skus->product->__('name').'"');
 
         return redirect()->route(route: 'basket');
     }

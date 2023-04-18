@@ -12,6 +12,8 @@ class Order extends Model
     use HasFactory;
 
     /**
+     * Contains an array of the fields which are required to fill.
+     *
      * @var string[]
      */
     protected $fillable = [
@@ -22,6 +24,10 @@ class Order extends Model
     ];
 
     /**
+     * Method creates the relation between order and Sku class
+     * which is responsible for the Sku functional in the orders.
+     * The relation is created for columns 'count' and 'price' with timestamps.
+     *
      * @return BelongsToMany
      */
     public function skus(): BelongsToMany
@@ -30,6 +36,9 @@ class Order extends Model
     }
 
     /**
+     * Method creates the relation between order and Currency class
+     * which is responsible for the currency functional in the orders.
+     *
      * @return BelongsTo
      */
     public function currency(): BelongsTo
@@ -38,7 +47,7 @@ class Order extends Model
     }
 
     /**
-     * This method creates the relation between order and Coupon class
+     * Method creates the relation between order and Coupon class
      * which is responsible for the coupon functional in the orders.
      *
      * @return BelongsTo
@@ -49,6 +58,8 @@ class Order extends Model
     }
 
     /**
+     * Method gets the status of an order from DB.
+     *
      * @param $query
      * @return mixed
      */
@@ -58,7 +69,10 @@ class Order extends Model
     }
 
     /**
-     * @return float|int
+     * Method takes each product in an order in the cycle and then summs their price in order to get the total sum.
+     * Method is doing it using Sku's method getPriceForCount().
+     *
+     * @return float|int - total price of the order
      */
     public function calculateFullSum(): float|int
     {
@@ -70,8 +84,13 @@ class Order extends Model
     }
 
     /**
-     * @param bool $withCoupon
-     * @return float|int
+     * Method takes each product in an order and calculates its total price first.
+     * Then it checks if an order has a coupon.
+     * If so, it calculates the price with coupon.
+     * Then returns the final order price.
+     *
+     * @param bool $withCoupon - check wether an order has a coupon
+     * @return float|int - final order price
      */
     public function getFullSum(bool $withCoupon = true): float|int
     {
@@ -89,6 +108,12 @@ class Order extends Model
     }
 
     /**
+     * Method saves an order to DB.
+     * It gets customer's name and phone from the form, assigns order's status as active
+     * and gets a full sum of the order.
+     * Then for each product in an order it assigns count and price for DB.
+     * Then it clears the current order from the session and returns true.
+     *
      * @param $name
      * @param $phone
      * @return bool
