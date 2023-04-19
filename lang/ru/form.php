@@ -49,5 +49,6 @@ return [
     'password' => 'Пароль',
     'password_confirm' => 'Подтвердите пароль',
     'user_name' => 'Имя',
+    'comment' => 'Текст комментария',
     'token' => 'Токен',
 ];

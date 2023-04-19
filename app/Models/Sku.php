@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sku extends Model
@@ -18,21 +19,44 @@ class Sku extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['product_id', 'count', 'price',];
+    protected $fillable = [
+        'product_id',
+        'count',
+        'price',
+    ];
 
     /**
      * Contains an array of the fieldnames which are used when generating an api-request.
      *
      * @var string[]
      */
-    protected $visible = ['id', 'count', 'price', 'product_name'];
+    protected $visible = [
+        'id',
+        'count',
+        'price',
+        'product_name'
+    ];
 
     /**
+     * Creates a relation between this model and Product model.
+     * BelongsTo indicates that this model belongs to the Product model.
+     *
      * @return BelongsTo
      */
     public function product(): BelongsTo
     {
         return $this->belongsTo(related: Product::class);
+    }
+
+    /**
+     * Creates a relation between this model and Comment model.
+     * HasMany indicates that this model can have a lot of objects of the Comment model.
+     *
+     * @return HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(related: Comment::class);
     }
 
     /**
