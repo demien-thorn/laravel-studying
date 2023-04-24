@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
 class CommentRequest extends FormRequest
@@ -20,6 +21,17 @@ class CommentRequest extends FormRequest
     }
 
     /**
+     * This method helps to check which method of the CommentController was used.
+     * If the method was "store", we use the validation for the specific field.
+     *
+     * @return bool
+     */
+    protected function isCreateRequest(): bool
+    {
+        return $this->route()->getActionMethod() === 'store';
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -32,10 +44,14 @@ class CommentRequest extends FormRequest
     ])] public function rules(): array
     {
         return [
-            'username' => 'required|min:2|max:50|regex:/^[a-z0-9]+$/',
+            'username' => 'required|min:2|max:50|regex:/^[a-zA-Zа-яА-Я0-9]+$/',
             'email' => 'required|email',
-            'password' => 'required|min:8|max:30',
             'comment' => 'required|min:1|max:255',
+            'password' => [
+                Rule::requiredIf($this->isCreateRequest()),
+                'min:8',
+                'max:30',
+            ],
         ];
     }
 }

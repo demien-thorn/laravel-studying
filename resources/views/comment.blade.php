@@ -14,10 +14,15 @@
                     <div>
                         <span class="chat-name" id="{{ $comment->username.'-'.$comment->id }}">
                             - {{ $comment->username }}
-                        </span><br>
+                        </span>
+                        <span class="chat-time">
+                            @lang('main.others.at') {{ $comment->created_at }}
+                        </span>
+                        <br>
                         <span class="chat-email" id="{{ $comment->email.'-'.$comment->id }}">
                             - {{ $comment->email }}
-                        </span> <br>
+                        </span>
+                        <br>
                         <span class="chat-message" id="{{ $comment->comment.'-'.$comment->id }}">
                             {{ $comment->comment }}
                         </span>

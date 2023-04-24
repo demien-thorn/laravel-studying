@@ -25,5 +25,6 @@ return [
 
     'others' => [
         'products_total' => 'Total products in this category',
+        'at' => 'at'
     ],
 ];

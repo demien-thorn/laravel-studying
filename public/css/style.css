@@ -58,15 +58,12 @@ body {
     padding: 10px;
     border: 2px solid black;
 }
-.chat-name {
-    margin: 0 20px;
-    font-weight: 1000;
-}
-.chat-email {
-    margin: 0 20px;
+.chat-name {font-weight: 1000;}
+.chat-email, .chat-time {
     font-size: 12px;
     font-weight: 500;
 }
+.chat-email, .chat-name {margin: 0 0 0 20px;}
 .chat-message {font-size: 20px;}
 .button-delete {text-align: right !important;}
 /*Chat-style ending*/
