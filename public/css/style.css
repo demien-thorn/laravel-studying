@@ -45,6 +45,31 @@ body {
     left: 0;
     height: 100vh;
 } /*Position of the sidebar*/
+
+/*Chat style*/
+.chat-window {
+    width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 0 5px;
+}
+.chat-comment {
+    text-align: left !important;
+    margin: 2px 0;
+    padding: 10px;
+    border: 2px solid black;
+}
+.chat-name {
+    margin: 0 20px;
+    font-weight: 1000;
+}
+.chat-email {
+    margin: 0 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.chat-message {font-size: 20px;}
+.button-delete {text-align: right !important;}
+/*Chat-style ending*/
 /*Main - ending*/
 
 

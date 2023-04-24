@@ -13,6 +13,7 @@ return [
     'coupons' => 'Купоны',
     'merchants' => 'Поставщики',
     'basket' => 'Корзина',
+    'comments' => 'Комментарии',
 
     'admin' => 'Админка',
     'orders' => 'Мои заказы',

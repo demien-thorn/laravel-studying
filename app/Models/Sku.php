@@ -49,17 +49,6 @@ class Sku extends Model
     }
 
     /**
-     * Creates a relation between this model and Comment model.
-     * HasMany indicates that this model can have a lot of objects of the Comment model.
-     *
-     * @return HasMany
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(related: Comment::class);
-    }
-
-    /**
      * Returns skus which count is greater than 0.
      *
      * Note: "scope"-methods are usable when we copy the name of the "scope"-method after "scope..."

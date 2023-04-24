@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ProductsFilterRequest;
 use App\Http\Requests\SubscribtionRequest;
 use App\Models\Category;

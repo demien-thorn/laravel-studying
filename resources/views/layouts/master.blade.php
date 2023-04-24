@@ -6,6 +6,7 @@
         <meta name="description" content="Demien site>">
         <meta name="keywords" content="k>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title')</title>
 
         <link href="/css/style.css" rel="stylesheet"> {{--Common CSS files--}}
@@ -34,6 +35,11 @@
                     </a>
 
                     <ul class="nav nav-pills mb-auto col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li><a href="{{ route(name: 'comments') }}"
+                            class="nav-link @routeactive('comments')" aria-current="page">
+                            <i class="fa-solid fa-comments fa-beat"></i>
+                            @lang('nav.comments')
+                        </a></li>
                         <li><a href="{{ route(name: 'categories') }}"
                             class="nav-link @routeactive('categories')" aria-current="page">
                             <i class="fa-solid fa-bars fa-shake"></i>
@@ -216,5 +222,6 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous">
     </script>
+    <script src="/js/comment.js"></script>
     </body>
 </html>

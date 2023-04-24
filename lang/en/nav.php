@@ -13,6 +13,7 @@ return [
     'coupons' => 'Coupons',
     'merchants' => 'Merchants',
     'basket' => 'Basket',
+    'comments' => 'Comments',
 
     'admin' => 'Admin',
     'orders' => 'My roders',

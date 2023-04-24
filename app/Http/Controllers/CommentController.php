@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
-use App\Models\Sku;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
@@ -19,53 +16,29 @@ class CommentController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(Sku $sku): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $comments = $sku->comments()->paginate(perPage: 10);
-        return view(view: 'product', data: compact('comments', 'sku'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $comments = Comment::orderBy('created_at', 'desc')->paginate(perPage: 10);
+        return view(view: 'comment', data: compact(var_name: 'comments'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Sku $sku
      * @param CommentRequest $request
-     * @return RedirectResponse
+     * @return string|false
      */
-    public function store(CommentRequest $request, Sku $sku): RedirectResponse
+    public function store(CommentRequest $request): bool|string
     {
-        $params = $request->all();
-        $params['sku_id'] = $request->sku->id;
-        Comment::create($params);
-        return redirect()->route(route: 'product', parameters: $sku);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comment $comment)
-    {
-        //
+        $comment = Comment::create($request->all());
+        return json_encode(['comment' => $comment->comment]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param Comment $comment
+     * @return void
      */
     public function edit(Comment $comment)
     {
@@ -75,23 +48,25 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param CommentRequest $request
+     * @param Comment $comment
+     * @return JsonResponse
      */
-    public function update(CommentRequest $request, Comment $comment)
+    public function update(CommentRequest $request, Comment $comment): JsonResponse
     {
-        //
+        $comment->update(attributes: $request->all());
+        return response()->json(['message' => 'Comment updated successfully']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param Comment $comment
+     * @return JsonResponse
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment): JsonResponse
     {
-        //
+        $comment->delete();
+        return response()->json(['message' => 'Comment deleted successfully']);
     }
 }

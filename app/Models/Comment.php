@@ -10,6 +10,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+
     /**
      * This array of values indicates the columns reuired to fill when creating a new comment.
      *
@@ -21,15 +23,4 @@ class Comment extends Model
         'password',
         'comment',
     ];
-
-    /**
-     * Creates a relation between this Model and Sku model.
-     * BelongsTo indicates that this model belongs to the Sku model.
-     *
-     * @return BelongsTo
-     */
-    public function skus(): BelongsTo
-    {
-        return $this->belongsTo(related: Sku::class);
-    }
 }

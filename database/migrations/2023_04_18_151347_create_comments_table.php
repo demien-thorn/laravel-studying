@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create(table: 'comments', callback: function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger(column: 'sku_id');
             $table->string(column: 'username');
             $table->string(column: 'email');
             $table->string(column: 'password');

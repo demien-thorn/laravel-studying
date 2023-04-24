@@ -40,6 +40,7 @@ return [
     'property_options' => 'Property options',
     'sku' => 'Sku',
     'skus' => 'Skus',
+    'comments' => 'Comments',
 
     'order' => 'Orders',
     'orders' => 'Orders',
