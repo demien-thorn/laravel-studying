@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Comments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comments\CommentRequest;
+use App\Http\Resources\Comments\CommentResource;
 use App\Models\Comment;
 use App\Services\Comments\CommentsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CommentController extends Controller
 {
@@ -28,43 +29,22 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
-        $comments = Comment::orderBy('created_at', 'asc')->paginate(perPage: 20);
-        return response()->json(data: $comments);
+        return CommentResource::collection(resource: CommentsService::showComments());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param CommentRequest $request
-     * @return string|false
+     * @return JsonResponse
      */
-    public function store(CommentRequest $request): bool|string
+    public function store(CommentRequest $request): JsonResponse
     {
-        $commentId = DB::table(table: 'comments')->insertGetId(values: [
-            'username' => $request->all()['username'],
-            'password' => $request->all()['password'],
-            'email' => $request->all()['email'],
-            'comment' => $request->all()['comment'],
-            'rand_string' => CommentsService::randomString(),
-            'moderation_status' => CommentsService::moderationStatus(comment: $request->all()['comment']),
-            'hash' => CommentsService::hashForComment(comment: $request->all()['comment']),
-        ]);
-        return json_decode(json: $commentId);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Comment $comment
-     * @return void
-     */
-    public function edit(Comment $comment)
-    {
-        //
+        return response()->json(data: ['commentId' => CommentsService::createComment(request: $request)]);
     }
 
     /**
@@ -72,25 +52,23 @@ class CommentController extends Controller
      *
      * @param CommentRequest $request
      * @param Comment $comment
-     * @return JsonResponse
+     * @return CommentResource
      */
-    public function update(CommentRequest $request, Comment $comment): JsonResponse
+    public function update(CommentRequest $request, Comment $comment): CommentResource
     {
-        $comment->moderation_status = CommentsService::moderationStatus(comment: $request->all()['comment']);
-
-        $comment->update(attributes: $request->all());
-        return response()->json(data: ['message' => 'Comment updated successfully']);
+        CommentsService::updateComment(request: $request, comment: $comment);
+        return new CommentResource(resource: $comment);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Comment $comment
-     * @return JsonResponse
+     * @return CommentResource
      */
-    public function destroy(Comment $comment): JsonResponse
+    public function destroy(Comment $comment): CommentResource
     {
-        $comment->delete();
-        return response()->json(data: ['message' => 'Comment deleted successfully']);
+        CommentsService::deleteComment(comment: $comment);
+        return new CommentResource(resource: $comment);
     }
 }

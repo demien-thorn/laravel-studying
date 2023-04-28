@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\SkusController as SkusC;
-use App\Http\Controllers\Comments\CommentController as CommentC;
+use App\Http\Controllers\Comments\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +22,7 @@ Route::middleware(['middleware' => 'auth:api'])->group(callback: function () {
     Route::get(uri: 'skus', action: [SkusC::class, 'getSkus']);
 });
 
-Route::get(uri: COMMENTS, action: [CommentC::class, 'index']);
-Route::post(uri: COMMENTS, action: [CommentC::class, 'store']);
-Route::post(uri: COMMENT, action: [CommentC::class, 'edit']);
-Route::put(uri: COMMENT, action: [CommentC::class, 'update']);
-Route::delete(uri: COMMENT, action: [CommentC::class, 'destroy']);
+Route::get(uri: COMMENTS, action: [CommentController::class, 'index']);
+Route::post(uri: COMMENTS, action: [CommentController::class, 'store']);
+Route::put(uri: COMMENT, action: [CommentController::class, 'update']);
+Route::delete(uri: COMMENT, action: [CommentController::class, 'destroy']);

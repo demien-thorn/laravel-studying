@@ -1,6 +1,6 @@
 let loadedFile = 'JavaScript file loaded successfully!';
 let successfulEvent = 'event successfull!';
-let successfulResponse = 'Successful response! Look below to check the response:';
+let successfulResponse = 'Successful response!';
 let error = 'We got an error. Look console';
 
 console.log(loadedFile);
@@ -86,29 +86,29 @@ $('#comment-send').on('click', function (e) {
         },
         success: function(id) {
             console.log(successfulResponse);
-            console.log(id)
+            console.log(id['commentId'])
 
             let username = document.getElementById('username').value;
             let email = document.getElementById('email').value;
             let comment = document.getElementById('comment').value;
 
             let message = '' +
-                '<div class="chat-comment" id="comment-' + id + '">' +
-                    '<span class="chat-name" id="' + username + '-' + id +'">- ' +
+                '<div class="chat-comment" id="comment-' + id['commentId'] + '">' +
+                    '<span class="chat-name" id="' + username + '-' + id['commentId'] +'">- ' +
                         username +
                     '</span> <br>' +
-                    '<span class="chat-email" id="' + email + '-' + id +'">- ' +
+                    '<span class="chat-email" id="' + email + '-' + id['commentId'] +'">- ' +
                         email +
                     '</span> <br>' +
-                    '<span class="chat-message" id="' + comment + '-' + id +'">' +
+                    '<span class="chat-message" id="' + comment + '-' + id['commentId'] +'">' +
                         comment +
                     '</span>' +
                     '<form class="comment-buttons">' +
-                        '<input type="hidden" name="hiddenId" value="' + id + '">' +
+                        '<input type="hidden" name="hiddenId" value="' + id['commentId'] + '">' +
                         '<input type="hidden" name="hiddenUsername" value="' + username + '">' +
                         '<input type="hidden" name="hiddenEmail" value="' + email + '">' +
                         '<input type="hidden" name="hiddenComment" value="' + comment + '">' +
-                        '<button type="button" id="edit-' + id + '" class="btn btn-primary fw-bold edit-comment">' +
+                        '<button type="button" id="edit-' + id['commentId'] + '" class="btn btn-primary fw-bold edit-comment">' +
                             'Ред-ть' +
                         '</button>' +
                         '<button type="button" class="btn btn-primary fw-bold delete-comment">' +
@@ -140,8 +140,7 @@ $(document).on('click','.edit-comment', function (e) {
     let comment = $(this).siblings('input[name="hiddenComment"]').val();
 
     $.ajax({
-        url: uri + commentId,
-        method: 'POST',
+        method: 'GET',
         cache: false,
         timeout: 10000,
         headers: {'X-CSRF-TOKEN': csrfToken},
@@ -151,9 +150,8 @@ $(document).on('click','.edit-comment', function (e) {
             email: email,
             comment: comment,
         },
-        success: function(msg) {
+        success: function() {
             console.log(successfulResponse);
-            console.log(msg);
 
             let currentUsername = document.getElementById(username + '-' + commentId);
             let newUsername = document.createElement("input");
