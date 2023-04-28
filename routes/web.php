@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\LoginController as LoginC;
 use App\Http\Controllers\Admin\OrderController as OrderCA;
 use App\Http\Controllers\Person\OrderController as OrderCP;
 use App\Http\Controllers\BasketController as BasketC;
-use App\Http\Controllers\CommentController as CommentC;
+use App\Http\Controllers\Comments\CommentController as CommentC;
 
 use App\Http\Controllers\Admin\CategoryController as CatC;
 use App\Http\Controllers\Admin\ProductController as ProdC;
@@ -71,7 +71,7 @@ Route::middleware(['middleware' => 'set_locale'])->group(callback: function () {
             )->name(name: 'merchants.update_token');
         });
 
-        Route::get(uri: '/comments', action: [CommentC::class, 'index'])->name(name: 'comments');
+        Route::get(uri: '/comments', action: [CommentC::class, 'view'])->name(name: 'comments');
     });
 
     Route::get(uri: '/', action: [MainC::class, 'index'])->name(name: 'index');

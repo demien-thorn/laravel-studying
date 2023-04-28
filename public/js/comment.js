@@ -1,14 +1,79 @@
-console.log('JavaScript file loaded successfully!');
+let loadedFile = 'JavaScript file loaded successfully!';
+let successfulEvent = 'event successfull!';
+let successfulResponse = 'Successful response! Look below to check the response:';
+let error = 'We got an error. Look console';
+
+console.log(loadedFile);
+
 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+let uri = '/api/v1/comments/';
+
 console.log('csrfToken is: ' + csrfToken);
-let currentUrl = location.protocol + "//" + location.hostname + ":8000";
-console.log(currentUrl);
-$('#comment-send').on('click', function (e) {
-    e.preventDefault();
-    console.log('Onclick adding event successful!');
+
+window.onload = function () {
+    console.log('Onload: ' + successfulEvent);
 
     $.ajax({
-        url: '/api/comments/store',
+        url: uri,
+        method: 'GET',
+        cache: false,
+        timeout: 10000,
+        headers: {'X-CSRF-TOKEN': csrfToken},
+        success: function(data) {
+            console.log(successfulResponse);
+            console.log(data);
+
+            data['data'].forEach( function (el) {
+                let date = el['created_at'];
+                let formattedDate = new Date(date).toLocaleDateString('en-US', {
+                    year: 'numeric', month: '2-digit', day: '2-digit',
+                    hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
+                let comment =
+                    '<div class="chat-comment" id="comments-' + el['id'] + '">' +
+                        '<span class="chat-name" id="' + el['username'] + '-' + el['id'] + '">' +
+                            '-' + el['username'] +
+                        '</span>' +
+                        '<span class="chat-time">' +
+                            ' в ' + formattedDate +
+                        '</span>' +
+                        '<br>' +
+                        '<span class="chat-email" id="' + el['email'] + '-' + el['id'] + '">' +
+                            '-' + el['email'] +
+                        '</span>' +
+                        '<br>' +
+                        '<span class="chat-message" id="' + el['comment'] + '-' + el['id'] + '">' +
+                            el['comment'] +
+                        '</span>' +
+                        '<form class="comment-buttons">' +
+                            '<input type="hidden" name="hiddenId" value="' + el['id'] + '">' +
+                            '<input type="hidden" name="hiddenUsername" value="' + el['username'] + '">' +
+                            '<input type="hidden" name="hiddenEmail" value="' + el['email'] + '">' +
+                            '<input type="hidden" name="hiddenComment" value="' + el['comment'] + '">' +
+                            '<button type="button" id="edit-' + el['id'] + '" class="btn btn-primary fw-bold edit-comment">' +
+                                'Ред-ть' +
+                            '</button>' +
+                            '<button type="button" class="btn btn-primary fw-bold delete-comment">' +
+                                'Удалить' +
+                            '</button>' +
+                        '</form>' +
+                    '</div>'
+
+                $('#comment_field').prepend(comment);
+            })
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+            alert(error);
+        }
+    });
+};
+
+$('#comment-send').on('click', function (e) {
+    e.preventDefault();
+    console.log('Adding: ' + successfulEvent);
+
+    $.ajax({
+        url: uri,
         method: 'POST',
         cache: false,
         timeout: 10000,
@@ -19,17 +84,37 @@ $('#comment-send').on('click', function (e) {
             email: $('input[name="email"]').val(),
             comment: $('textarea[name="comment"]').val(),
         },
-        success: function(msg) {
-            console.log('We got a successful response, everything allright! Look below to check the response:');
-            console.log(msg);
-            let responce = JSON.parse(msg);
+        success: function(id) {
+            console.log(successfulResponse);
+            console.log(id)
+
+            let username = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let comment = document.getElementById('comment').value;
+
             let message = '' +
-                '<div class="chat-comment" id="comment-{{ $comment->id }}">' +
-                    '<div>' +
-                        '<span class="chat-name">- ' + responce['comment'] + '</span> <br>' +
-                        '<span class="chat-email">- ' + responce['comment'] + '</span> <br>' +
-                        '<span class="chat-message">' + responce['comment'] + '</span>' +
-                    '<div>' +
+                '<div class="chat-comment" id="comment-' + id + '">' +
+                    '<span class="chat-name" id="' + username + '-' + id +'">- ' +
+                        username +
+                    '</span> <br>' +
+                    '<span class="chat-email" id="' + email + '-' + id +'">- ' +
+                        email +
+                    '</span> <br>' +
+                    '<span class="chat-message" id="' + comment + '-' + id +'">' +
+                        comment +
+                    '</span>' +
+                    '<form class="comment-buttons">' +
+                        '<input type="hidden" name="hiddenId" value="' + id + '">' +
+                        '<input type="hidden" name="hiddenUsername" value="' + username + '">' +
+                        '<input type="hidden" name="hiddenEmail" value="' + email + '">' +
+                        '<input type="hidden" name="hiddenComment" value="' + comment + '">' +
+                        '<button type="button" id="edit-' + id + '" class="btn btn-primary fw-bold edit-comment">' +
+                            'Ред-ть' +
+                        '</button>' +
+                        '<button type="button" class="btn btn-primary fw-bold delete-comment">' +
+                            'Удалить' +
+                        '</button>' +
+                    '</form>' +
                 '</div>'
             $('#comment_field').prepend(message);
 
@@ -40,50 +125,22 @@ $('#comment-send').on('click', function (e) {
         },
         error: function(xhr) {
             console.log(xhr.responseText);
-            alert('We got an error. Look console');
+            alert(error);
         }
     });
 });
 
-$('.delete-comment').on('click', function (e) {
+$(document).on('click','.edit-comment', function (e) {
     e.preventDefault();
-    console.log('Onclick deleting event successful!');
-
-    let commentId = $(this).siblings('input[name="hiddenId"]').val();
-    let deleteUrl = $(this).data('url');
-
-    $.ajax({
-        url: deleteUrl + '/' + commentId,
-        method: 'DELETE',
-        cache: false,
-        timeout: 10000,
-        headers: {'X-CSRF-TOKEN': csrfToken},
-        data: {id: commentId},
-        success: function(msg){
-            console.log('We got a successful response, everything allright! Look below to check the response:');
-            console.log(msg);
-
-            $('#comments-' + commentId).remove();
-        },
-        error: function(xhr) {
-            console.log(xhr.responseText);
-            alert('We got an error. Look console');
-        }
-    });
-});
-
-$('.edit-comment').on('click', function (e) {
-    e.preventDefault();
-    console.log('Onclick editing event successful!');
+    console.log('Editing: ' + successfulEvent);
 
     let commentId = $(this).siblings('input[name="hiddenId"]').val();
     let username = $(this).siblings('input[name="hiddenUsername"]').val();
     let email = $(this).siblings('input[name="hiddenEmail"]').val();
     let comment = $(this).siblings('input[name="hiddenComment"]').val();
-    let editUrl = $(this).data('url');
 
     $.ajax({
-        url: editUrl + '/' + commentId,
+        url: uri + commentId,
         method: 'POST',
         cache: false,
         timeout: 10000,
@@ -95,105 +152,145 @@ $('.edit-comment').on('click', function (e) {
             comment: comment,
         },
         success: function(msg) {
-            console.log('We got a successful response, everything allright! Look below to check the response:');
+            console.log(successfulResponse);
             console.log(msg);
 
             let currentUsername = document.getElementById(username + '-' + commentId);
             let newUsername = document.createElement("input");
-            newUsername.type = "text";
-            newUsername.name = "username";
-            newUsername.id = "username-" + commentId;
-            newUsername.value = username;
+            let attributesUsername = {
+                type: "text",
+                name: "username",
+                id: "username-" + commentId,
+                value: username
+            };
+            for (let key in attributesUsername) {
+                newUsername.setAttribute(key, attributesUsername[key])
+            }
             currentUsername.parentNode.replaceChild(newUsername, currentUsername);
 
             let currentEmail = document.getElementById(email + '-' + commentId);
             let newEmail = document.createElement("input");
-            newEmail.type = "email";
-            newEmail.name = "email";
-            newEmail.id = "email-" + commentId;
-            newEmail.value = email;
+            let attributesEmail = {
+                type: "email",
+                name: "email",
+                id: "email-" + commentId,
+                value: email
+            };
+            for (let key in attributesEmail) {
+                newEmail.setAttribute(key, attributesEmail[key])
+            }
             currentEmail.parentNode.replaceChild(newEmail, currentEmail);
 
             let currentComment = document.getElementById(comment + '-' + commentId);
             let newComment = document.createElement("textarea");
-            newComment.rows = 5;
-            newComment.cols = 50;
-            newComment.name = "comment";
-            newComment.id = "comment-" + commentId;
+            let attributesComment = {
+                rows: 5,
+                cols: 50,
+                name: "comment",
+                id: "comment-" + commentId
+            };
+            for (let key in attributesComment) {
+                newComment.setAttribute(key, attributesComment[key])
+            }
             newComment.value = comment;
             currentComment.parentNode.replaceChild(newComment, currentComment);
 
             let editButton = document.getElementById("edit-" + commentId);
             let updateButton = document.createElement("button");
-            updateButton.type = "button";
-            updateButton.id = "update-" + commentId;
-            updateButton.classList.add("btn");
-            updateButton.classList.add("btn-primary");
-            updateButton.classList.add("fw-bold");
-            updateButton.classList.add("update-comment");
-            updateButton.setAttribute("data-url", currentUrl + "/api/comments/update");
+            let attributesButton = {
+                type: "button",
+                id: "update-" + commentId,
+            };
+            for (let key in attributesButton) {
+                updateButton.setAttribute(key, attributesButton[key])
+            }
+            updateButton.classList.add("btn", "btn-primary", "fw-bold", "update-comment");
             updateButton.innerHTML = 'Сохранить';
             editButton.parentNode.replaceChild(updateButton, editButton);
-
-            updateButton.addEventListener('click', function () {
-                console.log('Onclick updating event successful!');
-
-                let commentId = $(this).siblings('input[name="hiddenId"]').val();
-                console.log(commentId);
-                let username = document.getElementById("username-" + commentId);
-                console.log(username.value);
-                let email = document.getElementById("email-" + commentId);
-                console.log(email.value);
-                let comment = document.getElementById("comment-" + commentId);
-                console.log(comment.value);
-                let updateUrl = $(this).data('url');
-
-                $.ajax({
-                    url: updateUrl + '/' + commentId,
-                    method: "POST",
-                    cache: false,
-                    timeout: 10000,
-                    headers: {'X-CSRF-TOKEN': csrfToken},
-                    data: {
-                        id: commentId,
-                        username: username.value,
-                        email: email.value,
-                        comment: comment.value,
-                    },
-                    success: function(msg) {
-                        console.log('We got a successful response, everything allright! Look below to check the response:');
-                        console.log(msg);
-
-                        let updatedUsername = document.createElement("span");
-                        updatedUsername.classList.add("chat-name");
-                        updatedUsername.id = username.value + '-' + commentId;
-                        updatedUsername.innerHTML = username.value;
-                        username.parentNode.replaceChild(updatedUsername, username);
-
-                        let updatedEmail = document.createElement("span");
-                        updatedEmail.classList.add("chat-email");
-                        updatedEmail.id = email.value + '-' + commentId;
-                        updatedEmail.innerHTML = email.value;
-                        email.parentNode.replaceChild(updatedEmail, email);
-
-                        let updatedComment = document.createElement("span");
-                        updatedComment.classList.add("chat-message");
-                        updatedComment.id = comment.value + '-' + commentId;
-                        updatedComment.innerHTML = comment.value;
-                        comment.parentNode.replaceChild(updatedComment, comment);
-
-                        document.getElementById("update-" + commentId).remove();
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                        alert('We got an error. Look console');
-                    }
-                });
-            });
         },
         error: function(xhr) {
             console.log(xhr.responseText);
-            alert('We got an error. Look console');
+            alert(error);
+        }
+    });
+});
+
+$(document).on('click','.update-comment', function (e){
+    e.preventDefault();
+    console.log('Updating: ' + successfulEvent)
+
+    let commentId = $(this).siblings('input[name="hiddenId"]').val();
+    let username = document.getElementById("username-" + commentId);
+    let email = document.getElementById("email-" + commentId);
+    let comment = document.getElementById("comment-" + commentId);
+
+    $.ajax({
+        url: uri + commentId,
+        method: "PUT",
+        cache: false,
+        timeout: 10000,
+        headers: {'X-CSRF-TOKEN': csrfToken},
+        data: {
+            id: commentId,
+            username: username.value,
+            email: email.value,
+            comment: comment.value,
+        },
+        success: function(msg) {
+            console.log(successfulResponse);
+            console.log(msg);
+
+            let updatedUsername = document.createElement("span");
+            updatedUsername.classList.add("chat-name");
+            updatedUsername.id = username.value + '-' + commentId;
+            updatedUsername.innerHTML = '- ' + username.value;
+            username.parentNode.replaceChild(updatedUsername, username);
+
+            let updatedEmail = document.createElement("span");
+            updatedEmail.classList.add("chat-email");
+            updatedEmail.id = email.value + '-' + commentId;
+            updatedEmail.innerHTML = '- ' + email.value;
+            email.parentNode.replaceChild(updatedEmail, email);
+
+            let updatedComment = document.createElement("span");
+            updatedComment.classList.add("chat-message");
+            updatedComment.id = comment.value + '-' + commentId;
+            updatedComment.innerHTML = comment.value;
+            comment.parentNode.replaceChild(updatedComment, comment);
+
+            document.getElementById("update-" + commentId).remove();
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+            alert(error);
+        }
+    });
+});
+
+$(document).on('click','.delete-comment', function (e) {
+    e.preventDefault();
+    console.log('Deleting: ' + successfulEvent);
+
+    let commentId = $(this).siblings('input[name="hiddenId"]');
+    console.log(commentId.val());
+    let grandparent = commentId.parent().parent();
+
+    $.ajax({
+        url: uri + commentId.val(),
+        method: 'DELETE',
+        cache: false,
+        timeout: 10000,
+        headers: {'X-CSRF-TOKEN': csrfToken},
+        data: {id: commentId.val()},
+        success: function(msg){
+            console.log(successfulResponse);
+            console.log(msg);
+
+            grandparent.remove();
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+            alert(error);
         }
     });
 });

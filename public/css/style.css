@@ -65,7 +65,7 @@ body {
 }
 .chat-email, .chat-name {margin: 0 0 0 20px;}
 .chat-message {font-size: 20px;}
-.button-delete {text-align: right !important;}
+.comment-buttons {float: right !important;}
 /*Chat-style ending*/
 /*Main - ending*/
 

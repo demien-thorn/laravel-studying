@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Comments;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use JetBrains\PhpStorm\ArrayShape;
 
 class CommentRequest extends FormRequest
 {
@@ -36,17 +35,12 @@ class CommentRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape([
-        'username' => "string",
-        'email' => "string",
-        'password' => "string",
-        'comment' => "string"
-    ])] public function rules(): array
+    public function rules(): array
     {
         return [
-            'username' => 'required|min:2|max:50|regex:/^[a-zA-Zа-яА-Я0-9]+$/',
+            'username' => 'required|string|min:2|max:50|alpha_num',
             'email' => 'required|email',
-            'comment' => 'required|min:1|max:255',
+            'comment' => 'required|string|min:1|max:255',
             'password' => [
                 Rule::requiredIf($this->isCreateRequest()),
                 'min:8',

@@ -75,37 +75,4 @@
             </div>
         </div>
     </div>
-
-    @isset($comments)
-        @foreach($comments as $comment)
-            <div class="container px-4 py-5">
-                <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                    <div class="content-section-middle">
-                        {{ $comment->comment }}
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    @endisset
-    <form action="" method="post" class="form-container">
-        @csrf
-        <label for="username">@lang('form.user_name'):</label>
-        @include('layouts.error', ['fieldName' => 'username'])
-        <input type="text" name="username" id="username" style="display: block">
-
-        <label for="email">@lang('form.email'):</label>
-        @include('layouts.error', ['fieldName' => 'email'])
-        <input type="text" name="email" id="email" style="display: block">
-
-        <label for="password">@lang('form.password'):</label>
-        @include('layouts.error', ['fieldName' => 'password'])
-        <input type="text" name="password" id="password" style="display: block">
-
-        <label for="comment">@lang('form.comment'):</label>
-        @include('layouts.error', ['fieldName' => 'comment'])
-        <textarea name="comment" id="comment" cols="30" rows="10" style="display: block"></textarea>
-
-        <input type="submit" value="@lang('buttons.send')" style="display: block"
-            class="btn btn-primary btn-lg px-4 fw-bold">
-    </form>
 @endsection

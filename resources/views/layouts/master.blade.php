@@ -22,6 +22,7 @@
     </head>
 
     <body>
+    {{--Header--}}
     <header>
         <div class="px-3 py-2 text-bg-dark">
             <div class="container">
@@ -156,6 +157,7 @@
             </div>
         </div>
     </header>
+    {{--End header--}}
 
     {{--Main Content--}}
     <main class="d-flex flex-nowrap">
@@ -168,7 +170,9 @@
             @yield('content')
         </div>
     </main>
+    {{--End main content--}}
 
+    {{--Footer--}}
     <div class="text-bg-dark">
         <div class="container">
         <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top">
@@ -212,6 +216,7 @@
         </footer>
         </div>
     </div>
+    {{--End footer--}}
 
 
     {{--FontAwesome icons set--}}

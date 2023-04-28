@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(class: UsersTableSeeder::class);
         $this->call(class: CurrencySeeder::class);
         $this->call(class: ContentSeeder::class);
+        $this->call(class: CommentSeeder::class);
     }
 }

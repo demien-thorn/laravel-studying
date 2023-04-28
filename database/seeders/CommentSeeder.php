@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Services\Comments\CommentsService;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +20,7 @@ class CommentSeeder extends Seeder
             'username' => 'Kirill',
             'email' => 'kirill.maidanov@gmail.com',
             'password' => 'ytafktv040195',
-            'comment' => 'Где-то с кем-то и о чём-то',
+            'comment' => 'Где-то с @кем-то и о чём-то',
         ],
         [
             'username' => 'Goga',
@@ -44,7 +44,7 @@ class CommentSeeder extends Seeder
             'username' => 'Vladislav',
             'email' => 'vlad@gmail.com',
             'password' => 'ytafktv040195',
-            'comment' => 'Где и как? Ну, как-то так',
+            'comment' => 'Где и как? @Ну, как-то так',
         ],
         [
             'username' => 'Akrelion',
@@ -53,10 +53,10 @@ class CommentSeeder extends Seeder
             'comment' => 'Что такое? Вот такое',
         ],
         [
-            'username' => 'Владислав Страт',
+            'username' => 'Владислав',
             'email' => 'vladislav.strat@gmail.com',
             'password' => 'ytafktv040195',
-            'comment' => 'Как вот так? Не знаю как',
+            'comment' => 'Как вот так? @Не знаю как',
         ],
         [
             'username' => 'Сотона666',
@@ -80,7 +80,7 @@ class CommentSeeder extends Seeder
             'username' => 'Бывалый',
             'email' => 'bivaliy@gmail.com',
             'password' => 'ytafktv040195',
-            'comment' => 'Что, куда, зачем и как?',
+            'comment' => 'Что, куда, @зачем и как?',
         ],
     ];
 
@@ -92,10 +92,12 @@ class CommentSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table(table: 'comments')->truncate();
         foreach ($this->comments as $comment) {
-            $comment['created_at'] = Carbon::now()->addMinutes(value: 2);
-            $comment['updated_at'] = $comment['created_at'];
+            $comment['created_at'] = Carbon::now();
+            $comment['updated_at'] = Carbon::now();
+            $comment['rand_string'] = CommentsService::randomString();
+            $comment['hash'] = CommentsService::hashForComment(comment: $comment['comment']);
+            $comment['moderation_status'] = CommentsService::moderationStatus(comment: $comment['comment']);
 
             DB::table(table: 'comments')->insert(values: $comment);
         }
